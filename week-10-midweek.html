@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mid-Week Mini-Lesson — Week 10 · Final Timed Mini — All Domains · KingCretot Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet"><style>
+:root{
+  --navy:#0A1F3D;--gold:#C9A84C;--cream:#FAF7EF;--red:#C9342F;--green:#2E7D55;
+  --ink:#172230;--muted:#586273;--line:#E5E0D2;--paper:#FFFFFF;--soft:#F5F2E9;
+  --display:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--mono:'IBM Plex Mono',monospace;
+}
+*{box-sizing:border-box}
+html{font-size:18px}
+body{margin:0;background:var(--soft);color:var(--ink);font-family:var(--body);line-height:1.6}
+h1,h2,h3{font-family:var(--display);color:var(--navy);line-height:1.18;margin:0}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px}
+.mast{background:var(--navy);color:#fff;padding:30px 0 26px}
+.mast .brand{font-family:var(--display);font-weight:700;font-size:21px}
+.mast .tag{font-weight:700;font-size:11px;letter-spacing:2.5px;margin-top:3px}
+.mast .e1{color:#8FB2F5}.mast .e2{color:var(--gold)}.mast .e3{color:#F08C8A}
+.mast .rule{height:3px;background:var(--gold);margin:18px 0 20px;border:0}
+.mast h1{color:#fff;font-size:32px;font-weight:600}
+.mast .sub{color:#cfd8e6;margin-top:10px;font-size:17px}
+.mast .pill{display:inline-block;margin-top:16px;font-size:13px;font-weight:600;background:rgba(201,168,76,.18);border:1px solid var(--gold);color:#f0e4c4;padding:7px 13px;border-radius:999px}
+main{padding:30px 0 10px}
+.lede{font-size:18px;color:var(--muted);margin:0 0 22px}
+.namebar{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:22px}
+.namebar label{font-weight:600;color:var(--navy);font-size:15px;display:block;margin-bottom:7px}
+.namebar input{width:100%;font:inherit;font-size:17px;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px}
+.q{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:24px 24px 20px;margin:18px 0;box-shadow:0 2px 10px rgba(10,31,61,.04)}
+.q .qno{font-family:var(--mono);font-weight:500;color:var(--gold);font-size:15px}
+.q .qtag{font-size:13px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-left:8px}
+.stem{font-weight:600;font-size:19px;margin:10px 0 16px;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:11px}
+.opt{position:relative;display:flex;gap:13px;align-items:center;border:2px solid var(--line);border-radius:12px;padding:14px 16px;cursor:pointer;font-size:17px;transition:border-color .12s,background .12s}
+.opt:hover{border-color:#9DB6E8;background:#fbfcfe}
+.opt input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.opt .ltr{flex-shrink:0;width:30px;height:30px;border-radius:8px;border:2px solid var(--line);display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:15px;color:var(--navy)}
+.opt.sel{border-color:var(--navy);background:#f3f6fb}
+.opt.sel .ltr{background:var(--navy);border-color:var(--navy);color:#fff}
+.opt.right{border-color:var(--green);background:#edf7f1}
+.opt.right .ltr{background:var(--green);border-color:var(--green);color:#fff}
+.opt.wrong{border-color:var(--red);background:#fcedec}
+.opt.wrong .ltr{background:var(--red);border-color:var(--red);color:#fff}
+.explain{display:none;margin-top:15px;border-top:1px dashed var(--line);padding-top:13px;font-size:16px}
+.explain.show{display:block}
+.explain .lbl{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:4px}
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:24px 0 8px}
+.btn{font-family:var(--body);font-weight:600;font-size:16px;border-radius:11px;padding:14px 22px;cursor:pointer;border:2px solid var(--navy)}
+.btn-check{background:#fff;color:var(--navy)}
+.btn-check:hover{background:var(--soft)}
+.btn-send{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.btn-send:hover{background:#b9991f}
+.btn-send:disabled{opacity:.45;cursor:not-allowed}
+.scorebox{display:none;font-family:var(--mono);font-weight:600;font-size:17px;color:#fff;background:var(--navy);border-radius:11px;padding:13px 17px}
+.scorebox.show{display:inline-block}
+.scorebox b{color:var(--gold)}
+.note{background:var(--cream);border:1px solid var(--gold);border-radius:12px;padding:14px 16px;font-size:15px;margin:14px 0}
+.sent{display:none;background:#edf7f1;border:1px solid var(--green);color:#1d5638;border-radius:12px;padding:14px 16px;font-weight:600;margin-top:14px}
+details.setup{margin:22px 0;background:#0e2342;border:1px solid #1c3a64;border-radius:12px}
+details.setup>summary{cursor:pointer;color:#fff;font-weight:700;font-size:14px;padding:14px 16px;list-style:none}
+details.setup>summary::-webkit-details-marker{display:none}
+details.setup>summary::before{content:"Instructor setup  ›  ";color:var(--gold)}
+details.setup[open]>summary::before{content:"Instructor setup  ⌄  ";color:var(--gold)}
+details.setup .body{padding:0 16px 16px;color:#cdd9ea;font-size:14.5px;line-height:1.6}
+details.setup code{font-family:var(--mono);background:rgba(255,255,255,.12);padding:2px 6px;border-radius:5px;color:#fff;font-size:13px}
+.foot{background:var(--navy);color:#aeb9c9;text-align:center;padding:22px;font-size:13px;margin-top:24px}
+.foot b{color:#fff;font-family:var(--display)}
+.foot .fl{height:2px;background:var(--gold);max-width:320px;margin:0 auto 12px}
+@media (max-width:560px){.mast h1{font-size:26px}html{font-size:17px}}
+
+.psg{display:block;background:#FAF7EF;border-left:4px solid #C9A84C;padding:11px 15px;border-radius:8px;margin-bottom:11px;font-size:15px;line-height:1.55;color:#22324a}</style></head><body>
+<header class="mast"><div class="wrap"><div class="brand">KingCretot Experience</div>
+<div class="tag"><span class="e1">EDUCATE.</span>&nbsp;&nbsp;<span class="e2">EMPOWER.</span>&nbsp;&nbsp;<span class="e3">EXCEL.</span></div><hr class="rule"><h1>Mid-Week Mini-Lesson</h1>
+<div class="sub">Week 10 &nbsp;·&nbsp; Final Timed Mini — All Domains</div><span class="pill">~15 minutes · between sessions</span></div></header>
+<main class="wrap"><p class="lede">A final five across every domain, lightly timed — quick, clean, and confident. Aim for about six minutes. Press <b>Check my work</b> to see how you did, then <b>Save &amp; email my results</b> so your instructor sees your progress before the next lesson.</p>
+<form id="mwform" action="https://formspree.io/f/mpqgdkww" method="POST">
+<input type="hidden" name="_subject" value="KCE Mid-Week Results — Week 10 (Final Timed)">
+<input type="hidden" name="week" value="Week 10 — Final Timed">
+<input type="hidden" name="score" id="f_score" value="not checked">
+<input type="hidden" name="answers_summary" id="f_summary" value="">
+<div class="namebar"><label for="sname">Student name</label>
+<input type="text" id="sname" name="student_name" placeholder="Type your name" required></div>
+
+    <div class="q" data-correct="A">
+      <span class="qno">Q1</span><span class="qtag">Timed mixed</span>
+      <div class="stem">Solve:&nbsp; 5x − 3 = 12</div>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q1" value="A"><span class="ltr">A</span><span>3</span></label>
+        <label class="opt"><input type="radio" name="q1" value="B"><span class="ltr">B</span><span>5</span></label>
+        <label class="opt"><input type="radio" name="q1" value="C"><span class="ltr">C</span><span>9</span></label>
+        <label class="opt"><input type="radio" name="q1" value="D"><span class="ltr">D</span><span>15</span></label>
+      </div>
+      <div class="explain"><div class="lbl">Answer: A</div>5x = 15 → x = 3.</div>
+    </div>
+
+    <div class="q" data-correct="C">
+      <span class="qno">Q2</span><span class="qtag">Timed mixed</span>
+      <div class="stem">What is 10% of 250?</div>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q2" value="A"><span class="ltr">A</span><span>2.5</span></label>
+        <label class="opt"><input type="radio" name="q2" value="B"><span class="ltr">B</span><span>50</span></label>
+        <label class="opt"><input type="radio" name="q2" value="C"><span class="ltr">C</span><span>25</span></label>
+        <label class="opt"><input type="radio" name="q2" value="D"><span class="ltr">D</span><span>10</span></label>
+      </div>
+      <div class="explain"><div class="lbl">Answer: C</div>0.10 × 250 = 25.</div>
+    </div>
+
+    <div class="q" data-correct="A">
+      <span class="qno">Q3</span><span class="qtag">Timed mixed</span>
+      <div class="stem">A right triangle has legs 9 and 12. What is the hypotenuse?</div>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q3" value="A"><span class="ltr">A</span><span>15</span></label>
+        <label class="opt"><input type="radio" name="q3" value="B"><span class="ltr">B</span><span>21</span></label>
+        <label class="opt"><input type="radio" name="q3" value="C"><span class="ltr">C</span><span>13</span></label>
+        <label class="opt"><input type="radio" name="q3" value="D"><span class="ltr">D</span><span>225</span></label>
+      </div>
+      <div class="explain"><div class="lbl">Answer: A</div>9-12-15 is the 3-4-5 triple tripled.</div>
+    </div>
+
+    <div class="q" data-correct="D">
+      <span class="qno">Q4</span><span class="qtag">Timed mixed</span>
+      <div class="stem">If f(x) = 2x + 1, what is f(6)?</div>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q4" value="A"><span class="ltr">A</span><span>12</span></label>
+        <label class="opt"><input type="radio" name="q4" value="B"><span class="ltr">B</span><span>7</span></label>
+        <label class="opt"><input type="radio" name="q4" value="C"><span class="ltr">C</span><span>11</span></label>
+        <label class="opt"><input type="radio" name="q4" value="D"><span class="ltr">D</span><span>13</span></label>
+      </div>
+      <div class="explain"><div class="lbl">Answer: D</div>f(6) = 2(6) + 1 = 13.</div>
+    </div>
+
+    <div class="q" data-correct="B">
+      <span class="qno">Q5</span><span class="qtag">Timed mixed</span>
+      <div class="stem">What is the median of 4, 8, and 10?</div>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q5" value="A"><span class="ltr">A</span><span>10</span></label>
+        <label class="opt"><input type="radio" name="q5" value="B"><span class="ltr">B</span><span>8</span></label>
+        <label class="opt"><input type="radio" name="q5" value="C"><span class="ltr">C</span><span>7.3</span></label>
+        <label class="opt"><input type="radio" name="q5" value="D"><span class="ltr">D</span><span>4</span></label>
+      </div>
+      <div class="explain"><div class="lbl">Answer: B</div>The middle value of the three is 8.</div>
+    </div>
+
+<div class="actions"><button type="button" class="btn btn-check" onclick="checkWork()">Check my work</button>
+<span class="scorebox" id="scorebox">You scored <b id="scoreval">0/5</b></span></div>
+<div class="actions"><button type="submit" class="btn btn-send" id="sendbtn" disabled>Save &amp; email my results to my instructor</button></div>
+<div class="note" id="checkfirst">Press <b>Check my work</b> first — then the email button turns on.</div>
+<div class="sent" id="sentmsg">Sent! Your instructor will see your results. You can close this page.</div>
+</form>
+<details class="setup"><summary>How the email button works</summary><div class="body">
+<b>Already wired.</b> This mini-lesson posts to your Formspree endpoint <code>formspree.io/f/mpqgdkww</code> — when a student submits, you get an email with their name, every answer, and the score.<br><br>
+<b>Note:</b> the button sends only when the file is opened in a real browser (or hosted), not inside a preview pane.</div></details>
+</main>
+<footer class="foot"><div class="fl"></div><b>KingCretot Experience</b><br>kce@kingcretot.com&nbsp; ·&nbsp; 914-809-0112&nbsp; ·&nbsp; PO Box 2322, Arcadia, FL 34265</footer>
+<script>
+document.querySelectorAll('.q').forEach(function(q){
+  q.addEventListener('change',function(e){
+    if(e.target.type!=='radio') return;
+    q.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel');});
+    e.target.closest('.opt').classList.add('sel');
+  });
+});
+function checkWork(){
+  let correct=0, total=0; const parts=[];
+  document.querySelectorAll('.q').forEach((q,i)=>{
+    total++;
+    const ans=q.dataset.correct;
+    const picked=q.querySelector('input:checked');
+    q.querySelectorAll('.opt').forEach(o=>{o.classList.remove('right','wrong','sel');});
+    q.querySelectorAll('.opt input').forEach(inp=>{
+      const opt=inp.closest('.opt');
+      if(inp.value===ans) opt.classList.add('right');
+    });
+    let pv='—';
+    if(picked){ pv=picked.value;
+      if(picked.value!==ans) picked.closest('.opt').classList.add('wrong');
+      if(picked.value===ans) correct++;
+    }
+    q.querySelector('.explain').classList.add('show');
+    parts.push('Q'+(i+1)+': '+pv+(pv===ans?' (correct)':' (ans '+ans+')'));
+  });
+  document.getElementById('scoreval').textContent=correct+'/'+total;
+  document.getElementById('scorebox').classList.add('show');
+  document.getElementById('f_score').value=correct+'/'+total;
+  document.getElementById('f_summary').value=parts.join('  |  ');
+  document.getElementById('sendbtn').disabled=false;
+  document.getElementById('checkfirst').style.display='none';
+}
+document.getElementById('mwform').addEventListener('submit',function(e){
+  // Posts the student's name, answers, and score to the instructor via Formspree.
+  document.getElementById('sentmsg').style.display='block';
+});
+</script></body></html>
