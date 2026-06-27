@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAT Foundations — Lesson 5: Problem-Solving & Data Analysis · KingCretot Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet"><style>
+:root{
+  --navy:#0A1F3D; --gold:#C9A84C; --cream:#FAF7EF; --red:#C9342F; --green:#2E7D55;
+  --ink:#172230; --muted:#586273; --line:#E5E0D2; --paper:#FFFFFF; --soft:#F5F2E9;
+  --display:'Fraunces',Georgia,serif; --body:'Inter',system-ui,sans-serif; --mono:'IBM Plex Mono',monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:18px}
+body{margin:0;background:var(--soft);color:var(--ink);font-family:var(--body);font-size:1rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);color:var(--navy);line-height:1.18;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding:0 26px}
+
+/* masthead */
+.mast{background:var(--navy);color:#fff;padding:34px 0 30px}
+.mast .brand{font-family:var(--display);font-weight:700;font-size:23px}
+.mast .tag{font-weight:700;font-size:12px;letter-spacing:2.5px;margin-top:4px}
+.mast .e1{color:#8FB2F5}.mast .e2{color:var(--gold)}.mast .e3{color:#F08C8A}
+.mast .rule{height:3px;width:100%;background:var(--gold);margin:20px 0 22px;border:0}
+.mast h1{color:#fff;font-size:42px;font-weight:600;letter-spacing:-.5px}
+.mast .sub{color:#cfd8e6;margin-top:12px;font-size:18px;max-width:60ch}
+.metarow{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chip{font-size:14px;font-weight:600;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);color:#eaf0f8;padding:8px 14px;border-radius:999px}
+
+/* sticky bar */
+.bar{position:sticky;top:0;z-index:40;background:rgba(245,242,233,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:16px;height:62px}
+.nav{display:flex;gap:6px;overflow-x:auto;flex:1;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:15px;font-weight:600;padding:9px 13px;border-radius:9px}
+.nav a:hover{background:#fff;color:var(--navy)}
+.clock{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.clock .t{font-family:var(--mono);font-weight:500;font-size:18px;color:var(--navy);background:#fff;border:1px solid var(--line);border-radius:9px;padding:7px 11px;min-width:74px;text-align:center}
+.clock button{font-family:var(--body);font-weight:600;font-size:13px;border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:8px;padding:8px 10px;cursor:pointer}
+.clock button:hover{border-color:var(--gold)}
+.scorechip{flex-shrink:0;font-weight:600;font-size:15px;color:#fff;background:var(--navy);border-radius:9px;padding:8px 13px}
+.scorechip b{color:var(--gold);font-family:var(--mono)}
+
+/* sections */
+.seg{padding:50px 0 18px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#9A7D20;font-weight:700;display:flex;align-items:center;gap:11px}
+.eyebrow .num{color:#fff;background:var(--gold);border-radius:7px;padding:3px 10px;font-weight:700}
+.seg h2{font-size:33px;font-weight:600;margin:12px 0 8px}
+.seg .lede{color:var(--muted);max-width:62ch;margin:0 0 22px;font-size:18.5px}
+.time{font-family:var(--mono);font-size:14px;color:var(--muted);float:right;border:1px solid var(--line);border-radius:8px;padding:5px 11px;background:#fff;margin-top:4px}
+
+/* question cards */
+.q{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:28px 28px 24px;margin:22px 0;box-shadow:0 2px 10px rgba(10,31,61,.04)}
+.q .qhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.q .qtag{font-size:13.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);font-weight:700}
+.q .qno{font-family:var(--mono);font-weight:500;color:var(--gold);font-size:16px}
+.passage{background:var(--cream);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:16px 18px;margin:10px 0 16px;font-size:17.5px;line-height:1.6}
+.stem{font-weight:600;margin:8px 0 18px;font-size:20px;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:13px}
+.opt{display:flex;gap:14px;align-items:center;text-align:left;width:100%;background:#fff;border:2px solid var(--line);border-radius:12px;padding:16px 18px;cursor:pointer;font:inherit;font-size:18px;color:var(--ink);transition:border-color .12s,background .12s}
+.opt:hover:not(:disabled){border-color:#9DB6E8;background:#fbfcfe}
+.opt:disabled{cursor:default}
+.opt .ltr{flex-shrink:0;width:32px;height:32px;border-radius:8px;border:2px solid var(--line);display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:16px;color:var(--navy)}
+.opt.right{border-color:var(--green);background:#edf7f1}
+.opt.right .ltr{background:var(--green);border-color:var(--green);color:#fff}
+.opt.wrong{border-color:var(--red);background:#fcedec}
+.opt.wrong .ltr{background:var(--red);border-color:var(--red);color:#fff}
+.explain{display:none;margin-top:18px;border-top:1px dashed var(--line);padding-top:16px;font-size:17px;line-height:1.6}
+.explain.show{display:block}
+.explain .lbl{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:5px}
+.explain .clue{color:var(--muted);font-style:italic}
+
+details.more,details.teach{margin-top:16px;border-radius:12px;overflow:hidden}
+details.more{background:var(--soft);border:1px solid var(--line)}
+details.more>summary{cursor:pointer;font-weight:600;font-size:16px;color:var(--navy);padding:13px 16px;list-style:none}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::before{content:"+ ";color:var(--gold);font-weight:700}
+details.more[open]>summary::before{content:"– "}
+details.more .body{padding:2px 17px 16px;font-size:16.5px}
+.method{margin:12px 0;padding-left:14px;border-left:3px solid #9DB6E8}
+.method b{color:var(--navy)}
+.hack{background:#fff;border:1px dashed var(--gold);border-radius:11px;padding:13px 15px;margin-top:12px;font-size:16px}
+.hack .h{font-size:12.5px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:700;display:block;margin-bottom:3px}
+
+details.teach{background:#0E2342;border:1px solid #1c3a64}
+details.teach>summary{cursor:pointer;font-weight:700;font-size:15px;color:#fff;padding:13px 16px;list-style:none}
+details.teach>summary::-webkit-details-marker{display:none}
+details.teach>summary::before{content:"For the instructor  ›  ";color:var(--gold);font-weight:600}
+details.teach[open]>summary::before{content:"For the instructor  ⌄  ";color:var(--gold);font-weight:600}
+details.teach .body{padding:2px 17px 16px;font-size:16px;color:#d3deee;line-height:1.6}
+details.teach .body b{color:#fff}
+
+/* domain grid */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 0 6px}
+.dom{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 19px}
+.dom h3{font-size:18px;font-family:var(--body);font-weight:700;color:var(--navy)}
+.dom p{margin:6px 0 0;font-size:16px;color:var(--muted);line-height:1.55}
+.dom .pct{color:#9A7D20;font-weight:600;font-size:14px}
+
+.demo{background:var(--navy);color:#eaf0f8;border-radius:16px;padding:24px 26px;margin:22px 0}
+.demo h3{color:#fff;font-family:var(--body);font-weight:700;font-size:19px}
+.demo .ways{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:16px}
+.demo .way{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:16px}
+.demo .way .w{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:7px}
+.demo .way p{margin:0;font-size:16px;color:#dbe4f1;line-height:1.55}
+.demo code{font-family:var(--mono);background:rgba(255,255,255,.12);padding:2px 6px;border-radius:5px;font-size:15px}
+
+/* vocab */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:16px;margin:10px 0}
+.fc{height:158px;perspective:1100px;cursor:pointer}
+.fc .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.fc.flipped .in{transform:rotateY(180deg)}
+.fc .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:16px;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--line)}
+.fc .front{background:#fff}
+.fc .front .word{font-family:var(--display);font-weight:600;font-size:25px;color:var(--navy)}
+.fc .front .pos{font-size:14px;color:var(--muted);font-style:italic;margin-top:2px}
+.fc .front .tapcue{font-size:12px;color:#9A7D20;letter-spacing:1px;margin-top:auto;text-transform:uppercase;font-weight:600}
+.fc .back{background:var(--navy);color:#eaf0f8;transform:rotateY(180deg);font-size:15px;line-height:1.5}
+.fc .back .d{margin-bottom:9px}
+.fc .back .sa{font-size:14px;margin-top:3px}
+.fc .back .syn{color:#8fe3b3;font-weight:600} .fc .back .ant{color:#f4a3a3;font-weight:600}
+
+/* handout */
+.handout{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:30px 30px 26px;margin:20px 0}
+.handout .hh{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;border-bottom:3px solid var(--gold);padding-bottom:14px;margin-bottom:18px}
+.handout .hh .ht{font-family:var(--display);font-weight:600;font-size:24px;color:var(--navy)}
+.handout .hh .hs{font-size:15px;color:var(--muted);margin-top:3px}
+.handout h3{font-size:17px;font-family:var(--body);color:var(--navy)}
+.btn{font-family:var(--body);font-weight:600;font-size:14px;border:1px solid var(--navy);background:var(--navy);color:#fff;border-radius:9px;padding:10px 16px;cursor:pointer;flex-shrink:0}
+.btn:hover{background:#16315a}
+.checklist{list-style:none;padding:0;margin:0 0 6px}
+.checklist li{padding:9px 0 9px 34px;position:relative;font-size:17px;border-bottom:1px solid var(--soft)}
+.checklist li::before{content:"";position:absolute;left:0;top:11px;width:19px;height:19px;border:2px solid var(--gold);border-radius:5px}
+.daybox{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0;background:var(--soft)}
+.daybox .dl{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:700}
+.daybox h3{font-size:20px;font-family:var(--display);margin:4px 0 10px}
+.daybox ol{margin:8px 0;padding-left:22px;font-size:17px}
+.daybox ol li{margin:7px 0}
+.write{border-bottom:1px solid #cdc6b2;height:26px;margin:10px 0}
+.diag{margin:8px 0}
+.diag .di{padding:12px 0;border-bottom:1px solid var(--soft);font-size:17px;line-height:1.55}
+.diag .di b{color:var(--navy)}
+.diag .di .n{font-family:var(--mono);color:var(--gold);font-weight:600;margin-right:9px}
+.key{font-family:var(--mono);font-size:14.5px;color:var(--muted);line-height:1.7}
+
+.callout{background:var(--cream);border:1px solid var(--gold);border-radius:14px;padding:18px 20px;margin:18px 0;font-size:17.5px;line-height:1.6}
+.callout b{color:var(--navy)}
+
+.foot{background:var(--navy);color:#aeb9c9;text-align:center;padding:26px;font-size:14px;margin-top:10px}
+.foot b{color:#fff;font-family:var(--display)}
+.foot .fl{height:2px;background:var(--gold);max-width:340px;margin:0 auto 14px}
+
+@media (max-width:680px){
+  html{font-size:17px}
+  .grid,.demo .ways{grid-template-columns:1fr}
+  .mast h1{font-size:31px}
+  .seg h2{font-size:27px}
+  .time{float:none;display:inline-block;margin-bottom:10px}
+}
+@media (prefers-reduced-motion:reduce){.fc .in{transition:none}html{scroll-behavior:auto}}
+@media print{
+  body{background:#fff}
+  body *{visibility:hidden}
+  body.print-prework #prework,body.print-prework #prework *,
+  body.print-homework #homework,body.print-homework #homework *{visibility:visible}
+  body.print-prework #prework,body.print-homework #homework{position:absolute;left:0;top:0;width:100%;border:0;margin:0;padding:0}
+  .btn,.time,details.teach{display:none!important}.seg{border:0}
+}
+</style></head><body>
+<header class="mast"><div class="wrap"><div class="brand">KingCretot Experience</div>
+<div class="tag"><span class="e1">EDUCATE.</span>&nbsp;&nbsp;<span class="e2">EMPOWER.</span>&nbsp;&nbsp;<span class="e3">EXCEL.</span></div><hr class="rule"><h1>SAT Foundations — Lesson 5</h1>
+<div class="sub">Problem-Solving & Data Analysis. Ratios, percents, rates, averages, and probability — the most word-heavy math on the test, where careful setup wins.</div><div class="metarow"><span class="chip">60 minutes</span><span class="chip">Computer + paper</span><span class="chip">Math · Data & Problem-Solving</span></div></div></header>
+<div class="bar"><div class="wrap"><nav class="nav"><a href="#prework">Pre-work</a><a href="#ratios">Ratios</a><a href="#percents">Percents</a><a href="#data">Averages</a><a href="#probability">Probability</a><a href="#vocab">Vocab Lab</a><a href="#wrap">Wrap-up</a><a href="#homework">Homework</a></nav>
+<div class="clock" title="For exam-mode pacing"><span class="t" id="clock">00:00</span>
+<button onclick="tStart()">Start</button><button onclick="tPause()">Pause</button><button onclick="tReset()">Reset</button></div>
+<span class="scorechip">Score <b id="score">0/0</b></span></div></div>
+<main class="wrap">
+<section class="seg"><div class="callout"><b>How to run this lesson.</b> Send the <a href="#prework">pre-work</a> a day ahead. Open with goals (5 min), then ratios (12), percents (14), averages &amp; data (14), probability &amp; rates (8), the Vocabulary Lab (7), and a wrap that assigns the <a href="#homework">next-two-days</a> work. The dark navy notes are for the instructor only.</div><details class="teach"><summary>The frame for today</summary><div class="body">One line to open: <b>&ldquo;These problems are reading problems with numbers — translate carefully and the math is easy.&rdquo;</b> Today is the last math domain; afterward we turn to Reading &amp; Writing.</div></details></section>
+<section class="seg" id="prework"><div class="eyebrow"><span class="num">00</span> Before you begin</div><h2>Pre-work handout</h2><p class="lede">Five minutes of warm-up makes the lesson land faster.</p><div class="handout"><div class="hh"><div><div class="ht">Data & Problem-Solving — Pre-work</div><div class="hs">Complete on paper before our session · about 10 minutes</div></div><button class="btn" onclick="printDoc('prework')">Print</button></div><h3 style="font-family:var(--body);font-size:15px;margin-bottom:6px">Warm-up</h3><div class="diag"><div class="di"><b>1.</b> What is 10% of 50? ______</div><div class="di"><b>2.</b> The average of 4 and 6 is ______.</div><div class="di"><b>3.</b> If 2 pens cost $3, one pen costs ______.</div><div class="di"><b>4.</b> A bag has 1 red and 3 blue marbles. P(red) = ______.</div></div><details class="more" style="margin-top:14px"><summary>Answer key (instructor)</summary><div class="body">1 &middot; 5&nbsp;&nbsp; 2 &middot; 5&nbsp;&nbsp; 3 &middot; $1.50&nbsp;&nbsp; 4 &middot; 1/4</div></details></div></section>
+<section class="seg" id="ratios"><span class="time">&asymp; 12 min</span><div class="eyebrow"><span class="num">02</span> Ratios & proportions</div><h2>Find the unit, then scale</h2><p class="lede">Most ratio problems crack open the moment you find the value of one unit, then multiply.</p>  <div class="q">
+    <div class="qhead"><span class="qtag">Unit rate</span><span class="qno">1</span></div>
+    <div class="stem">If 3 pens cost $4.50, how much do 7 pens cost?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>$9.00</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>$10.50</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>$12.00</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>$14.00</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>One pen costs $4.50 / 3 = $1.50. Seven pens: 7 × $1.50 = <b>$10.50</b>.</div>
+    <details class="more"><summary>Solve it another way</summary><div class="body"><div class="hack"><span class="h">True shortcut</span> Divide to the price of one, then multiply. “Per” means divide.</div></div></details>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Proportion</span><span class="qno">2</span></div>
+    <div class="stem">The ratio of cats to dogs in a shelter is 2 : 3. If there are 12 cats, how many dogs?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>8</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>18</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>12</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>24</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>2 : 3 means dogs = (3/2) × cats. With 12 cats: (3/2)(12) = <b>18</b>.</div>
+  </div>
+</section>
+<section class="seg" id="percents"><span class="time">&asymp; 14 min</span><div class="eyebrow"><span class="num">03</span> Percents</div><h2>Translate the words to math</h2><p class="lede">&ldquo;Of&rdquo; means multiply. Percent change is the difference over the original. An increase multiplies by (1 + r); a decrease multiplies by (1 − r).</p>  <div class="demo">
+    <h3>The percent toolbox</h3>
+    <div class="ways">
+      <div class="way"><div class="w">&ldquo;of&rdquo; = ×</div><p>30% of 90 means 0.30 × 90 = 27.</p></div>
+      <div class="way"><div class="w">Percent change</div><p>(new − old) ÷ old, then × 100.</p></div>
+      <div class="way"><div class="w">One-step up/down</div><p>Up r%: ×(1 + r). Down r%: ×(1 − r).</p></div>
+    </div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Percent of</span><span class="qno">3</span></div>
+    <div class="stem">What is 30% of 90?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>18</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>27</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>30</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>60</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>30% of 90 = 0.30 × 90 = <b>27</b>.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Percent change</span><span class="qno">4</span></div>
+    <div class="stem">A price rises from $40 to $50. What is the percent increase?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>20%</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>25%</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>10%</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>15%</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>Change ÷ original = (50 − 40) / 40 = 10/40 = <b>25%</b>.</div>
+  </div>
+</section>
+<section class="seg" id="data"><span class="time">&asymp; 14 min</span><div class="eyebrow"><span class="num">04</span> Averages & data</div><h2>Mean, median, and reading data</h2><p class="lede">Mean is the sum divided by the count. Median is the middle value once the data is in order.</p>  <div class="q">
+    <div class="qhead"><span class="qtag">Mean</span><span class="qno">5</span></div>
+    <div class="stem">The average (mean) of 4, 8, and x is 7. What is x?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>7</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>9</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>11</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>21</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>Mean = sum / count, so (4 + 8 + x)/3 = 7 → 12 + x = 21 → <b>x = 9</b>.</div>
+    <details class="more"><summary>Solve it another way</summary><div class="body"><div class="hack"><span class="h">True shortcut</span> Sum = mean × count. Here the three numbers must total 21.</div></div></details>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Median</span><span class="qno">6</span></div>
+    <div class="stem">What is the median of 3, 7, 9, 12, and 20?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>7</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>9</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>10.2</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>12</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>In order, the middle of five values is the 3rd one → <b>9</b>. (10.2 is the mean — a trap.)</div>
+  </div>
+</section>
+<section class="seg" id="probability"><span class="time">&asymp; 8 min</span><div class="eyebrow"><span class="num">05</span> Probability & rates</div><h2>Favorable over total</h2><p class="lede">Probability is the number of favorable outcomes divided by the total. A rate is just a ratio with units, like miles per hour.</p>  <div class="q">
+    <div class="qhead"><span class="qtag">Probability</span><span class="qno">7</span></div>
+    <div class="stem">A bag holds 3 red and 5 blue marbles. What is the probability of drawing a red marble?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>3/5</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>3/8</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>5/8</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>1/3</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>Favorable / total = 3 red / 8 total = <b>3/8</b>.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Rate</span><span class="qno">8</span></div>
+    <div class="stem">A car travels 150 miles in 3 hours. What is its average speed?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>45 mph</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>50 mph</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>75 mph</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>30 mph</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>Speed = distance / time = 150 / 3 = <b>50 mph</b>.</div>
+  </div>
+<details class="teach"><summary>Translate, don’t panic</summary><div class="body">These are reading problems with numbers. Have the student underline the question actually asked and label units before computing. The classic trap is reporting the mean when the median is asked (or the discount instead of the final price) — slow the last step down.</div></details></section>
+<section class="seg" id="vocab"><span class="time">&asymp; 8 min</span><div class="eyebrow"><span class="num">06</span> Vocabulary Lab</div><h2>This week’s words — think in synonyms and antonyms</h2><p class="lede">Tap a card to flip it. Learn each word next to its opposite — that’s how the test frames them.</p><div class="cards" id="vcards"></div><h3 style="font-family:var(--display);font-size:21px;margin:26px 0 8px;color:var(--navy)">Quick check</h3>  <div class="q">
+    <div class="qhead"><span class="qtag">Synonym</span><span class="qno">9</span></div>
+    <div class="stem">Which word is closest in meaning to <b>negligible</b>?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>significant</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>insignificant</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>large</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>central</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div><b>Negligible</b> = too small to matter, like <b>insignificant</b>.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Antonym</span><span class="qno">10</span></div>
+    <div class="stem">Which word is most nearly <b>opposite</b> to <b>approximate</b>?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>rough</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>estimated</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">C</span><span>exact</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>close</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why C</div><b>Approximate</b> = roughly right; its opposite is <b>exact</b>.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Word in context</span><span class="qno">11</span></div>
+    <div class="stem">Desert temperatures ______ sharply, soaring by day and plunging at night.</div>
+    <div class="opts">
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">A</span><span>fluctuate</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>stabilize</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>diminish</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>aggregate</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why A</div><b>Fluctuate</b> = rise and fall irregularly — exactly the day/night swing.</div>
+  </div>
+</section>
+<section class="seg" id="wrap"><span class="time">&asymp; 5 min</span><div class="eyebrow"><span class="num">07</span> Wrap-up</div><h2>Three things to carry out the door</h2><p class="lede">Say them out loud — that’s how they stick.</p>  <div class="grid">
+    <div class="dom"><h3>Find the unit first</h3><p>Price of one, then multiply — most ratio problems open right up.</p></div>
+    <div class="dom"><h3>&ldquo;Of&rdquo; means ×</h3><p>And percent change is difference over the original.</p></div>
+    <div class="dom"><h3>Read the last step</h3><p>Mean vs median, discount vs final price — answer what was asked.</p></div>
+  </div>
+<details class="teach"><summary>Close the loop</summary><div class="body">Have the student set one target for the mid-week. Confirm the two lesson days, point them to the workbook, and preview that <b>Lesson 6 turns to Reading</b> — craft, structure, and evidence. The math front-load is complete.</div></details></section>
+<section class="seg" id="homework"><div class="eyebrow"><span class="num">08</span> Keep the fire lit</div><h2>Next-two-days handout</h2><p class="lede">Short, daily, cumulative.</p><div class="handout"><div class="hh"><div><div class="ht">Data & Problem-Solving — Work for the Next Two Days</div><div class="hs">About 30 minutes a day · label your units</div></div><button class="btn" onclick="printDoc('homework')">Print</button></div><div style="border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin:12px 0;background:var(--soft)"><div style="font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:600">Day 1 · Ratios & percents</div><h3 style="font-size:17px;margin:3px 0 8px">Translate to math</h3><div class="diag"><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">1.</span> 5 apples cost $3.00. Cost of 8 apples? &nbsp; ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">2.</span> What is 40% of 75? &nbsp; ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">3.</span> A price falls from $80 to $60. Percent decrease? &nbsp; ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">4.</span> Ratio 4 : 5. If there are 16 of the first, how many of the second? &nbsp; ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">5.</span> Increase 50 by 20%. &nbsp; ______</div></div></div><div style="border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin:12px 0;background:var(--soft)"><div style="font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:600">Day 2 · Averages, probability, rates</div><h3 style="font-size:17px;margin:3px 0 8px">Read the last step</h3><div class="diag"><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">1.</span> Mean of 6, 10, and 14? &nbsp; ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">2.</span> Median of 2, 5, 9, and 11? &nbsp; ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">3.</span> A bag has 4 green and 6 yellow. P(green)? &nbsp; ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">4.</span> 240 miles in 4 hours. Average speed? &nbsp; ______</div></div></div><details class="more"><summary>Answer key (instructor)</summary><div class="body"><b>Day 1:</b> 1 &middot; $4.80&nbsp;&nbsp; 2 &middot; 30&nbsp;&nbsp; 3 &middot; 25%&nbsp;&nbsp; 4 &middot; 20&nbsp;&nbsp; 5 &middot; 60<br><b>Day 2:</b> 1 &middot; 10&nbsp;&nbsp; 2 &middot; 7&nbsp;&nbsp; 3 &middot; 2/5&nbsp;&nbsp; 4 &middot; 60 mph</div></details><div class="callout"><b>This sets up Lesson 6.</b> The careful reading you just used on word problems is the same skill that powers evidence-based reading next week.</div></div></section>
+</main>
+<footer class="foot"><div class="fl"></div><b>KingCretot Experience</b><br>kce@kingcretot.com&nbsp; ·&nbsp; 914-809-0112&nbsp; ·&nbsp; PO Box 2322, Arcadia, FL 34265</footer>
+<script>
+let attempted=0, correct=0;
+function answer(btn){const q=btn.closest('.q');if(q.dataset.done)return;q.dataset.done="1";
+const ok=btn.dataset.c==="1";btn.classList.add(ok?"right":"wrong");
+q.querySelectorAll(".opt").forEach(o=>{if(o.dataset.c==="1")o.classList.add("right");o.disabled=true;});
+const ex=q.querySelector(".explain");if(ex)ex.classList.add("show");
+attempted++;if(ok)correct++;document.getElementById("score").textContent=correct+"/"+attempted;}
+let secs=0,timer=null;
+function renderT(){const m=String(Math.floor(secs/60)).padStart(2,"0");const s=String(secs%60).padStart(2,"0");document.getElementById("clock").textContent=m+":"+s;}
+function tStart(){if(timer)return;timer=setInterval(()=>{secs++;renderT();},1000);}
+function tPause(){clearInterval(timer);timer=null;}
+function tReset(){tPause();secs=0;renderT();}
+function printDoc(which){document.body.classList.add("print-"+which);window.print();setTimeout(()=>document.body.classList.remove("print-"+which),300);}
+const VOCAB=[
+  ["aggregate","adj.","Formed by combining several parts into a whole; total.","combined, total","individual, separate"],
+  ["correlate","v.","To have a mutual relationship or connection.","associate, relate","disconnect, dissociate"],
+  ["deviate","v.","To depart from an established course or standard.","diverge, stray","conform, adhere"],
+  ["fluctuate","v.","To rise and fall irregularly.","vary, waver","stabilize, steady"],
+  ["magnitude","n.","Great size, extent, or importance.","size, extent","smallness, insignificance"],
+  ["negligible","adj.","So small as to be not worth considering.","insignificant, trivial","significant, substantial"],
+  ["quantify","v.","To express or measure as a quantity.","measure, count","estimate, guess"],
+  ["statistical","adj.","Relating to data and its analysis.","numerical, data-based","anecdotal, impressionistic"],
+  ["approximate","adj.","Close to the actual value but not exact.","rough, estimated","exact, precise"],
+  ["discrete","adj.","Individually separate and distinct.","separate, distinct","continuous, merged"]
+];
+const vc=document.getElementById("vcards");
+VOCAB.forEach(([w,pos,def,syn,ant])=>{const d=document.createElement("div");d.className="fc";
+d.onclick=function(){this.classList.toggle("flipped");};
+d.innerHTML='<div class="in"><div class="face front"><div class="word">'+w+'</div><div class="pos">'+pos+'</div><div class="tapcue">tap to flip</div></div><div class="face back"><div class="d">'+def+'</div><div class="sa"><span class="syn">syn:</span> '+syn+'</div><div class="sa"><span class="ant">ant:</span> '+ant+'</div></div></div>';
+vc.appendChild(d);});
+</script></body></html>

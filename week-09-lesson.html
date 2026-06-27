@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAT Foundations — Lesson 9: Full Practice Test & Error Analysis · KingCretot Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet"><style>
+:root{
+  --navy:#0A1F3D; --gold:#C9A84C; --cream:#FAF7EF; --red:#C9342F; --green:#2E7D55;
+  --ink:#172230; --muted:#586273; --line:#E5E0D2; --paper:#FFFFFF; --soft:#F5F2E9;
+  --display:'Fraunces',Georgia,serif; --body:'Inter',system-ui,sans-serif; --mono:'IBM Plex Mono',monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:18px}
+body{margin:0;background:var(--soft);color:var(--ink);font-family:var(--body);font-size:1rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);color:var(--navy);line-height:1.18;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding:0 26px}
+
+/* masthead */
+.mast{background:var(--navy);color:#fff;padding:34px 0 30px}
+.mast .brand{font-family:var(--display);font-weight:700;font-size:23px}
+.mast .tag{font-weight:700;font-size:12px;letter-spacing:2.5px;margin-top:4px}
+.mast .e1{color:#8FB2F5}.mast .e2{color:var(--gold)}.mast .e3{color:#F08C8A}
+.mast .rule{height:3px;width:100%;background:var(--gold);margin:20px 0 22px;border:0}
+.mast h1{color:#fff;font-size:42px;font-weight:600;letter-spacing:-.5px}
+.mast .sub{color:#cfd8e6;margin-top:12px;font-size:18px;max-width:60ch}
+.metarow{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chip{font-size:14px;font-weight:600;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);color:#eaf0f8;padding:8px 14px;border-radius:999px}
+
+/* sticky bar */
+.bar{position:sticky;top:0;z-index:40;background:rgba(245,242,233,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:16px;height:62px}
+.nav{display:flex;gap:6px;overflow-x:auto;flex:1;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:15px;font-weight:600;padding:9px 13px;border-radius:9px}
+.nav a:hover{background:#fff;color:var(--navy)}
+.clock{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.clock .t{font-family:var(--mono);font-weight:500;font-size:18px;color:var(--navy);background:#fff;border:1px solid var(--line);border-radius:9px;padding:7px 11px;min-width:74px;text-align:center}
+.clock button{font-family:var(--body);font-weight:600;font-size:13px;border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:8px;padding:8px 10px;cursor:pointer}
+.clock button:hover{border-color:var(--gold)}
+.scorechip{flex-shrink:0;font-weight:600;font-size:15px;color:#fff;background:var(--navy);border-radius:9px;padding:8px 13px}
+.scorechip b{color:var(--gold);font-family:var(--mono)}
+
+/* sections */
+.seg{padding:50px 0 18px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#9A7D20;font-weight:700;display:flex;align-items:center;gap:11px}
+.eyebrow .num{color:#fff;background:var(--gold);border-radius:7px;padding:3px 10px;font-weight:700}
+.seg h2{font-size:33px;font-weight:600;margin:12px 0 8px}
+.seg .lede{color:var(--muted);max-width:62ch;margin:0 0 22px;font-size:18.5px}
+.time{font-family:var(--mono);font-size:14px;color:var(--muted);float:right;border:1px solid var(--line);border-radius:8px;padding:5px 11px;background:#fff;margin-top:4px}
+
+/* question cards */
+.q{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:28px 28px 24px;margin:22px 0;box-shadow:0 2px 10px rgba(10,31,61,.04)}
+.q .qhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.q .qtag{font-size:13.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);font-weight:700}
+.q .qno{font-family:var(--mono);font-weight:500;color:var(--gold);font-size:16px}
+.passage{background:var(--cream);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:16px 18px;margin:10px 0 16px;font-size:17.5px;line-height:1.6}
+.stem{font-weight:600;margin:8px 0 18px;font-size:20px;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:13px}
+.opt{display:flex;gap:14px;align-items:center;text-align:left;width:100%;background:#fff;border:2px solid var(--line);border-radius:12px;padding:16px 18px;cursor:pointer;font:inherit;font-size:18px;color:var(--ink);transition:border-color .12s,background .12s}
+.opt:hover:not(:disabled){border-color:#9DB6E8;background:#fbfcfe}
+.opt:disabled{cursor:default}
+.opt .ltr{flex-shrink:0;width:32px;height:32px;border-radius:8px;border:2px solid var(--line);display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:16px;color:var(--navy)}
+.opt.right{border-color:var(--green);background:#edf7f1}
+.opt.right .ltr{background:var(--green);border-color:var(--green);color:#fff}
+.opt.wrong{border-color:var(--red);background:#fcedec}
+.opt.wrong .ltr{background:var(--red);border-color:var(--red);color:#fff}
+.explain{display:none;margin-top:18px;border-top:1px dashed var(--line);padding-top:16px;font-size:17px;line-height:1.6}
+.explain.show{display:block}
+.explain .lbl{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:5px}
+.explain .clue{color:var(--muted);font-style:italic}
+
+details.more,details.teach{margin-top:16px;border-radius:12px;overflow:hidden}
+details.more{background:var(--soft);border:1px solid var(--line)}
+details.more>summary{cursor:pointer;font-weight:600;font-size:16px;color:var(--navy);padding:13px 16px;list-style:none}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::before{content:"+ ";color:var(--gold);font-weight:700}
+details.more[open]>summary::before{content:"– "}
+details.more .body{padding:2px 17px 16px;font-size:16.5px}
+.method{margin:12px 0;padding-left:14px;border-left:3px solid #9DB6E8}
+.method b{color:var(--navy)}
+.hack{background:#fff;border:1px dashed var(--gold);border-radius:11px;padding:13px 15px;margin-top:12px;font-size:16px}
+.hack .h{font-size:12.5px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:700;display:block;margin-bottom:3px}
+
+details.teach{background:#0E2342;border:1px solid #1c3a64}
+details.teach>summary{cursor:pointer;font-weight:700;font-size:15px;color:#fff;padding:13px 16px;list-style:none}
+details.teach>summary::-webkit-details-marker{display:none}
+details.teach>summary::before{content:"For the instructor  ›  ";color:var(--gold);font-weight:600}
+details.teach[open]>summary::before{content:"For the instructor  ⌄  ";color:var(--gold);font-weight:600}
+details.teach .body{padding:2px 17px 16px;font-size:16px;color:#d3deee;line-height:1.6}
+details.teach .body b{color:#fff}
+
+/* domain grid */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 0 6px}
+.dom{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 19px}
+.dom h3{font-size:18px;font-family:var(--body);font-weight:700;color:var(--navy)}
+.dom p{margin:6px 0 0;font-size:16px;color:var(--muted);line-height:1.55}
+.dom .pct{color:#9A7D20;font-weight:600;font-size:14px}
+
+.demo{background:var(--navy);color:#eaf0f8;border-radius:16px;padding:24px 26px;margin:22px 0}
+.demo h3{color:#fff;font-family:var(--body);font-weight:700;font-size:19px}
+.demo .ways{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:16px}
+.demo .way{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:16px}
+.demo .way .w{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:7px}
+.demo .way p{margin:0;font-size:16px;color:#dbe4f1;line-height:1.55}
+.demo code{font-family:var(--mono);background:rgba(255,255,255,.12);padding:2px 6px;border-radius:5px;font-size:15px}
+
+/* vocab */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:16px;margin:10px 0}
+.fc{height:158px;perspective:1100px;cursor:pointer}
+.fc .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.fc.flipped .in{transform:rotateY(180deg)}
+.fc .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:16px;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--line)}
+.fc .front{background:#fff}
+.fc .front .word{font-family:var(--display);font-weight:600;font-size:25px;color:var(--navy)}
+.fc .front .pos{font-size:14px;color:var(--muted);font-style:italic;margin-top:2px}
+.fc .front .tapcue{font-size:12px;color:#9A7D20;letter-spacing:1px;margin-top:auto;text-transform:uppercase;font-weight:600}
+.fc .back{background:var(--navy);color:#eaf0f8;transform:rotateY(180deg);font-size:15px;line-height:1.5}
+.fc .back .d{margin-bottom:9px}
+.fc .back .sa{font-size:14px;margin-top:3px}
+.fc .back .syn{color:#8fe3b3;font-weight:600} .fc .back .ant{color:#f4a3a3;font-weight:600}
+
+/* handout */
+.handout{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:30px 30px 26px;margin:20px 0}
+.handout .hh{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;border-bottom:3px solid var(--gold);padding-bottom:14px;margin-bottom:18px}
+.handout .hh .ht{font-family:var(--display);font-weight:600;font-size:24px;color:var(--navy)}
+.handout .hh .hs{font-size:15px;color:var(--muted);margin-top:3px}
+.handout h3{font-size:17px;font-family:var(--body);color:var(--navy)}
+.btn{font-family:var(--body);font-weight:600;font-size:14px;border:1px solid var(--navy);background:var(--navy);color:#fff;border-radius:9px;padding:10px 16px;cursor:pointer;flex-shrink:0}
+.btn:hover{background:#16315a}
+.checklist{list-style:none;padding:0;margin:0 0 6px}
+.checklist li{padding:9px 0 9px 34px;position:relative;font-size:17px;border-bottom:1px solid var(--soft)}
+.checklist li::before{content:"";position:absolute;left:0;top:11px;width:19px;height:19px;border:2px solid var(--gold);border-radius:5px}
+.daybox{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0;background:var(--soft)}
+.daybox .dl{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:700}
+.daybox h3{font-size:20px;font-family:var(--display);margin:4px 0 10px}
+.daybox ol{margin:8px 0;padding-left:22px;font-size:17px}
+.daybox ol li{margin:7px 0}
+.write{border-bottom:1px solid #cdc6b2;height:26px;margin:10px 0}
+.diag{margin:8px 0}
+.diag .di{padding:12px 0;border-bottom:1px solid var(--soft);font-size:17px;line-height:1.55}
+.diag .di b{color:var(--navy)}
+.diag .di .n{font-family:var(--mono);color:var(--gold);font-weight:600;margin-right:9px}
+.key{font-family:var(--mono);font-size:14.5px;color:var(--muted);line-height:1.7}
+
+.callout{background:var(--cream);border:1px solid var(--gold);border-radius:14px;padding:18px 20px;margin:18px 0;font-size:17.5px;line-height:1.6}
+.callout b{color:var(--navy)}
+
+.foot{background:var(--navy);color:#aeb9c9;text-align:center;padding:26px;font-size:14px;margin-top:10px}
+.foot b{color:#fff;font-family:var(--display)}
+.foot .fl{height:2px;background:var(--gold);max-width:340px;margin:0 auto 14px}
+
+@media (max-width:680px){
+  html{font-size:17px}
+  .grid,.demo .ways{grid-template-columns:1fr}
+  .mast h1{font-size:31px}
+  .seg h2{font-size:27px}
+  .time{float:none;display:inline-block;margin-bottom:10px}
+}
+@media (prefers-reduced-motion:reduce){.fc .in{transition:none}html{scroll-behavior:auto}}
+@media print{
+  body{background:#fff}
+  body *{visibility:hidden}
+  body.print-prework #prework,body.print-prework #prework *,
+  body.print-homework #homework,body.print-homework #homework *{visibility:visible}
+  body.print-prework #prework,body.print-homework #homework{position:absolute;left:0;top:0;width:100%;border:0;margin:0;padding:0}
+  .btn,.time,details.teach{display:none!important}.seg{border:0}
+}
+
+.passage{background:#FAF7EF;border-left:4px solid #C9A84C;padding:13px 17px;border-radius:9px;margin:0 0 15px;font-size:16px;line-height:1.62;color:#22324a}
+.passage .src{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:#9A7D20;margin-bottom:5px}</style></head><body>
+<header class="mast"><div class="wrap"><div class="brand">KingCretot Experience</div>
+<div class="tag"><span class="e1">EDUCATE.</span>&nbsp;&nbsp;<span class="e2">EMPOWER.</span>&nbsp;&nbsp;<span class="e3">EXCEL.</span></div><hr class="rule"><h1>SAT Foundations — Lesson 9</h1>
+<div class="sub">The turning point. Take a full, timed practice test under real conditions — then turn every miss into a specific, fixable plan.</div><div class="metarow"><span class="chip">Test + 60-min review</span><span class="chip">Timer + paper</span><span class="chip">Diagnostic · Error Analysis</span></div></div></header>
+<div class="bar"><div class="wrap"><nav class="nav"><a href="#prework">Pre-work</a><a href="#simulate">Simulate</a><a href="#types">Error types</a><a href="#plan">The fix list</a><a href="#vocab">Vocab Lab</a><a href="#wrap">Wrap-up</a><a href="#homework">Homework</a></nav>
+<div class="clock" title="For exam-mode pacing"><span class="t" id="clock">00:00</span>
+<button onclick="tStart()">Start</button><button onclick="tPause()">Pause</button><button onclick="tReset()">Reset</button></div>
+<span class="scorechip">Score <b id="score">0/0</b></span></div></div>
+<main class="wrap">
+<section class="seg"><div class="callout"><b>How to run this lesson.</b> Before this session the student completes a <b>full, timed practice test</b> under real conditions (one official digital SAT practice test). This lesson is the <a href="#types">error-analysis</a> review: sort every miss by type, then build the fix list. The dark navy notes are for the instructor only.</div><details class="teach"><summary>The frame for today</summary><div class="body">One line to open: <b>&ldquo;A practice test isn’t a verdict — it’s a map. Every wrong answer tells us exactly where the next points are.&rdquo;</b> Today we read that map: categorize, diagnose, and plan.</div></details></section>
+<section class="seg" id="prework"><div class="eyebrow"><span class="num">00</span> Before you begin</div><h2>Pre-work handout</h2><p class="lede">The student should arrive having already taken the test, with their answers and the scoring in hand.</p><div class="handout"><div class="hh"><div><div class="ht">Practice Test — Pre-work</div><div class="hs">Complete BEFORE our session · about 2 hours 14 minutes</div></div><button class="btn" onclick="printDoc('prework')">Print</button></div><h3 style="font-family:var(--body);font-size:15px;margin-bottom:6px">Warm-up</h3><div class="diag"><div class="di"><b>1.</b> Take one full, timed official practice test in a quiet room — no phone.</div><div class="di"><b>2.</b> Take only the one scheduled break; mimic real timing.</div><div class="di"><b>3.</b> Score it and bring the list of every question you missed.</div><div class="di"><b>4.</b> Note any questions you guessed on, even if you got them right.</div></div><details class="more" style="margin-top:14px"><summary>Answer key (instructor)</summary><div class="body">Bring: your score, the list of missed questions, and any lucky guesses. We diagnose them together.</div></details></div></section>
+<section class="seg" id="simulate"><span class="time">&asymp; 8 min</span><div class="eyebrow"><span class="num">02</span> Real conditions</div><h2>Why conditions matter</h2><p class="lede">A practice test only predicts the real one if it’s taken like the real one: timed, quiet, one break, no phone. Otherwise the score lies in your favor.</p>  <div class="q">
+    <div class="qhead"><span class="qtag">Pacing</span><span class="qno">1</span></div>
+    <div class="stem">Each Math module gives about 35 minutes for 22 questions. Roughly how much time is that per question?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>about 30 seconds</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>about 95 seconds</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>about 3 minutes</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>about 10 seconds</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>35 min ÷ 22 ≈ 95 seconds per question. Knowing this number is how you pace the section.</div>
+  </div>
+</section>
+<section class="seg" id="types"><span class="time">&asymp; 18 min</span><div class="eyebrow"><span class="num">03</span> The four error types</div><h2>Sort every miss</h2><p class="lede">Almost every wrong answer is one of four kinds. Naming the kind tells you the fix.</p>  <div class="demo">
+    <h3>The four error types</h3>
+    <div class="ways">
+      <div class="way"><div class="w">Content gap</div><p>You didn’t know the skill. Fix: re-learn it and drill similar problems.</p></div>
+      <div class="way"><div class="w">Careless</div><p>You knew it but slipped — arithmetic or bubbling. Fix: slow the final step.</p></div>
+      <div class="way"><div class="w">Misread</div><p>You answered a different question than asked. Fix: underline what’s wanted.</p></div>
+      <div class="way"><div class="w">Timing</div><p>You rushed or ran out of time. Fix: timed sets and skip-and-return.</p></div>
+    </div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Diagnose</span><span class="qno">2</span></div>
+    <div class="stem">You knew the formula but ran out of time and guessed on the last four questions. This is mainly a —</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>content-gap error</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>timing error</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>careless error</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>misread error</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>You had the skill but not the clock — a <b>timing</b> error. The fix is pacing practice, not re-studying.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Diagnose</span><span class="qno">3</span></div>
+    <div class="stem">You solved 3x = 12 and correctly got x = 4, but bubbled x = 3. This is a —</div>
+    <div class="opts">
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">A</span><span>careless / transcription error</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>content-gap error</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>misread error</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>timing error</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why A</div>The math was right; the transfer was wrong — a <b>careless</b> error. The fix is double-checking the final answer.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Diagnose</span><span class="qno">4</span></div>
+    <div class="stem">The question asked for the perimeter, but you found the area. This is a —</div>
+    <div class="opts">
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">A</span><span>misreading the question</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>content-gap error</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>timing error</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>careless arithmetic</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why A</div>You answered the wrong question — a <b>misread</b>. The fix is underlining exactly what’s asked.</div>
+  </div>
+</section>
+<section class="seg" id="plan"><span class="time">&asymp; 14 min</span><div class="eyebrow"><span class="num">04</span> Turn misses into a plan</div><h2>Each type has a fix</h2><p class="lede">Diagnosis is only useful if it becomes an action. Match every miss to its fix and build a short, ranked to-do list.</p>  <div class="q">
+    <div class="qhead"><span class="qtag">Match the fix</span><span class="qno">5</span></div>
+    <div class="stem">What is the best fix for a content-gap error?</div>
+    <div class="opts">
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">A</span><span>Re-study that skill and drill ten similar problems</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>Just slow down and re-read</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>Practice with a timer</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>Double-check your bubbling</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why A</div>A content gap is a knowledge problem — the fix is <b>re-learning and drilling</b> that exact skill.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Match the fix</span><span class="qno">6</span></div>
+    <div class="stem">You keep running out of time on the last few questions. The best fix is to —</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>re-study the underlying topic</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>do timed sets and practice skip-and-return</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>ignore it and hope</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>guess randomly from the start</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>Timing errors are fixed by <b>timed practice and a skip-and-return habit</b>, not by re-studying content you already know.</div>
+  </div>
+<details class="teach"><summary>Rank the fixes</summary><div class="body">After sorting, have the student rank their two or three biggest leak categories. Two content gaps fixed cleanly usually move the score more than a dozen scattered &ldquo;be more careful&rdquo; notes. Make the plan specific and small.</div></details></section>
+<section class="seg" id="vocab"><span class="time">&asymp; 8 min</span><div class="eyebrow"><span class="num">05</span> Vocabulary Lab</div><h2>This week’s words — think in synonyms and antonyms</h2><p class="lede">Tap a card to flip it. Learn each word next to its opposite — that’s how the test frames them.</p><div class="cards" id="vcards"></div><h3 style="font-family:var(--display);font-size:21px;margin:26px 0 8px;color:var(--navy)">Quick check</h3>  <div class="q">
+    <div class="qhead"><span class="qtag">Synonym</span><span class="qno">7</span></div>
+    <div class="stem">Which word is closest in meaning to <b>methodical</b>?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>haphazard</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>systematic</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>hasty</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>random</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div><b>Methodical</b> = orderly and systematic.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Antonym</span><span class="qno">8</span></div>
+    <div class="stem">Which word is most nearly <b>opposite</b> to <b>rigorous</b>?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>thorough</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>exacting</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">C</span><span>lax</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>careful</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why C</div><b>Rigorous</b> = extremely careful; its opposite is <b>lax</b>.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Word in context</span><span class="qno">9</span></div>
+    <div class="stem">One surprising data point was an ______ that the rest of the results did not explain.</div>
+    <div class="opts">
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">A</span><span>anomaly</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>example</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>average</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>estimate</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why A</div><b>Anomaly</b> = something that deviates from the expected pattern.</div>
+  </div>
+</section>
+<section class="seg" id="wrap"><span class="time">&asymp; 5 min</span><div class="eyebrow"><span class="num">06</span> Wrap-up</div><h2>Three things to carry out the door</h2><p class="lede">Say them out loud — that’s how they stick.</p>  <div class="grid">
+    <div class="dom"><h3>It’s a map</h3><p>A practice test shows where the points are — not your worth.</p></div>
+    <div class="dom"><h3>Sort every miss</h3><p>Content, careless, misread, or timing — the type names the fix.</p></div>
+    <div class="dom"><h3>Rank the fixes</h3><p>Close your top two gaps before chasing scattered ones.</p></div>
+  </div>
+<details class="teach"><summary>Close the loop</summary><div class="body">Have the student commit to their top two fixes in writing. Confirm the two review days, point them to the workbook error log, and preview that <b>Lesson 10 is final review, pacing, and test-day prep</b> — the last session before the real thing.</div></details></section>
+<section class="seg" id="homework"><div class="eyebrow"><span class="num">07</span> Keep the fire lit</div><h2>Next-two-days handout</h2><p class="lede">Short, daily, cumulative.</p><div class="handout"><div class="hh"><div><div class="ht">Error Analysis — Work for the Next Two Days</div><div class="hs">About 30 minutes a day · turn every miss into an action</div></div><button class="btn" onclick="printDoc('homework')">Print</button></div><div style="border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin:12px 0;background:var(--soft)"><div style="font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:600">Day 1 · Build the error log</div><h3 style="font-size:17px;margin:3px 0 8px">Sort every miss</h3><div class="diag"><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">1.</span> List each missed question and label it: content, careless, misread, or timing.</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">2.</span> Count how many fall in each category. Which is your biggest leak?</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">3.</span> Pick your top two categories to attack first.</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">4.</span> For each top category, write the one-line fix.</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">5.</span> Note any topic you guessed on but got right — it’s a hidden gap.</div></div></div><div style="border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin:12px 0;background:var(--soft)"><div style="font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:600">Day 2 · Drill the top gaps</div><h3 style="font-size:17px;margin:3px 0 8px">Close the biggest leaks</h3><div class="diag"><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">1.</span> Do ten practice problems on your #1 content gap.</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">2.</span> Do ten on your #2 content gap.</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">3.</span> Redo three timed questions you rushed, this time on the clock.</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">4.</span> Write one sentence: what will be different on test day?</div></div></div><details class="more"><summary>Answer key (instructor)</summary><div class="body">There is no single answer key here — the &ldquo;answers&rdquo; are the student’s own categorized misses and the ranked fix list. The teacher guide explains how to lead the sort.</div></details><div class="callout"><b>This sets up Lesson 10.</b> You now know exactly where your points are — next week we sharpen pace and lock in the test-day routine.</div></div></section>
+</main>
+<footer class="foot"><div class="fl"></div><b>KingCretot Experience</b><br>kce@kingcretot.com&nbsp; ·&nbsp; 914-809-0112&nbsp; ·&nbsp; PO Box 2322, Arcadia, FL 34265</footer>
+<script>
+let attempted=0, correct=0;
+function answer(btn){const q=btn.closest('.q');if(q.dataset.done)return;q.dataset.done="1";
+const ok=btn.dataset.c==="1";btn.classList.add(ok?"right":"wrong");
+q.querySelectorAll(".opt").forEach(o=>{if(o.dataset.c==="1")o.classList.add("right");o.disabled=true;});
+const ex=q.querySelector(".explain");if(ex)ex.classList.add("show");
+attempted++;if(ok)correct++;document.getElementById("score").textContent=correct+"/"+attempted;}
+let secs=0,timer=null;
+function renderT(){const m=String(Math.floor(secs/60)).padStart(2,"0");const s=String(secs%60).padStart(2,"0");document.getElementById("clock").textContent=m+":"+s;}
+function tStart(){if(timer)return;timer=setInterval(()=>{secs++;renderT();},1000);}
+function tPause(){clearInterval(timer);timer=null;}
+function tReset(){tPause();secs=0;renderT();}
+function printDoc(which){document.body.classList.add("print-"+which);window.print();setTimeout(()=>document.body.classList.remove("print-"+which),300);}
+const VOCAB=[
+  ["anomaly","n.","Something that deviates from what is standard or expected.","irregularity, deviation","norm, regularity"],
+  ["attribute","v.","To regard something as caused by.","ascribe, credit","dissociate, deny"],
+  ["comprise","v.","To consist of or be made up of.","consist of, include","exclude, omit"],
+  ["conversely","adv.","In an opposite or contrasting way.","oppositely, inversely","similarly, likewise"],
+  ["evident","adj.","Plainly seen or understood; obvious.","apparent, clear","hidden, obscure"],
+  ["exemplify","v.","To be a typical example of.","illustrate, typify","contradict, oppose"],
+  ["methodical","adj.","Done in an orderly, systematic way.","orderly, systematic","haphazard, disorganized"],
+  ["precision","n.","Exactness and accuracy.","accuracy, exactness","vagueness, imprecision"],
+  ["rigorous","adj.","Extremely thorough, careful, and demanding.","thorough, exacting","lax, careless"],
+  ["synthesize","v.","To combine parts into a connected whole.","integrate, combine","separate, fragment"]
+];
+const vc=document.getElementById("vcards");
+VOCAB.forEach(([w,pos,def,syn,ant])=>{const d=document.createElement("div");d.className="fc";
+d.onclick=function(){this.classList.toggle("flipped");};
+d.innerHTML='<div class="in"><div class="face front"><div class="word">'+w+'</div><div class="pos">'+pos+'</div><div class="tapcue">tap to flip</div></div><div class="face back"><div class="d">'+def+'</div><div class="sa"><span class="syn">syn:</span> '+syn+'</div><div class="sa"><span class="ant">ant:</span> '+ant+'</div></div></div>';
+vc.appendChild(d);});
+</script></body></html>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAT Foundations — Lesson 2: Heart of Algebra · KingCretot Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0A1F3D; --gold:#C9A84C; --cream:#FAF7EF; --red:#C9342F; --green:#2E7D55;
+  --ink:#172230; --muted:#586273; --line:#E5E0D2; --paper:#FFFFFF; --soft:#F5F2E9;
+  --display:'Fraunces',Georgia,serif; --body:'Inter',system-ui,sans-serif; --mono:'IBM Plex Mono',monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:18px}
+body{margin:0;background:var(--soft);color:var(--ink);font-family:var(--body);font-size:1rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);color:var(--navy);line-height:1.18;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding:0 26px}
+
+/* masthead */
+.mast{background:var(--navy);color:#fff;padding:34px 0 30px}
+.mast .brand{font-family:var(--display);font-weight:700;font-size:23px}
+.mast .tag{font-weight:700;font-size:12px;letter-spacing:2.5px;margin-top:4px}
+.mast .e1{color:#8FB2F5}.mast .e2{color:var(--gold)}.mast .e3{color:#F08C8A}
+.mast .rule{height:3px;width:100%;background:var(--gold);margin:20px 0 22px;border:0}
+.mast h1{color:#fff;font-size:42px;font-weight:600;letter-spacing:-.5px}
+.mast .sub{color:#cfd8e6;margin-top:12px;font-size:18px;max-width:60ch}
+.metarow{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chip{font-size:14px;font-weight:600;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);color:#eaf0f8;padding:8px 14px;border-radius:999px}
+
+/* sticky bar */
+.bar{position:sticky;top:0;z-index:40;background:rgba(245,242,233,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:16px;height:62px}
+.nav{display:flex;gap:6px;overflow-x:auto;flex:1;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:15px;font-weight:600;padding:9px 13px;border-radius:9px}
+.nav a:hover{background:#fff;color:var(--navy)}
+.clock{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.clock .t{font-family:var(--mono);font-weight:500;font-size:18px;color:var(--navy);background:#fff;border:1px solid var(--line);border-radius:9px;padding:7px 11px;min-width:74px;text-align:center}
+.clock button{font-family:var(--body);font-weight:600;font-size:13px;border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:8px;padding:8px 10px;cursor:pointer}
+.clock button:hover{border-color:var(--gold)}
+.scorechip{flex-shrink:0;font-weight:600;font-size:15px;color:#fff;background:var(--navy);border-radius:9px;padding:8px 13px}
+.scorechip b{color:var(--gold);font-family:var(--mono)}
+
+/* sections */
+.seg{padding:50px 0 18px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#9A7D20;font-weight:700;display:flex;align-items:center;gap:11px}
+.eyebrow .num{color:#fff;background:var(--gold);border-radius:7px;padding:3px 10px;font-weight:700}
+.seg h2{font-size:33px;font-weight:600;margin:12px 0 8px}
+.seg .lede{color:var(--muted);max-width:62ch;margin:0 0 22px;font-size:18.5px}
+.time{font-family:var(--mono);font-size:14px;color:var(--muted);float:right;border:1px solid var(--line);border-radius:8px;padding:5px 11px;background:#fff;margin-top:4px}
+
+/* question cards */
+.q{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:28px 28px 24px;margin:22px 0;box-shadow:0 2px 10px rgba(10,31,61,.04)}
+.q .qhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.q .qtag{font-size:13.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);font-weight:700}
+.q .qno{font-family:var(--mono);font-weight:500;color:var(--gold);font-size:16px}
+.passage{background:var(--cream);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:16px 18px;margin:10px 0 16px;font-size:17.5px;line-height:1.6}
+.stem{font-weight:600;margin:8px 0 18px;font-size:20px;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:13px}
+.opt{display:flex;gap:14px;align-items:center;text-align:left;width:100%;background:#fff;border:2px solid var(--line);border-radius:12px;padding:16px 18px;cursor:pointer;font:inherit;font-size:18px;color:var(--ink);transition:border-color .12s,background .12s}
+.opt:hover:not(:disabled){border-color:#9DB6E8;background:#fbfcfe}
+.opt:disabled{cursor:default}
+.opt .ltr{flex-shrink:0;width:32px;height:32px;border-radius:8px;border:2px solid var(--line);display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:16px;color:var(--navy)}
+.opt.right{border-color:var(--green);background:#edf7f1}
+.opt.right .ltr{background:var(--green);border-color:var(--green);color:#fff}
+.opt.wrong{border-color:var(--red);background:#fcedec}
+.opt.wrong .ltr{background:var(--red);border-color:var(--red);color:#fff}
+.explain{display:none;margin-top:18px;border-top:1px dashed var(--line);padding-top:16px;font-size:17px;line-height:1.6}
+.explain.show{display:block}
+.explain .lbl{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:5px}
+.explain .clue{color:var(--muted);font-style:italic}
+
+details.more,details.teach{margin-top:16px;border-radius:12px;overflow:hidden}
+details.more{background:var(--soft);border:1px solid var(--line)}
+details.more>summary{cursor:pointer;font-weight:600;font-size:16px;color:var(--navy);padding:13px 16px;list-style:none}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::before{content:"+ ";color:var(--gold);font-weight:700}
+details.more[open]>summary::before{content:"– "}
+details.more .body{padding:2px 17px 16px;font-size:16.5px}
+.method{margin:12px 0;padding-left:14px;border-left:3px solid #9DB6E8}
+.method b{color:var(--navy)}
+.hack{background:#fff;border:1px dashed var(--gold);border-radius:11px;padding:13px 15px;margin-top:12px;font-size:16px}
+.hack .h{font-size:12.5px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:700;display:block;margin-bottom:3px}
+
+details.teach{background:#0E2342;border:1px solid #1c3a64}
+details.teach>summary{cursor:pointer;font-weight:700;font-size:15px;color:#fff;padding:13px 16px;list-style:none}
+details.teach>summary::-webkit-details-marker{display:none}
+details.teach>summary::before{content:"For the instructor  ›  ";color:var(--gold);font-weight:600}
+details.teach[open]>summary::before{content:"For the instructor  ⌄  ";color:var(--gold);font-weight:600}
+details.teach .body{padding:2px 17px 16px;font-size:16px;color:#d3deee;line-height:1.6}
+details.teach .body b{color:#fff}
+
+/* domain grid */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 0 6px}
+.dom{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 19px}
+.dom h3{font-size:18px;font-family:var(--body);font-weight:700;color:var(--navy)}
+.dom p{margin:6px 0 0;font-size:16px;color:var(--muted);line-height:1.55}
+.dom .pct{color:#9A7D20;font-weight:600;font-size:14px}
+
+.demo{background:var(--navy);color:#eaf0f8;border-radius:16px;padding:24px 26px;margin:22px 0}
+.demo h3{color:#fff;font-family:var(--body);font-weight:700;font-size:19px}
+.demo .ways{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:16px}
+.demo .way{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:16px}
+.demo .way .w{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:7px}
+.demo .way p{margin:0;font-size:16px;color:#dbe4f1;line-height:1.55}
+.demo code{font-family:var(--mono);background:rgba(255,255,255,.12);padding:2px 6px;border-radius:5px;font-size:15px}
+
+/* vocab */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:16px;margin:10px 0}
+.fc{height:158px;perspective:1100px;cursor:pointer}
+.fc .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.fc.flipped .in{transform:rotateY(180deg)}
+.fc .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:16px;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--line)}
+.fc .front{background:#fff}
+.fc .front .word{font-family:var(--display);font-weight:600;font-size:25px;color:var(--navy)}
+.fc .front .pos{font-size:14px;color:var(--muted);font-style:italic;margin-top:2px}
+.fc .front .tapcue{font-size:12px;color:#9A7D20;letter-spacing:1px;margin-top:auto;text-transform:uppercase;font-weight:600}
+.fc .back{background:var(--navy);color:#eaf0f8;transform:rotateY(180deg);font-size:15px;line-height:1.5}
+.fc .back .d{margin-bottom:9px}
+.fc .back .sa{font-size:14px;margin-top:3px}
+.fc .back .syn{color:#8fe3b3;font-weight:600} .fc .back .ant{color:#f4a3a3;font-weight:600}
+
+/* handout */
+.handout{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:30px 30px 26px;margin:20px 0}
+.handout .hh{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;border-bottom:3px solid var(--gold);padding-bottom:14px;margin-bottom:18px}
+.handout .hh .ht{font-family:var(--display);font-weight:600;font-size:24px;color:var(--navy)}
+.handout .hh .hs{font-size:15px;color:var(--muted);margin-top:3px}
+.handout h3{font-size:17px;font-family:var(--body);color:var(--navy)}
+.btn{font-family:var(--body);font-weight:600;font-size:14px;border:1px solid var(--navy);background:var(--navy);color:#fff;border-radius:9px;padding:10px 16px;cursor:pointer;flex-shrink:0}
+.btn:hover{background:#16315a}
+.checklist{list-style:none;padding:0;margin:0 0 6px}
+.checklist li{padding:9px 0 9px 34px;position:relative;font-size:17px;border-bottom:1px solid var(--soft)}
+.checklist li::before{content:"";position:absolute;left:0;top:11px;width:19px;height:19px;border:2px solid var(--gold);border-radius:5px}
+.daybox{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0;background:var(--soft)}
+.daybox .dl{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:700}
+.daybox h3{font-size:20px;font-family:var(--display);margin:4px 0 10px}
+.daybox ol{margin:8px 0;padding-left:22px;font-size:17px}
+.daybox ol li{margin:7px 0}
+.write{border-bottom:1px solid #cdc6b2;height:26px;margin:10px 0}
+.diag{margin:8px 0}
+.diag .di{padding:12px 0;border-bottom:1px solid var(--soft);font-size:17px;line-height:1.55}
+.diag .di b{color:var(--navy)}
+.diag .di .n{font-family:var(--mono);color:var(--gold);font-weight:600;margin-right:9px}
+.key{font-family:var(--mono);font-size:14.5px;color:var(--muted);line-height:1.7}
+
+.callout{background:var(--cream);border:1px solid var(--gold);border-radius:14px;padding:18px 20px;margin:18px 0;font-size:17.5px;line-height:1.6}
+.callout b{color:var(--navy)}
+
+.foot{background:var(--navy);color:#aeb9c9;text-align:center;padding:26px;font-size:14px;margin-top:10px}
+.foot b{color:#fff;font-family:var(--display)}
+.foot .fl{height:2px;background:var(--gold);max-width:340px;margin:0 auto 14px}
+
+@media (max-width:680px){
+  html{font-size:17px}
+  .grid,.demo .ways{grid-template-columns:1fr}
+  .mast h1{font-size:31px}
+  .seg h2{font-size:27px}
+  .time{float:none;display:inline-block;margin-bottom:10px}
+}
+@media (prefers-reduced-motion:reduce){.fc .in{transition:none}html{scroll-behavior:auto}}
+@media print{
+  body{background:#fff}
+  body *{visibility:hidden}
+  body.print-prework #prework,body.print-prework #prework *,
+  body.print-homework #homework,body.print-homework #homework *{visibility:visible}
+  body.print-prework #prework,body.print-homework #homework{position:absolute;left:0;top:0;width:100%;border:0;margin:0;padding:0}
+  .btn,.time,details.teach{display:none!important}.seg{border:0}
+}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="brand">KingCretot Experience</div>
+    <div class="tag"><span class="e1">EDUCATE.</span>&nbsp;&nbsp;<span class="e2">EMPOWER.</span>&nbsp;&nbsp;<span class="e3">EXCEL.</span></div>
+    <hr class="rule">
+    <h1>SAT Foundations — Lesson 2</h1>
+    <div class="sub">Heart of Algebra. The four moves that carry roughly a third of SAT math — linear equations, lines, systems, and inequalities — each with a main route and a backup.</div>
+    <div class="metarow">
+      <span class="chip">60 minutes</span>
+      <span class="chip">Computer + paper</span>
+      <span class="chip">Math · Heart of Algebra</span>
+    </div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <nav class="nav">
+      <a href="#prework">Pre-work</a>
+      <a href="#map">The Moves</a>
+      <a href="#linear">Linear</a>
+      <a href="#slope">Slope</a>
+      <a href="#systems">Systems</a>
+      <a href="#inequalities">Inequalities</a>
+      <a href="#vocab">Vocab Lab</a>
+      <a href="#homework">Homework</a>
+    </nav>
+    <div class="clock" title="For exam-mode pacing">
+      <span class="t" id="clock">00:00</span>
+      <button onclick="tStart()">Start</button>
+      <button onclick="tPause()">Pause</button>
+      <button onclick="tReset()">Reset</button>
+    </div>
+    <span class="scorechip">Score <b id="score">0/0</b></span>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section class="seg">
+  <div class="callout">
+    <b>How to run this lesson.</b> Send the <a href="#prework">pre-work</a> a day ahead. Open with goals (5 min),
+    then work the four algebra moves together: linear equations (12), lines &amp; slope (12), systems (16),
+    inequalities (8), the Vocabulary Lab (7), and a wrap that assigns the <a href="#homework">next-two-days</a> work.
+    Question cards reveal the answer on click; math cards open a <i>&ldquo;Solve it another way&rdquo;</i> panel.
+    The dark navy notes are for the instructor only.
+  </div>
+  <details class="teach"><summary>The frame for today</summary><div class="body">One line to open: <b>&ldquo;Algebra is the backbone of SAT math &mdash; own these four moves and you own a third of the test.&rdquo;</b>
+  Today is about <i>fluency and a backup route</i>: a main method plus a check on every problem. Watch for the one habit that
+  quietly costs points &mdash; forgetting to flip the inequality sign on a negative. Drill it until it&rsquo;s automatic.</div></details>
+</section>
+
+<section class="seg" id="prework">
+  <div class="eyebrow"><span class="num">00</span> Before you begin</div>
+  <h2>Pre-work handout</h2>
+  <p class="lede">Hand this to the student the day before. Five minutes of warm-up makes the lesson land faster.</p>
+  <div class="handout">
+    <div class="hh">
+      <div><div class="ht">Heart of Algebra &mdash; Pre-work</div><div class="hs">Complete on paper before our session &middot; about 10 minutes</div></div>
+      <button class="btn" onclick="printDoc('prework')">Print</button>
+    </div>
+    <h3 style="font-family:var(--body);font-size:15px;margin-bottom:6px">Warm-up &mdash; no calculator</h3>
+    <div class="diag">
+      <div class="di"><b>1. Linear:</b> Solve 2x + 9 = 21. &nbsp; x = ______</div>
+      <div class="di"><b>2. Slope:</b> Find the slope of the line through (0, 1) and (2, 7). &nbsp; ______</div>
+      <div class="di"><b>3. System:</b> If x + y = 9 and y = 3, what is x? &nbsp; ______</div>
+      <div class="di"><b>4. Inequality:</b> Solve x &minus; 4 &lt; 2. &nbsp; ______</div>
+    </div>
+    <h3 style="font-family:var(--body);font-size:15px;margin:14px 0 6px">One line</h3>
+    <div class="write"></div><div class="write"></div>
+    <details class="more" style="margin-top:14px"><summary>Answer key (instructor)</summary><div class="body">1 &middot; x = 6&nbsp;&nbsp; 2 &middot; slope = 3&nbsp;&nbsp; 3 &middot; x = 6&nbsp;&nbsp; 4 &middot; x &lt; 6</div></details>
+  </div>
+</section>
+
+<section class="seg" id="map">
+  <span class="time">&asymp; 5 min</span>
+  <div class="eyebrow"><span class="num">01</span> Orientation</div>
+  <h2>The four moves of algebra</h2>
+  <p class="lede">About a third of SAT math is &ldquo;Heart of Algebra.&rdquo; Almost all of it comes down to four moves &mdash; and each has a backup route.</p>
+  <div class="grid">
+    <div class="dom"><h3>Linear equations</h3><p>Isolate the variable with inverse operations. Back-solve to check.</p></div>
+    <div class="dom"><h3>Lines &amp; slope</h3><p>Slope is rise over run; read y = mx + b without graphing.</p></div>
+    <div class="dom"><h3>Systems</h3><p>Substitution or elimination &mdash; or test the answer choices.</p></div>
+    <div class="dom"><h3>Inequalities</h3><p>Solve like an equation &mdash; but flip the sign on a negative.</p></div>
+  </div>
+</section>
+
+<section class="seg" id="linear">
+  <span class="time">&asymp; 12 min</span>
+  <div class="eyebrow"><span class="num">02</span> Linear equations</div>
+  <h2>Isolate, then check</h2>
+  <p class="lede">The golden rule: whatever you do to one side, do to the other. Undo operations in reverse order until the variable stands alone.</p>
+
+  <div class="q">
+    <div class="qhead"><span class="qtag">Multi-step</span><span class="qno">Q1</span></div>
+    <div class="stem">Solve for x:&nbsp;&nbsp; 5x &minus; 3 = 2x + 12</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>3</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>4</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">C</span><span>5</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>6</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why C</div>Get the x&rsquo;s together: 5x &minus; 2x = 12 + 3 &rarr; 3x = 15 &rarr; <b>x = 5</b>.</div>
+    <details class="more"><summary>Solve it another way</summary><div class="body">
+      <div class="method"><b>Back-solve:</b> test C (x = 5): 5(5)&minus;3 = 22 and 2(5)+12 = 22. &#10003; Match, so C.</div>
+      <div class="hack"><span class="h">True shortcut</span> Move all the variables to one side and all the numbers to the other <i>first</i>; then one division finishes it.</div>
+    </div></details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qtag">Distribute first</span><span class="qno">Q2</span></div>
+    <div class="stem">Solve for x:&nbsp;&nbsp; 3(x + 4) = 2x + 18</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>4</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>5</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">C</span><span>6</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>7</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why C</div>Distribute: 3x + 12 = 2x + 18 &rarr; 3x &minus; 2x = 18 &minus; 12 &rarr; <b>x = 6</b>.</div>
+    <details class="more"><summary>Solve it another way</summary><div class="body">
+      <div class="method"><b>Back-solve:</b> test C (x = 6): 3(10) = 30 and 2(6)+18 = 30. &#10003;</div>
+      <div class="hack"><span class="h">True shortcut</span> Distribute before you do anything else &mdash; a stray parenthesis is where most sign errors start.</div>
+    </div></details>
+  </div>
+</section>
+
+<section class="seg" id="slope">
+  <span class="time">&asymp; 12 min</span>
+  <div class="eyebrow"><span class="num">03</span> Lines &amp; slope</div>
+  <h2>Read a line two ways</h2>
+  <p class="lede">Slope is the rate of change: rise over run. In y = mx + b, <b>m</b> is the slope and <b>b</b> is where the line crosses the y-axis.</p>
+
+  <div class="q">
+    <div class="qhead"><span class="qtag">Slope from two points</span><span class="qno">Q3</span></div>
+    <div class="stem">A line passes through (1, 5) and (3, 11). What is its slope?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>2</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>3</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>4</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>6</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>Slope = &Delta;y / &Delta;x = (11 &minus; 5) / (3 &minus; 1) = 6 / 2 = <b>3</b>.</div>
+    <details class="more"><summary>Solve it another way</summary><div class="body">
+      <div class="method"><b>Picture it:</b> from (1, 5) to (3, 11) you go <i>up 6, right 2</i> &rarr; 6/2 = 3.</div>
+      <div class="hack"><span class="h">True shortcut</span> Subtract the y&rsquo;s and the x&rsquo;s <i>in the same order</i>. Order discipline kills sign errors.</div>
+    </div></details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qtag">Slope-intercept form</span><span class="qno">Q4</span></div>
+    <div class="stem">Where does the line y = &minus;2x + 7 cross the y-axis?</div>
+    <div class="opts">
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">A</span><span>(0, 7)</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>(7, 0)</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>(0, &minus;2)</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>(&minus;2, 0)</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why A</div>In y = mx + b, the y-intercept is b. Here b = 7, so the line crosses at <b>(0, 7)</b>. The &minus;2 is the slope, not the intercept.</div>
+    <details class="more"><summary>Solve it another way</summary><div class="body">
+      <div class="hack"><span class="h">True shortcut</span> The y-intercept is just the value of y when x = 0. Set x = 0: y = &minus;2(0) + 7 = 7.</div>
+    </div></details>
+  </div>
+</section>
+
+<section class="seg" id="systems">
+  <span class="time">&asymp; 16 min</span>
+  <div class="eyebrow"><span class="num">04</span> Systems</div>
+  <h2>Two equations, one point</h2>
+  <p class="lede">A system asks where two lines meet. Use <b>substitution</b> when one variable is already alone, <b>elimination</b> when adding or subtracting cancels a variable &mdash; or just test the answers.</p>
+
+  <div class="demo">
+    <h3>The two routes, side by side</h3>
+    <div class="ways">
+      <div class="way"><div class="w">Substitution</div><p>One variable alone? Put its expression into the other equation, then solve for one variable.</p></div>
+      <div class="way"><div class="w">Elimination</div><p>Line the equations up. If a variable matches, add or subtract to cancel it.</p></div>
+      <div class="way"><div class="w">Back-solve</div><p>Plug each answer choice into both equations until one fits. Fast when choices are given.</p></div>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qtag">Substitution</span><span class="qno">Q5</span></div>
+    <div class="stem">If 3x + y = 10 and y = x &minus; 2, what is the value of x?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>2</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>3</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>4</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>5</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>Substitute y = x &minus; 2: 3x + (x &minus; 2) = 10 &rarr; 4x &minus; 2 = 10 &rarr; 4x = 12 &rarr; <b>x = 3</b>.</div>
+    <details class="more"><summary>Solve it another way</summary><div class="body">
+      <div class="method"><b>Back-solve:</b> test B (x = 3): then y = 1, and 3(3) + 1 = 10. &#10003;</div>
+    </div></details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qtag">Elimination</span><span class="qno">Q6</span></div>
+    <div class="stem">If 2x + 3y = 12 and 2x &minus; y = 4, what is the value of y?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>1</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>2</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>3</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>4</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>Both have 2x, so subtract: (2x + 3y) &minus; (2x &minus; y) = 12 &minus; 4 &rarr; 4y = 8 &rarr; <b>y = 2</b>.</div>
+    <details class="more"><summary>Solve it another way</summary><div class="body">
+      <div class="hack"><span class="h">True shortcut</span> When a variable&rsquo;s coefficient already matches in both equations, subtraction cancels it instantly &mdash; no rearranging needed.</div>
+    </div></details>
+  </div>
+</section>
+
+<section class="seg" id="inequalities">
+  <span class="time">&asymp; 8 min</span>
+  <div class="eyebrow"><span class="num">05</span> Inequalities</div>
+  <h2>One rule changes everything</h2>
+  <p class="lede">Solve an inequality exactly like an equation, with a single exception: <b>flip the direction of the sign whenever you multiply or divide by a negative number.</b></p>
+
+  <div class="q">
+    <div class="qhead"><span class="qtag">The sign flip</span><span class="qno">Q7</span></div>
+    <div class="stem">Solve:&nbsp;&nbsp; &minus;2x + 5 &gt; 1</div>
+    <div class="opts">
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">A</span><span>x &lt; 2</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>x &gt; 2</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>x &lt; &minus;2</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>x &gt; &minus;2</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why A</div>&minus;2x &gt; &minus;4. Divide by &minus;2 <b>and flip the sign</b>: <b>x &lt; 2</b>. (Forgetting to flip gives the trap answer B.)</div>
+    <details class="more"><summary>Solve it another way</summary><div class="body">
+      <div class="hack"><span class="h">True shortcut</span> Circle the negative coefficient before you divide &mdash; it&rsquo;s your reminder to flip. That one habit saves the most common inequality mistake on the test.</div>
+    </div></details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qtag">Greatest value</span><span class="qno">Q8</span></div>
+    <div class="stem">What is the greatest integer value of x for which 3x &minus; 4 &le; 11?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>4</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>5</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>6</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>7</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>3x &minus; 4 &le; 11 &rarr; 3x &le; 15 &rarr; x &le; 5. No flip needed (we divided by +3). The greatest integer that works is <b>5</b>.</div>
+  </div>
+  <details class="teach"><summary>Build the two-route habit</summary><div class="body">For each problem, have the student name their main method, then show one alternative. By August they should have a primary route <i>and</i> a backup
+  (back-solve, elimination) so no question stalls them. And rehearse the inequality flip aloud &mdash; saying &ldquo;negative, so flip&rdquo; makes it stick.</div></details>
+</section>
+
+<section class="seg" id="vocab">
+  <span class="time">&asymp; 7 min</span>
+  <div class="eyebrow"><span class="num">06</span> Vocabulary Lab</div>
+  <h2>Week 2 words &mdash; think in synonyms and antonyms</h2>
+  <p class="lede">Tap a card to flip it. Learn each word next to its opposite &mdash; that&rsquo;s how the test frames them.</p>
+  <div class="cards" id="vcards"></div>
+
+  <h3 style="font-family:var(--display);font-size:21px;margin:26px 0 8px;color:var(--navy)">Quick check</h3>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Synonym</span><span class="qno">V1</span></div>
+    <div class="stem">Which word is closest in meaning to <b>concise</b>?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>verbose</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>succinct</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>vague</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>complex</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div><b>Concise</b> = clear and brief, like <b>succinct</b>. &ldquo;Verbose&rdquo; is its opposite &mdash; the trap.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Antonym</span><span class="qno">V2</span></div>
+    <div class="stem">Which word is most nearly <b>opposite</b> to <b>objective</b>?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>impartial</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>biased</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>neutral</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>factual</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div><b>Objective</b> means unbiased; its opposite is <b>biased</b>. Impartial and neutral are synonyms placed to bait a fast read.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Word in context</span><span class="qno">V3</span></div>
+    <div class="stem">Without documents to back her up, the lawyer could not ______ the claim.</div>
+    <div class="opts">
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">A</span><span>substantiate</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>exaggerate</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>conceal</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>imply</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why A</div>To <b>substantiate</b> is to support with evidence &mdash; exactly what she can&rsquo;t do without documents.</div>
+  </div>
+</section>
+
+<section class="seg" id="wrap">
+  <span class="time">&asymp; 5 min</span>
+  <div class="eyebrow"><span class="num">07</span> Wrap-up</div>
+  <h2>Three things to carry out the door</h2>
+  <p class="lede">Say them out loud &mdash; that&rsquo;s how they stick.</p>
+  <div class="grid">
+    <div class="dom"><h3>Isolate, then check</h3><p>Get the variable alone, then back-solve to confirm in seconds.</p></div>
+    <div class="dom"><h3>Slope is &Delta;y/&Delta;x</h3><p>Same order top and bottom; in y = mx + b, b is the intercept.</p></div>
+    <div class="dom"><h3>Flip on a negative</h3><p>Multiply or divide an inequality by a negative &rarr; flip the sign.</p></div>
+  </div>
+  <details class="teach"><summary>Close the loop</summary><div class="body">Have the student set one specific target for the mid-week mini-lesson. Confirm the two lesson days, point them to the workbook,
+  and preview that <b>Lesson 3 is Advanced Math</b> &mdash; quadratics, functions, and exponentials, which build directly on today&rsquo;s linear work.</div></details>
+</section>
+
+<section class="seg" id="homework">
+  <div class="eyebrow"><span class="num">08</span> Keep the fire lit</div>
+  <h2>Next-two-days handout</h2>
+  <p class="lede">Short, daily, cumulative. Reinforces today and loads Lesson 3.</p>
+  <div class="handout">
+    <div class="hh">
+      <div><div class="ht">Heart of Algebra &mdash; Work for the Next Two Days</div><div class="hs">About 30 minutes a day &middot; name your method on every problem</div></div>
+      <button class="btn" onclick="printDoc('homework')">Print</button>
+    </div>
+    <div style="border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin:12px 0;background:var(--soft)">
+      <div style="font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:600">Day 1 &middot; Reps</div>
+      <h3 style="font-size:17px;margin:3px 0 8px">Run the four moves</h3>
+      <div class="diag">
+        <div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">1.</span> Solve 6x &minus; 5 = 3x + 7. &nbsp; x = ______</div>
+        <div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">2.</span> Slope through (0, 2) and (4, 10). &nbsp; ______</div>
+        <div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">3.</span> x + 2y = 11 and x = y + 2. &nbsp; x = ______</div>
+        <div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">4.</span> Solve &minus;4x + 9 &ge; 1. &nbsp; ______</div>
+        <div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">5.</span> A printer costs $80 plus $0.05 per page. Cost for p pages? &nbsp; ______</div>
+      </div>
+    </div>
+    <div style="border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin:12px 0;background:var(--soft)">
+      <div style="font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:600">Day 2 &middot; Timed + words</div>
+      <h3 style="font-size:17px;margin:3px 0 8px">Beat the clock</h3>
+      <div class="diag">
+        <div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">1.</span> Solve 2(x &minus; 3) = x + 1. &nbsp; x = ______</div>
+        <div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">2.</span> 3x &minus; y = 5 and y = x + 1. &nbsp; x = ______</div>
+        <div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">3.</span> Solve &minus;2x &le; 6. &nbsp; ______</div>
+        <div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">4.</span> Tickets cost $12 each plus a $4 fee. Total for n tickets? &nbsp; ______</div>
+      </div>
+      <p class="lede" style="margin:8px 0 0;font-size:14px">Then: write a synonym and an antonym for all 10 words from memory, and bring one problem you want to review.</p>
+      <details class="more"><summary>Answer key (instructor)</summary><div class="body">
+        <b>Day 1:</b> 1 &middot; x = 4&nbsp;&nbsp; 2 &middot; slope = 2&nbsp;&nbsp; 3 &middot; x = 5&nbsp;&nbsp; 4 &middot; x &le; 2 (flip)&nbsp;&nbsp; 5 &middot; 0.05p + 80<br>
+        <b>Day 2:</b> 1 &middot; x = 7&nbsp;&nbsp; 2 &middot; x = 3&nbsp;&nbsp; 3 &middot; x &ge; &minus;3 (flip)&nbsp;&nbsp; 4 &middot; 12n + 4
+      </div></details>
+    </div>
+    <div class="callout"><b>This sets up Lesson 3.</b> Advanced Math (quadratics and functions) is built on the linear moves you ran today &mdash; factoring is just the reverse of distributing.</div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="fl"></div>
+  <b>KingCretot Experience</b><br>
+  kce@kingcretot.com&nbsp; ·&nbsp; 914-809-0112&nbsp; ·&nbsp; PO Box 2322, Arcadia, FL 34265
+</footer>
+
+<script>
+let attempted=0, correct=0;
+function answer(btn){
+  const q=btn.closest('.q');
+  if(q.dataset.done) return;
+  q.dataset.done="1";
+  const ok=btn.dataset.c==="1";
+  btn.classList.add(ok?"right":"wrong");
+  q.querySelectorAll(".opt").forEach(o=>{ if(o.dataset.c==="1") o.classList.add("right"); o.disabled=true; });
+  const ex=q.querySelector(".explain"); if(ex) ex.classList.add("show");
+  attempted++; if(ok) correct++;
+  document.getElementById("score").textContent=correct+"/"+attempted;
+}
+let secs=0, timer=null;
+function renderT(){ const m=String(Math.floor(secs/60)).padStart(2,"0"); const s=String(secs%60).padStart(2,"0"); document.getElementById("clock").textContent=m+":"+s; }
+function tStart(){ if(timer) return; timer=setInterval(()=>{secs++;renderT();},1000); }
+function tPause(){ clearInterval(timer); timer=null; }
+function tReset(){ tPause(); secs=0; renderT(); }
+function printDoc(which){ document.body.classList.add("print-"+which); window.print(); setTimeout(()=>document.body.classList.remove("print-"+which),300); }
+
+const VOCAB=[
+  ["pragmatic","adj.","Dealing with things sensibly and practically.","practical, sensible","idealistic, impractical"],
+  ["ambiguous","adj.","Open to more than one interpretation; unclear.","vague, unclear","clear, definite"],
+  ["concise","adj.","Clear and informative in few words.","succinct, brief","wordy, rambling"],
+  ["substantiate","v.","To support or prove with evidence.","verify, confirm","disprove, refute"],
+  ["conventional","adj.","Based on what is generally done; traditional.","customary, standard","unconventional, novel"],
+  ["explicit","adj.","Stated clearly and in full detail.","clear, direct","implicit, vague"],
+  ["objective","adj.","Not influenced by personal feelings; unbiased.","impartial, neutral","biased, subjective"],
+  ["nuanced","adj.","Marked by subtle distinctions.","subtle, fine","simplistic, crude"],
+  ["plausible","adj.","Seeming reasonable or probable.","believable, credible","implausible, far-fetched"],
+  ["meticulous","adj.","Showing great attention to detail.","thorough, scrupulous","careless, sloppy"]
+];
+const vc=document.getElementById("vcards");
+VOCAB.forEach(([w,pos,def,syn,ant])=>{
+  const d=document.createElement("div");
+  d.className="fc";
+  d.onclick=function(){ this.classList.toggle("flipped"); };
+  d.innerHTML='<div class="in">'
+    +'<div class="face front"><div class="word">'+w+'</div><div class="pos">'+pos+'</div><div class="tapcue">tap to flip</div></div>'
+    +'<div class="face back"><div class="d">'+def+'</div>'
+    +'<div class="sa"><span class="syn">syn:</span> '+syn+'</div>'
+    +'<div class="sa"><span class="ant">ant:</span> '+ant+'</div></div>'
+    +'</div>';
+  vc.appendChild(d);
+});
+</script>
+</body>
+</html>

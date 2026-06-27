@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAT Foundations — Lesson 4: Geometry & Trigonometry · KingCretot Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet"><style>
+:root{
+  --navy:#0A1F3D; --gold:#C9A84C; --cream:#FAF7EF; --red:#C9342F; --green:#2E7D55;
+  --ink:#172230; --muted:#586273; --line:#E5E0D2; --paper:#FFFFFF; --soft:#F5F2E9;
+  --display:'Fraunces',Georgia,serif; --body:'Inter',system-ui,sans-serif; --mono:'IBM Plex Mono',monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:18px}
+body{margin:0;background:var(--soft);color:var(--ink);font-family:var(--body);font-size:1rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);color:var(--navy);line-height:1.18;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding:0 26px}
+
+/* masthead */
+.mast{background:var(--navy);color:#fff;padding:34px 0 30px}
+.mast .brand{font-family:var(--display);font-weight:700;font-size:23px}
+.mast .tag{font-weight:700;font-size:12px;letter-spacing:2.5px;margin-top:4px}
+.mast .e1{color:#8FB2F5}.mast .e2{color:var(--gold)}.mast .e3{color:#F08C8A}
+.mast .rule{height:3px;width:100%;background:var(--gold);margin:20px 0 22px;border:0}
+.mast h1{color:#fff;font-size:42px;font-weight:600;letter-spacing:-.5px}
+.mast .sub{color:#cfd8e6;margin-top:12px;font-size:18px;max-width:60ch}
+.metarow{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chip{font-size:14px;font-weight:600;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);color:#eaf0f8;padding:8px 14px;border-radius:999px}
+
+/* sticky bar */
+.bar{position:sticky;top:0;z-index:40;background:rgba(245,242,233,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:16px;height:62px}
+.nav{display:flex;gap:6px;overflow-x:auto;flex:1;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:15px;font-weight:600;padding:9px 13px;border-radius:9px}
+.nav a:hover{background:#fff;color:var(--navy)}
+.clock{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.clock .t{font-family:var(--mono);font-weight:500;font-size:18px;color:var(--navy);background:#fff;border:1px solid var(--line);border-radius:9px;padding:7px 11px;min-width:74px;text-align:center}
+.clock button{font-family:var(--body);font-weight:600;font-size:13px;border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:8px;padding:8px 10px;cursor:pointer}
+.clock button:hover{border-color:var(--gold)}
+.scorechip{flex-shrink:0;font-weight:600;font-size:15px;color:#fff;background:var(--navy);border-radius:9px;padding:8px 13px}
+.scorechip b{color:var(--gold);font-family:var(--mono)}
+
+/* sections */
+.seg{padding:50px 0 18px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#9A7D20;font-weight:700;display:flex;align-items:center;gap:11px}
+.eyebrow .num{color:#fff;background:var(--gold);border-radius:7px;padding:3px 10px;font-weight:700}
+.seg h2{font-size:33px;font-weight:600;margin:12px 0 8px}
+.seg .lede{color:var(--muted);max-width:62ch;margin:0 0 22px;font-size:18.5px}
+.time{font-family:var(--mono);font-size:14px;color:var(--muted);float:right;border:1px solid var(--line);border-radius:8px;padding:5px 11px;background:#fff;margin-top:4px}
+
+/* question cards */
+.q{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:28px 28px 24px;margin:22px 0;box-shadow:0 2px 10px rgba(10,31,61,.04)}
+.q .qhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.q .qtag{font-size:13.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);font-weight:700}
+.q .qno{font-family:var(--mono);font-weight:500;color:var(--gold);font-size:16px}
+.passage{background:var(--cream);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:16px 18px;margin:10px 0 16px;font-size:17.5px;line-height:1.6}
+.stem{font-weight:600;margin:8px 0 18px;font-size:20px;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:13px}
+.opt{display:flex;gap:14px;align-items:center;text-align:left;width:100%;background:#fff;border:2px solid var(--line);border-radius:12px;padding:16px 18px;cursor:pointer;font:inherit;font-size:18px;color:var(--ink);transition:border-color .12s,background .12s}
+.opt:hover:not(:disabled){border-color:#9DB6E8;background:#fbfcfe}
+.opt:disabled{cursor:default}
+.opt .ltr{flex-shrink:0;width:32px;height:32px;border-radius:8px;border:2px solid var(--line);display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:16px;color:var(--navy)}
+.opt.right{border-color:var(--green);background:#edf7f1}
+.opt.right .ltr{background:var(--green);border-color:var(--green);color:#fff}
+.opt.wrong{border-color:var(--red);background:#fcedec}
+.opt.wrong .ltr{background:var(--red);border-color:var(--red);color:#fff}
+.explain{display:none;margin-top:18px;border-top:1px dashed var(--line);padding-top:16px;font-size:17px;line-height:1.6}
+.explain.show{display:block}
+.explain .lbl{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:5px}
+.explain .clue{color:var(--muted);font-style:italic}
+
+details.more,details.teach{margin-top:16px;border-radius:12px;overflow:hidden}
+details.more{background:var(--soft);border:1px solid var(--line)}
+details.more>summary{cursor:pointer;font-weight:600;font-size:16px;color:var(--navy);padding:13px 16px;list-style:none}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::before{content:"+ ";color:var(--gold);font-weight:700}
+details.more[open]>summary::before{content:"– "}
+details.more .body{padding:2px 17px 16px;font-size:16.5px}
+.method{margin:12px 0;padding-left:14px;border-left:3px solid #9DB6E8}
+.method b{color:var(--navy)}
+.hack{background:#fff;border:1px dashed var(--gold);border-radius:11px;padding:13px 15px;margin-top:12px;font-size:16px}
+.hack .h{font-size:12.5px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:700;display:block;margin-bottom:3px}
+
+details.teach{background:#0E2342;border:1px solid #1c3a64}
+details.teach>summary{cursor:pointer;font-weight:700;font-size:15px;color:#fff;padding:13px 16px;list-style:none}
+details.teach>summary::-webkit-details-marker{display:none}
+details.teach>summary::before{content:"For the instructor  ›  ";color:var(--gold);font-weight:600}
+details.teach[open]>summary::before{content:"For the instructor  ⌄  ";color:var(--gold);font-weight:600}
+details.teach .body{padding:2px 17px 16px;font-size:16px;color:#d3deee;line-height:1.6}
+details.teach .body b{color:#fff}
+
+/* domain grid */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 0 6px}
+.dom{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 19px}
+.dom h3{font-size:18px;font-family:var(--body);font-weight:700;color:var(--navy)}
+.dom p{margin:6px 0 0;font-size:16px;color:var(--muted);line-height:1.55}
+.dom .pct{color:#9A7D20;font-weight:600;font-size:14px}
+
+.demo{background:var(--navy);color:#eaf0f8;border-radius:16px;padding:24px 26px;margin:22px 0}
+.demo h3{color:#fff;font-family:var(--body);font-weight:700;font-size:19px}
+.demo .ways{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:16px}
+.demo .way{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:16px}
+.demo .way .w{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:7px}
+.demo .way p{margin:0;font-size:16px;color:#dbe4f1;line-height:1.55}
+.demo code{font-family:var(--mono);background:rgba(255,255,255,.12);padding:2px 6px;border-radius:5px;font-size:15px}
+
+/* vocab */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:16px;margin:10px 0}
+.fc{height:158px;perspective:1100px;cursor:pointer}
+.fc .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.fc.flipped .in{transform:rotateY(180deg)}
+.fc .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:16px;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--line)}
+.fc .front{background:#fff}
+.fc .front .word{font-family:var(--display);font-weight:600;font-size:25px;color:var(--navy)}
+.fc .front .pos{font-size:14px;color:var(--muted);font-style:italic;margin-top:2px}
+.fc .front .tapcue{font-size:12px;color:#9A7D20;letter-spacing:1px;margin-top:auto;text-transform:uppercase;font-weight:600}
+.fc .back{background:var(--navy);color:#eaf0f8;transform:rotateY(180deg);font-size:15px;line-height:1.5}
+.fc .back .d{margin-bottom:9px}
+.fc .back .sa{font-size:14px;margin-top:3px}
+.fc .back .syn{color:#8fe3b3;font-weight:600} .fc .back .ant{color:#f4a3a3;font-weight:600}
+
+/* handout */
+.handout{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:30px 30px 26px;margin:20px 0}
+.handout .hh{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;border-bottom:3px solid var(--gold);padding-bottom:14px;margin-bottom:18px}
+.handout .hh .ht{font-family:var(--display);font-weight:600;font-size:24px;color:var(--navy)}
+.handout .hh .hs{font-size:15px;color:var(--muted);margin-top:3px}
+.handout h3{font-size:17px;font-family:var(--body);color:var(--navy)}
+.btn{font-family:var(--body);font-weight:600;font-size:14px;border:1px solid var(--navy);background:var(--navy);color:#fff;border-radius:9px;padding:10px 16px;cursor:pointer;flex-shrink:0}
+.btn:hover{background:#16315a}
+.checklist{list-style:none;padding:0;margin:0 0 6px}
+.checklist li{padding:9px 0 9px 34px;position:relative;font-size:17px;border-bottom:1px solid var(--soft)}
+.checklist li::before{content:"";position:absolute;left:0;top:11px;width:19px;height:19px;border:2px solid var(--gold);border-radius:5px}
+.daybox{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0;background:var(--soft)}
+.daybox .dl{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:700}
+.daybox h3{font-size:20px;font-family:var(--display);margin:4px 0 10px}
+.daybox ol{margin:8px 0;padding-left:22px;font-size:17px}
+.daybox ol li{margin:7px 0}
+.write{border-bottom:1px solid #cdc6b2;height:26px;margin:10px 0}
+.diag{margin:8px 0}
+.diag .di{padding:12px 0;border-bottom:1px solid var(--soft);font-size:17px;line-height:1.55}
+.diag .di b{color:var(--navy)}
+.diag .di .n{font-family:var(--mono);color:var(--gold);font-weight:600;margin-right:9px}
+.key{font-family:var(--mono);font-size:14.5px;color:var(--muted);line-height:1.7}
+
+.callout{background:var(--cream);border:1px solid var(--gold);border-radius:14px;padding:18px 20px;margin:18px 0;font-size:17.5px;line-height:1.6}
+.callout b{color:var(--navy)}
+
+.foot{background:var(--navy);color:#aeb9c9;text-align:center;padding:26px;font-size:14px;margin-top:10px}
+.foot b{color:#fff;font-family:var(--display)}
+.foot .fl{height:2px;background:var(--gold);max-width:340px;margin:0 auto 14px}
+
+@media (max-width:680px){
+  html{font-size:17px}
+  .grid,.demo .ways{grid-template-columns:1fr}
+  .mast h1{font-size:31px}
+  .seg h2{font-size:27px}
+  .time{float:none;display:inline-block;margin-bottom:10px}
+}
+@media (prefers-reduced-motion:reduce){.fc .in{transition:none}html{scroll-behavior:auto}}
+@media print{
+  body{background:#fff}
+  body *{visibility:hidden}
+  body.print-prework #prework,body.print-prework #prework *,
+  body.print-homework #homework,body.print-homework #homework *{visibility:visible}
+  body.print-prework #prework,body.print-homework #homework{position:absolute;left:0;top:0;width:100%;border:0;margin:0;padding:0}
+  .btn,.time,details.teach{display:none!important}.seg{border:0}
+}
+</style></head><body>
+<header class="mast"><div class="wrap"><div class="brand">KingCretot Experience</div>
+<div class="tag"><span class="e1">EDUCATE.</span>&nbsp;&nbsp;<span class="e2">EMPOWER.</span>&nbsp;&nbsp;<span class="e3">EXCEL.</span></div><hr class="rule"><h1>SAT Foundations — Lesson 4</h1>
+<div class="sub">Geometry & Trigonometry. Angles, triangles, circles, and a little trig — a formula sheet is provided on the test, so the win is knowing which tool to reach for.</div><div class="metarow"><span class="chip">60 minutes</span><span class="chip">Computer + paper</span><span class="chip">Math · Geometry & Trig</span></div></div></header>
+<div class="bar"><div class="wrap"><nav class="nav"><a href="#prework">Pre-work</a><a href="#angles">Angles</a><a href="#triangles">Triangles</a><a href="#circles">Circles & volume</a><a href="#trig">Trig</a><a href="#vocab">Vocab Lab</a><a href="#wrap">Wrap-up</a><a href="#homework">Homework</a></nav>
+<div class="clock" title="For exam-mode pacing"><span class="t" id="clock">00:00</span>
+<button onclick="tStart()">Start</button><button onclick="tPause()">Pause</button><button onclick="tReset()">Reset</button></div>
+<span class="scorechip">Score <b id="score">0/0</b></span></div></div>
+<main class="wrap">
+<section class="seg"><div class="callout"><b>How to run this lesson.</b> Send the <a href="#prework">pre-work</a> a day ahead. Open with goals (5 min), then angles (12), right triangles (16), circles &amp; volume (12), trig &amp; similarity (8), the Vocabulary Lab (7), and a wrap that assigns the <a href="#homework">next-two-days</a> work. The dark navy notes are for the instructor only.</div><details class="teach"><summary>The frame for today</summary><div class="body">One line to open: <b>&ldquo;The SAT hands you the formulas — your job is recognition, not memorization.&rdquo;</b> Today is about spotting the triangle type, the right formula, and the hidden 3-4-5.</div></details></section>
+<section class="seg" id="prework"><div class="eyebrow"><span class="num">00</span> Before you begin</div><h2>Pre-work handout</h2><p class="lede">Five minutes of warm-up makes the lesson land faster.</p><div class="handout"><div class="hh"><div><div class="ht">Geometry & Trig — Pre-work</div><div class="hs">Complete on paper before our session · about 10 minutes</div></div><button class="btn" onclick="printDoc('prework')">Print</button></div><h3 style="font-family:var(--body);font-size:15px;margin-bottom:6px">Warm-up</h3><div class="diag"><div class="di"><b>1.</b> The angles of a triangle add to ______ degrees.</div><div class="di"><b>2.</b> A right triangle has legs 3 and 4. The hypotenuse is ______.</div><div class="di"><b>3.</b> A circle has radius 2. Its area is ______.</div><div class="di"><b>4.</b> Two angles are complementary. One is 30°. The other is ______.</div></div><details class="more" style="margin-top:14px"><summary>Answer key (instructor)</summary><div class="body">1 &middot; 180&nbsp;&nbsp; 2 &middot; 5&nbsp;&nbsp; 3 &middot; 4π&nbsp;&nbsp; 4 &middot; 60°</div></details></div></section>
+<section class="seg" id="angles"><span class="time">&asymp; 12 min</span><div class="eyebrow"><span class="num">02</span> Angles</div><h2>The angle rules that repeat</h2><p class="lede">A triangle’s angles add to 180°. A straight line is 180°. Complementary angles add to 90°; supplementary add to 180°; vertical angles are equal.</p>  <div class="q">
+    <div class="qhead"><span class="qtag">Triangle sum</span><span class="qno">1</span></div>
+    <div class="stem">Two angles of a triangle measure 50° and 60°. What is the third angle?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>60°</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>70°</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>80°</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>90°</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>All three add to 180°: 180 − (50 + 60) = <b>70°</b>.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Complementary</span><span class="qno">2</span></div>
+    <div class="stem">Angles A and B are complementary. If A = 35°, what is B?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>45°</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>55°</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>65°</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>145°</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>Complementary means they add to 90°: 90 − 35 = <b>55°</b>.</div>
+  </div>
+</section>
+<section class="seg" id="triangles"><span class="time">&asymp; 16 min</span><div class="eyebrow"><span class="num">03</span> Right triangles</div><h2>Three triangle tools</h2><p class="lede">For right triangles, reach for the Pythagorean theorem, the common triples, or the two special triangles.</p>  <div class="demo">
+    <h3>Pick the fastest tool</h3>
+    <div class="ways">
+      <div class="way"><div class="w">Pythagorean</div><p>a² + b² = c² always works for a right triangle.</p></div>
+      <div class="way"><div class="w">Triples</div><p>Recognize 3-4-5, 5-12-13, 8-15-17 and their multiples — instant answer.</p></div>
+      <div class="way"><div class="w">Special right</div><p>45-45-90 sides are x, x, x√2. 30-60-90 sides are x, x√3, 2x.</p></div>
+    </div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Triple</span><span class="qno">3</span></div>
+    <div class="stem">A right triangle has legs of length 9 and 12. What is the hypotenuse?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>13</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>15</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>18</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>21</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>9-12-15 is the 3-4-5 triangle tripled → <b>15</b>. (Check: 81 + 144 = 225 = 15².)</div>
+    <details class="more"><summary>Solve it another way</summary><div class="body"><div class="hack"><span class="h">True shortcut</span> If the legs are multiples of 3 and 4, the hypotenuse is the matching multiple of 5.</div></div></details>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Special right</span><span class="qno">4</span></div>
+    <div class="stem">In a 45-45-90 right triangle, each leg is 5. What is the hypotenuse?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>5</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>5√2</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>10</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>10√2</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>In a 45-45-90 triangle the hypotenuse is a leg times √2 → <b>5√2</b>.</div>
+  </div>
+</section>
+<section class="seg" id="circles"><span class="time">&asymp; 12 min</span><div class="eyebrow"><span class="num">04</span> Circles & volume</div><h2>Area, circumference, volume</h2><p class="lede">Circle area is πr²; circumference is 2πr. For solids, volume multiplies the base area by the height.</p>  <div class="q">
+    <div class="qhead"><span class="qtag">Circle area</span><span class="qno">5</span></div>
+    <div class="stem">A circle has radius 4. What is its area?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>8π</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>16π</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>4π</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>64π</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>Area = πr² = π(4)² = <b>16π</b>.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Cylinder volume</span><span class="qno">6</span></div>
+    <div class="stem">A cylinder has radius 3 and height 5. What is its volume?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>15π</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>45π</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>30π</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>75π</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>Volume = πr²h = π(9)(5) = <b>45π</b>.</div>
+  </div>
+</section>
+<section class="seg" id="trig"><span class="time">&asymp; 8 min</span><div class="eyebrow"><span class="num">05</span> Trig & similarity</div><h2>SOH-CAH-TOA, and scaling</h2><p class="lede">Sine = opposite/hypotenuse, cosine = adjacent/hypotenuse, tangent = opposite/adjacent. Similar triangles keep the same shape — every side scales by the same factor.</p>  <div class="q">
+    <div class="qhead"><span class="qtag">Sine</span><span class="qno">7</span></div>
+    <div class="stem">In a right triangle, the side opposite a 30° angle is 6 and the hypotenuse is 12. What is sin(30°)?</div>
+    <div class="opts">
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">A</span><span>0.5</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>1</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>2</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>0.25</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why A</div>sin = opposite / hypotenuse = 6 / 12 = <b>0.5</b>.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Similar triangles</span><span class="qno">8</span></div>
+    <div class="stem">A 3-4-5 triangle is enlarged so its shortest side is 9. How long is its longest side?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>12</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>15</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>18</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>20</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>The shortest side went from 3 to 9, a scale factor of 3. The longest side: 5 × 3 = <b>15</b>.</div>
+  </div>
+<details class="teach"><summary>Recognition over memorization</summary><div class="body">The reference sheet gives the formulas — train the student to label what they have (legs? radius? angle?) and pick the matching tool. Drill the triples and the two special triangles until they’re instant; that’s where the time savings live.</div></details></section>
+<section class="seg" id="vocab"><span class="time">&asymp; 8 min</span><div class="eyebrow"><span class="num">06</span> Vocabulary Lab</div><h2>This week’s words — think in synonyms and antonyms</h2><p class="lede">Tap a card to flip it. Learn each word next to its opposite — that’s how the test frames them.</p><div class="cards" id="vcards"></div><h3 style="font-family:var(--display);font-size:21px;margin:26px 0 8px;color:var(--navy)">Quick check</h3>  <div class="q">
+    <div class="qhead"><span class="qtag">Synonym</span><span class="qno">9</span></div>
+    <div class="stem">Which word is closest in meaning to <b>intricate</b>?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>simple</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>complex</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>large</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>dull</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div><b>Intricate</b> = complicated and detailed, like <b>complex</b>.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Antonym</span><span class="qno">10</span></div>
+    <div class="stem">Which word is most nearly <b>opposite</b> to <b>diminish</b>?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>reduce</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>lessen</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">C</span><span>increase</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>shrink</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why C</div><b>Diminish</b> = make smaller; its opposite is <b>increase</b>.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Word in context</span><span class="qno">11</span></div>
+    <div class="stem">The two highways ______ at the city center before splitting off again.</div>
+    <div class="opts">
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">A</span><span>converge</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>diminish</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>validate</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>fluctuate</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why A</div><b>Converge</b> = come together from different directions.</div>
+  </div>
+</section>
+<section class="seg" id="wrap"><span class="time">&asymp; 5 min</span><div class="eyebrow"><span class="num">07</span> Wrap-up</div><h2>Three things to carry out the door</h2><p class="lede">Say them out loud — that’s how they stick.</p>  <div class="grid">
+    <div class="dom"><h3>Angles sum to 180°</h3><p>In every triangle — your most-used rule.</p></div>
+    <div class="dom"><h3>Know the triples</h3><p>3-4-5, 5-12-13, and the 45-45-90 / 30-60-90 specials.</p></div>
+    <div class="dom"><h3>πr² and 2πr</h3><p>Circle area and circumference — memorize the pair.</p></div>
+  </div>
+<details class="teach"><summary>Close the loop</summary><div class="body">Have the student set one target for the mid-week. Confirm the two lesson days, point them to the workbook, and preview that <b>Lesson 5 is Problem-Solving &amp; Data Analysis</b> — the last math domain.</div></details></section>
+<section class="seg" id="homework"><div class="eyebrow"><span class="num">08</span> Keep the fire lit</div><h2>Next-two-days handout</h2><p class="lede">Short, daily, cumulative.</p><div class="handout"><div class="hh"><div><div class="ht">Geometry & Trig — Work for the Next Two Days</div><div class="hs">About 30 minutes a day · sketch the figure every time</div></div><button class="btn" onclick="printDoc('homework')">Print</button></div><div style="border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin:12px 0;background:var(--soft)"><div style="font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:600">Day 1 · Angles, triangles, circles</div><h3 style="font-size:17px;margin:3px 0 8px">Reach for the right tool</h3><div class="diag"><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">1.</span> Triangle angles are 40° and 75°. The third? &nbsp; ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">2.</span> Right triangle legs 8 and 15. Hypotenuse? &nbsp; ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">3.</span> Circle radius 5. Area? &nbsp; ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">4.</span> Two complementary angles; one is 28°. The other? &nbsp; ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">5.</span> 45-45-90 triangle with legs 7. Hypotenuse? &nbsp; ______</div></div></div><div style="border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin:12px 0;background:var(--soft)"><div style="font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:600">Day 2 · Volume, trig, similarity</div><h3 style="font-size:17px;margin:3px 0 8px">Scale and solve</h3><div class="diag"><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">1.</span> Cylinder radius 2, height 10. Volume? &nbsp; ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">2.</span> Right triangle: opposite = 3, hypotenuse = 6. sin θ? &nbsp; ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">3.</span> Rectangle area 60, length 12. Width? &nbsp; ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">4.</span> Similar triangles, scale factor 4. A side of 3 becomes? &nbsp; ______</div></div></div><details class="more"><summary>Answer key (instructor)</summary><div class="body"><b>Day 1:</b> 1 &middot; 65°&nbsp;&nbsp; 2 &middot; 17&nbsp;&nbsp; 3 &middot; 25π&nbsp;&nbsp; 4 &middot; 62°&nbsp;&nbsp; 5 &middot; 7√2<br><b>Day 2:</b> 1 &middot; 40π&nbsp;&nbsp; 2 &middot; 0.5&nbsp;&nbsp; 3 &middot; 5&nbsp;&nbsp; 4 &middot; 12</div></details><div class="callout"><b>This sets up Lesson 5.</b> Data and word problems lean on ratios and arithmetic — the same careful setup you used to label triangles.</div></div></section>
+</main>
+<footer class="foot"><div class="fl"></div><b>KingCretot Experience</b><br>kce@kingcretot.com&nbsp; ·&nbsp; 914-809-0112&nbsp; ·&nbsp; PO Box 2322, Arcadia, FL 34265</footer>
+<script>
+let attempted=0, correct=0;
+function answer(btn){const q=btn.closest('.q');if(q.dataset.done)return;q.dataset.done="1";
+const ok=btn.dataset.c==="1";btn.classList.add(ok?"right":"wrong");
+q.querySelectorAll(".opt").forEach(o=>{if(o.dataset.c==="1")o.classList.add("right");o.disabled=true;});
+const ex=q.querySelector(".explain");if(ex)ex.classList.add("show");
+attempted++;if(ok)correct++;document.getElementById("score").textContent=correct+"/"+attempted;}
+let secs=0,timer=null;
+function renderT(){const m=String(Math.floor(secs/60)).padStart(2,"0");const s=String(secs%60).padStart(2,"0");document.getElementById("clock").textContent=m+":"+s;}
+function tStart(){if(timer)return;timer=setInterval(()=>{secs++;renderT();},1000);}
+function tPause(){clearInterval(timer);timer=null;}
+function tReset(){tPause();secs=0;renderT();}
+function printDoc(which){document.body.classList.add("print-"+which);window.print();setTimeout(()=>document.body.classList.remove("print-"+which),300);}
+const VOCAB=[
+  ["adjacent","adj.","Next to or adjoining something else.","neighboring, bordering","distant, separated"],
+  ["analogous","adj.","Comparable in certain respects.","comparable, similar","dissimilar, unlike"],
+  ["comprehensive","adj.","Complete; covering all or nearly all parts.","thorough, exhaustive","partial, limited"],
+  ["converge","v.","To come together from different directions.","meet, intersect","diverge, separate"],
+  ["diminish","v.","To make or become smaller or less.","decrease, reduce","increase, augment"],
+  ["intricate","adj.","Very complicated or detailed.","complex, elaborate","simple, plain"],
+  ["proportional","adj.","Corresponding in size or amount.","commensurate, relative","disproportionate, unequal"],
+  ["sufficient","adj.","Enough for a particular purpose.","adequate, ample","insufficient, inadequate"],
+  ["symmetrical","adj.","Balanced and even in proportions.","balanced, even","asymmetrical, lopsided"],
+  ["validate","v.","To confirm or prove that something is accurate.","confirm, verify","invalidate, refute"]
+];
+const vc=document.getElementById("vcards");
+VOCAB.forEach(([w,pos,def,syn,ant])=>{const d=document.createElement("div");d.className="fc";
+d.onclick=function(){this.classList.toggle("flipped");};
+d.innerHTML='<div class="in"><div class="face front"><div class="word">'+w+'</div><div class="pos">'+pos+'</div><div class="tapcue">tap to flip</div></div><div class="face back"><div class="d">'+def+'</div><div class="sa"><span class="syn">syn:</span> '+syn+'</div><div class="sa"><span class="ant">ant:</span> '+ant+'</div></div></div>';
+vc.appendChild(d);});
+</script></body></html>

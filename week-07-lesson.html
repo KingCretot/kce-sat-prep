@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAT Foundations — Lesson 7: Writing — Expression of Ideas · KingCretot Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet"><style>
+:root{
+  --navy:#0A1F3D; --gold:#C9A84C; --cream:#FAF7EF; --red:#C9342F; --green:#2E7D55;
+  --ink:#172230; --muted:#586273; --line:#E5E0D2; --paper:#FFFFFF; --soft:#F5F2E9;
+  --display:'Fraunces',Georgia,serif; --body:'Inter',system-ui,sans-serif; --mono:'IBM Plex Mono',monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:18px}
+body{margin:0;background:var(--soft);color:var(--ink);font-family:var(--body);font-size:1rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);color:var(--navy);line-height:1.18;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding:0 26px}
+
+/* masthead */
+.mast{background:var(--navy);color:#fff;padding:34px 0 30px}
+.mast .brand{font-family:var(--display);font-weight:700;font-size:23px}
+.mast .tag{font-weight:700;font-size:12px;letter-spacing:2.5px;margin-top:4px}
+.mast .e1{color:#8FB2F5}.mast .e2{color:var(--gold)}.mast .e3{color:#F08C8A}
+.mast .rule{height:3px;width:100%;background:var(--gold);margin:20px 0 22px;border:0}
+.mast h1{color:#fff;font-size:42px;font-weight:600;letter-spacing:-.5px}
+.mast .sub{color:#cfd8e6;margin-top:12px;font-size:18px;max-width:60ch}
+.metarow{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chip{font-size:14px;font-weight:600;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);color:#eaf0f8;padding:8px 14px;border-radius:999px}
+
+/* sticky bar */
+.bar{position:sticky;top:0;z-index:40;background:rgba(245,242,233,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:16px;height:62px}
+.nav{display:flex;gap:6px;overflow-x:auto;flex:1;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:15px;font-weight:600;padding:9px 13px;border-radius:9px}
+.nav a:hover{background:#fff;color:var(--navy)}
+.clock{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.clock .t{font-family:var(--mono);font-weight:500;font-size:18px;color:var(--navy);background:#fff;border:1px solid var(--line);border-radius:9px;padding:7px 11px;min-width:74px;text-align:center}
+.clock button{font-family:var(--body);font-weight:600;font-size:13px;border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:8px;padding:8px 10px;cursor:pointer}
+.clock button:hover{border-color:var(--gold)}
+.scorechip{flex-shrink:0;font-weight:600;font-size:15px;color:#fff;background:var(--navy);border-radius:9px;padding:8px 13px}
+.scorechip b{color:var(--gold);font-family:var(--mono)}
+
+/* sections */
+.seg{padding:50px 0 18px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#9A7D20;font-weight:700;display:flex;align-items:center;gap:11px}
+.eyebrow .num{color:#fff;background:var(--gold);border-radius:7px;padding:3px 10px;font-weight:700}
+.seg h2{font-size:33px;font-weight:600;margin:12px 0 8px}
+.seg .lede{color:var(--muted);max-width:62ch;margin:0 0 22px;font-size:18.5px}
+.time{font-family:var(--mono);font-size:14px;color:var(--muted);float:right;border:1px solid var(--line);border-radius:8px;padding:5px 11px;background:#fff;margin-top:4px}
+
+/* question cards */
+.q{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:28px 28px 24px;margin:22px 0;box-shadow:0 2px 10px rgba(10,31,61,.04)}
+.q .qhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.q .qtag{font-size:13.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);font-weight:700}
+.q .qno{font-family:var(--mono);font-weight:500;color:var(--gold);font-size:16px}
+.passage{background:var(--cream);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:16px 18px;margin:10px 0 16px;font-size:17.5px;line-height:1.6}
+.stem{font-weight:600;margin:8px 0 18px;font-size:20px;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:13px}
+.opt{display:flex;gap:14px;align-items:center;text-align:left;width:100%;background:#fff;border:2px solid var(--line);border-radius:12px;padding:16px 18px;cursor:pointer;font:inherit;font-size:18px;color:var(--ink);transition:border-color .12s,background .12s}
+.opt:hover:not(:disabled){border-color:#9DB6E8;background:#fbfcfe}
+.opt:disabled{cursor:default}
+.opt .ltr{flex-shrink:0;width:32px;height:32px;border-radius:8px;border:2px solid var(--line);display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:16px;color:var(--navy)}
+.opt.right{border-color:var(--green);background:#edf7f1}
+.opt.right .ltr{background:var(--green);border-color:var(--green);color:#fff}
+.opt.wrong{border-color:var(--red);background:#fcedec}
+.opt.wrong .ltr{background:var(--red);border-color:var(--red);color:#fff}
+.explain{display:none;margin-top:18px;border-top:1px dashed var(--line);padding-top:16px;font-size:17px;line-height:1.6}
+.explain.show{display:block}
+.explain .lbl{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:5px}
+.explain .clue{color:var(--muted);font-style:italic}
+
+details.more,details.teach{margin-top:16px;border-radius:12px;overflow:hidden}
+details.more{background:var(--soft);border:1px solid var(--line)}
+details.more>summary{cursor:pointer;font-weight:600;font-size:16px;color:var(--navy);padding:13px 16px;list-style:none}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::before{content:"+ ";color:var(--gold);font-weight:700}
+details.more[open]>summary::before{content:"– "}
+details.more .body{padding:2px 17px 16px;font-size:16.5px}
+.method{margin:12px 0;padding-left:14px;border-left:3px solid #9DB6E8}
+.method b{color:var(--navy)}
+.hack{background:#fff;border:1px dashed var(--gold);border-radius:11px;padding:13px 15px;margin-top:12px;font-size:16px}
+.hack .h{font-size:12.5px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:700;display:block;margin-bottom:3px}
+
+details.teach{background:#0E2342;border:1px solid #1c3a64}
+details.teach>summary{cursor:pointer;font-weight:700;font-size:15px;color:#fff;padding:13px 16px;list-style:none}
+details.teach>summary::-webkit-details-marker{display:none}
+details.teach>summary::before{content:"For the instructor  ›  ";color:var(--gold);font-weight:600}
+details.teach[open]>summary::before{content:"For the instructor  ⌄  ";color:var(--gold);font-weight:600}
+details.teach .body{padding:2px 17px 16px;font-size:16px;color:#d3deee;line-height:1.6}
+details.teach .body b{color:#fff}
+
+/* domain grid */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 0 6px}
+.dom{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 19px}
+.dom h3{font-size:18px;font-family:var(--body);font-weight:700;color:var(--navy)}
+.dom p{margin:6px 0 0;font-size:16px;color:var(--muted);line-height:1.55}
+.dom .pct{color:#9A7D20;font-weight:600;font-size:14px}
+
+.demo{background:var(--navy);color:#eaf0f8;border-radius:16px;padding:24px 26px;margin:22px 0}
+.demo h3{color:#fff;font-family:var(--body);font-weight:700;font-size:19px}
+.demo .ways{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:16px}
+.demo .way{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:16px}
+.demo .way .w{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:7px}
+.demo .way p{margin:0;font-size:16px;color:#dbe4f1;line-height:1.55}
+.demo code{font-family:var(--mono);background:rgba(255,255,255,.12);padding:2px 6px;border-radius:5px;font-size:15px}
+
+/* vocab */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:16px;margin:10px 0}
+.fc{height:158px;perspective:1100px;cursor:pointer}
+.fc .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.fc.flipped .in{transform:rotateY(180deg)}
+.fc .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:16px;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--line)}
+.fc .front{background:#fff}
+.fc .front .word{font-family:var(--display);font-weight:600;font-size:25px;color:var(--navy)}
+.fc .front .pos{font-size:14px;color:var(--muted);font-style:italic;margin-top:2px}
+.fc .front .tapcue{font-size:12px;color:#9A7D20;letter-spacing:1px;margin-top:auto;text-transform:uppercase;font-weight:600}
+.fc .back{background:var(--navy);color:#eaf0f8;transform:rotateY(180deg);font-size:15px;line-height:1.5}
+.fc .back .d{margin-bottom:9px}
+.fc .back .sa{font-size:14px;margin-top:3px}
+.fc .back .syn{color:#8fe3b3;font-weight:600} .fc .back .ant{color:#f4a3a3;font-weight:600}
+
+/* handout */
+.handout{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:30px 30px 26px;margin:20px 0}
+.handout .hh{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;border-bottom:3px solid var(--gold);padding-bottom:14px;margin-bottom:18px}
+.handout .hh .ht{font-family:var(--display);font-weight:600;font-size:24px;color:var(--navy)}
+.handout .hh .hs{font-size:15px;color:var(--muted);margin-top:3px}
+.handout h3{font-size:17px;font-family:var(--body);color:var(--navy)}
+.btn{font-family:var(--body);font-weight:600;font-size:14px;border:1px solid var(--navy);background:var(--navy);color:#fff;border-radius:9px;padding:10px 16px;cursor:pointer;flex-shrink:0}
+.btn:hover{background:#16315a}
+.checklist{list-style:none;padding:0;margin:0 0 6px}
+.checklist li{padding:9px 0 9px 34px;position:relative;font-size:17px;border-bottom:1px solid var(--soft)}
+.checklist li::before{content:"";position:absolute;left:0;top:11px;width:19px;height:19px;border:2px solid var(--gold);border-radius:5px}
+.daybox{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0;background:var(--soft)}
+.daybox .dl{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:700}
+.daybox h3{font-size:20px;font-family:var(--display);margin:4px 0 10px}
+.daybox ol{margin:8px 0;padding-left:22px;font-size:17px}
+.daybox ol li{margin:7px 0}
+.write{border-bottom:1px solid #cdc6b2;height:26px;margin:10px 0}
+.diag{margin:8px 0}
+.diag .di{padding:12px 0;border-bottom:1px solid var(--soft);font-size:17px;line-height:1.55}
+.diag .di b{color:var(--navy)}
+.diag .di .n{font-family:var(--mono);color:var(--gold);font-weight:600;margin-right:9px}
+.key{font-family:var(--mono);font-size:14.5px;color:var(--muted);line-height:1.7}
+
+.callout{background:var(--cream);border:1px solid var(--gold);border-radius:14px;padding:18px 20px;margin:18px 0;font-size:17.5px;line-height:1.6}
+.callout b{color:var(--navy)}
+
+.foot{background:var(--navy);color:#aeb9c9;text-align:center;padding:26px;font-size:14px;margin-top:10px}
+.foot b{color:#fff;font-family:var(--display)}
+.foot .fl{height:2px;background:var(--gold);max-width:340px;margin:0 auto 14px}
+
+@media (max-width:680px){
+  html{font-size:17px}
+  .grid,.demo .ways{grid-template-columns:1fr}
+  .mast h1{font-size:31px}
+  .seg h2{font-size:27px}
+  .time{float:none;display:inline-block;margin-bottom:10px}
+}
+@media (prefers-reduced-motion:reduce){.fc .in{transition:none}html{scroll-behavior:auto}}
+@media print{
+  body{background:#fff}
+  body *{visibility:hidden}
+  body.print-prework #prework,body.print-prework #prework *,
+  body.print-homework #homework,body.print-homework #homework *{visibility:visible}
+  body.print-prework #prework,body.print-homework #homework{position:absolute;left:0;top:0;width:100%;border:0;margin:0;padding:0}
+  .btn,.time,details.teach{display:none!important}.seg{border:0}
+}
+
+.passage{background:#FAF7EF;border-left:4px solid #C9A84C;padding:13px 17px;border-radius:9px;margin:0 0 15px;font-size:16px;line-height:1.62;color:#22324a}
+.passage .src{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:#9A7D20;margin-bottom:5px}</style></head><body>
+<header class="mast"><div class="wrap"><div class="brand">KingCretot Experience</div>
+<div class="tag"><span class="e1">EDUCATE.</span>&nbsp;&nbsp;<span class="e2">EMPOWER.</span>&nbsp;&nbsp;<span class="e3">EXCEL.</span></div><hr class="rule"><h1>SAT Foundations — Lesson 7</h1>
+<div class="sub">Writing. Transitions, sentence combining, and rhetorical synthesis — choosing the words and the sentence that do the job the question asks.</div><div class="metarow"><span class="chip">60 minutes</span><span class="chip">Computer + paper</span><span class="chip">Writing · Expression of Ideas</span></div></div></header>
+<div class="bar"><div class="wrap"><nav class="nav"><a href="#prework">Pre-work</a><a href="#transitions">Transitions</a><a href="#combine">Combining</a><a href="#synthesis">Synthesis</a><a href="#vocab">Vocab Lab</a><a href="#wrap">Wrap-up</a><a href="#homework">Homework</a></nav>
+<div class="clock" title="For exam-mode pacing"><span class="t" id="clock">00:00</span>
+<button onclick="tStart()">Start</button><button onclick="tPause()">Pause</button><button onclick="tReset()">Reset</button></div>
+<span class="scorechip">Score <b id="score">0/0</b></span></div></div>
+<main class="wrap">
+<section class="seg"><div class="callout"><b>How to run this lesson.</b> Send the <a href="#prework">pre-work</a> a day ahead. Open with goals (5 min), then transitions (16), combining sentences (12), rhetorical synthesis (16), the Vocabulary Lab (7), and a wrap that assigns the <a href="#homework">next-two-days</a> work. The dark navy notes are for the instructor only.</div><details class="teach"><summary>The frame for today</summary><div class="body">One line to open: <b>&ldquo;Every transition is a logic word — read the two ideas and name the relationship before you choose.&rdquo;</b> Today is about doing a specific job: signal the right logic, combine cleanly, and use given notes to hit a stated goal.</div></details></section>
+<section class="seg" id="prework"><div class="eyebrow"><span class="num">00</span> Before you begin</div><h2>Pre-work handout</h2><p class="lede">Five minutes of warm-up makes the lesson land faster.</p><div class="handout"><div class="hh"><div><div class="ht">Expression of Ideas — Pre-work</div><div class="hs">Complete on paper before our session · about 10 minutes</div></div><button class="btn" onclick="printDoc('prework')">Print</button></div><h3 style="font-family:var(--body);font-size:15px;margin-bottom:6px">Warm-up</h3><div class="diag"><div class="di"><b>1.</b> Does &ldquo;however&rdquo; signal agreement or contrast? ______</div><div class="di"><b>2.</b> Does &ldquo;therefore&rdquo; signal cause-and-effect or an example? ______</div><div class="di"><b>3.</b> Combine concisely: &ldquo;The car is red. The car is fast.&rdquo; ______</div><div class="di"><b>4.</b> Does &ldquo;for example&rdquo; add a contrast or an illustration? ______</div></div><details class="more" style="margin-top:14px"><summary>Answer key (instructor)</summary><div class="body">1 &middot; contrast&nbsp;&nbsp; 2 &middot; cause-and-effect&nbsp;&nbsp; 3 &middot; The red car is fast.&nbsp;&nbsp; 4 &middot; an illustration</div></details></div></section>
+<section class="seg" id="transitions"><span class="time">&asymp; 16 min</span><div class="eyebrow"><span class="num">02</span> Transitions</div><h2>Name the logic, pick the word</h2><p class="lede">A transition is a logic word. Read the idea before and the idea after, decide the relationship — contrast, cause, example, addition — then choose.</p>  <div class="demo">
+    <h3>The four most-tested relationships</h3>
+    <div class="ways">
+      <div class="way"><div class="w">Contrast</div><p>however, yet, nevertheless, in contrast — the ideas push against each other.</p></div>
+      <div class="way"><div class="w">Cause / effect</div><p>therefore, thus, consequently, as a result — one idea causes the next.</p></div>
+      <div class="way"><div class="w">Example</div><p>for example, for instance — the second idea illustrates the first.</p></div>
+      <div class="way"><div class="w">Addition</div><p>moreover, in addition, also — the second idea piles on.</p></div>
+    </div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Contrast</span><span class="qno">1</span></div>
+    <div class="stem">&ldquo;The experiment failed; ______, the team learned which variable to change.&rdquo;</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>therefore</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>however</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>for example</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>similarly</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>Failure but a gain — the ideas push against each other, so the link is <b>however</b> (contrast).</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Cause / effect</span><span class="qno">2</span></div>
+    <div class="stem">&ldquo;The road was covered in ice; ______, the race was postponed.&rdquo;</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>however</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>therefore</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>for instance</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>meanwhile</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>Ice <i>caused</i> the postponement → <b>therefore</b> (cause and effect).</div>
+  </div>
+</section>
+<section class="seg" id="combine"><span class="time">&asymp; 12 min</span><div class="eyebrow"><span class="num">03</span> Combining sentences</div><h2>Say it once, say it clean</h2><p class="lede">The best combination keeps every idea but drops the repetition. Shorter and clearer beats longer and fancier.</p>  <div class="q">
+    <div class="qhead"><span class="qtag">Concise</span><span class="qno">3</span></div>
+    <div class="stem">Which choice best combines: &ldquo;The bridge is old. The bridge needs repair.&rdquo;?</div>
+    <div class="opts">
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">A</span><span>The old bridge needs repair.</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>The bridge is old, and the bridge needs repair.</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>The bridge, being old, is a bridge that needs repair.</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>The bridge needs repair, and it is old, the bridge.</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why A</div><b>A</b> keeps both ideas (old, needs repair) with no repetition. The others repeat &ldquo;bridge&rdquo; or pad the sentence.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">No redundancy</span><span class="qno">4</span></div>
+    <div class="stem">Which sentence is free of redundancy?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>At 8 a.m. in the morning, we left.</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>We left early at 8 a.m.</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>In my personal opinion, I think we left.</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>We left, departing, at 8 a.m.</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>&ldquo;8 a.m.&rdquo; already means morning; &ldquo;personal opinion / I think&rdquo; and &ldquo;left / departing&rdquo; double up. <b>B</b> is clean.</div>
+  </div>
+</section>
+<section class="seg" id="synthesis"><span class="time">&asymp; 16 min</span><div class="eyebrow"><span class="num">04</span> Rhetorical synthesis</div><h2>Use the notes to hit the goal</h2><p class="lede">You’re given bullet-point notes and a goal. Pick the sentence that uses the notes to accomplish <i>that specific goal</i> — nothing more, nothing less.</p>  <div class="q">
+    <div class="qhead"><span class="qtag">Introduce</span><span class="qno">5</span></div>
+    <div class="stem">Notes: • Komodo dragons are the largest living lizards • They can weigh up to 150 pounds • They live on a few Indonesian islands. Goal: <b>introduce the Komodo dragon to a reader who knows nothing about it.</b> Which choice best meets the goal?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>Weighing up to 150 pounds, it is heavy.</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>The Komodo dragon, found on a few Indonesian islands, is the largest living lizard, reaching up to 150 pounds.</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>Unlike other lizards, it is the largest.</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>It lives on islands.</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div><b>B</b> names the animal and gives the orienting facts a newcomer needs. The others assume context or give one stray detail.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Emphasize</span><span class="qno">6</span></div>
+    <div class="stem">Using the same notes plus &ldquo;• Its bite delivers venom,&rdquo; Goal: <b>emphasize why the Komodo dragon is a dangerous predator.</b> Which choice best meets the goal?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>The Komodo dragon lives on a few Indonesian islands.</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>The Komodo dragon is a large lizard.</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">C</span><span>The Komodo dragon is the largest living lizard, and its venomous bite makes it a formidable predator.</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>The Komodo dragon can weigh up to 150 pounds.</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why C</div>The goal is <i>danger</i>. Only <b>C</b> foregrounds the venomous bite and names it a predator; the others state neutral facts.</div>
+  </div>
+<details class="teach"><summary>Match the sentence to the goal</summary><div class="body">Rhetorical-synthesis answers are right or wrong based on the <i>goal verb</i> — introduce, emphasize, compare, illustrate. Have the student underline the goal first, then test each choice against it. A true but off-goal sentence is the classic trap.</div></details></section>
+<section class="seg" id="vocab"><span class="time">&asymp; 8 min</span><div class="eyebrow"><span class="num">05</span> Vocabulary Lab</div><h2>This week’s words — think in synonyms and antonyms</h2><p class="lede">Tap a card to flip it. Learn each word next to its opposite — that’s how the test frames them.</p><div class="cards" id="vcards"></div><h3 style="font-family:var(--display);font-size:21px;margin:26px 0 8px;color:var(--navy)">Quick check</h3>  <div class="q">
+    <div class="qhead"><span class="qtag">Synonym</span><span class="qno">7</span></div>
+    <div class="stem">Which word is closest in meaning to <b>succinct</b>?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>wordy</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>concise</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>vague</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>formal</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div><b>Succinct</b> = brief and clear, like <b>concise</b>.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Antonym</span><span class="qno">8</span></div>
+    <div class="stem">Which word is most nearly <b>opposite</b> to <b>reinforce</b>?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>strengthen</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>bolster</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">C</span><span>weaken</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>support</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why C</div><b>Reinforce</b> = strengthen; its opposite is <b>weaken</b>.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Word in context</span><span class="qno">9</span></div>
+    <div class="stem">A good essay is ______: each paragraph connects smoothly to the next.</div>
+    <div class="opts">
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">A</span><span>cohesive</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>random</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>abrupt</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>preliminary</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why A</div><b>Cohesive</b> = unified and well-connected — exactly &ldquo;connects smoothly.&rdquo;</div>
+  </div>
+</section>
+<section class="seg" id="wrap"><span class="time">&asymp; 5 min</span><div class="eyebrow"><span class="num">06</span> Wrap-up</div><h2>Three things to carry out the door</h2><p class="lede">Say them out loud — that’s how they stick.</p>  <div class="grid">
+    <div class="dom"><h3>Transitions are logic</h3><p>Name the relationship — contrast, cause, example — then pick the word.</p></div>
+    <div class="dom"><h3>Combine cleanly</h3><p>Keep every idea, drop the repetition; shorter wins.</p></div>
+    <div class="dom"><h3>Serve the goal</h3><p>In synthesis, the goal verb decides the answer.</p></div>
+  </div>
+<details class="teach"><summary>Close the loop</summary><div class="body">Have the student set one writing target for the mid-week (which is math review). Confirm the two lesson days, point them to the workbook, and preview that <b>Lesson 8 is Standard English Conventions</b> — grammar and punctuation.</div></details></section>
+<section class="seg" id="homework"><div class="eyebrow"><span class="num">07</span> Keep the fire lit</div><h2>Next-two-days handout</h2><p class="lede">Short, daily, cumulative.</p><div class="handout"><div class="hh"><div><div class="ht">Expression of Ideas — Work for the Next Two Days</div><div class="hs">About 30 minutes a day · name the logic before you choose</div></div><button class="btn" onclick="printDoc('homework')">Print</button></div><div style="border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin:12px 0;background:var(--soft)"><div style="font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:600">Day 1 · Transitions</div><h3 style="font-size:17px;margin:3px 0 8px">Pick the logic word</h3><div class="diag"><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">1.</span> &ldquo;The plan was costly; ______, the council approved it.&rdquo; (contrast) ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">2.</span> &ldquo;She practiced daily; ______, her scores climbed.&rdquo; (cause) ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">3.</span> &ldquo;Many birds migrate; ______, monarchs travel thousands of miles.&rdquo; (example) ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">4.</span> Name the relationship that &ldquo;moreover&rdquo; signals: ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">5.</span> Name the relationship that &ldquo;nevertheless&rdquo; signals: ______</div></div></div><div style="border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin:12px 0;background:var(--soft)"><div style="font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:600">Day 2 · Combine & synthesize</div><h3 style="font-size:17px;margin:3px 0 8px">Say it once, hit the goal</h3><div class="diag"><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">1.</span> Combine concisely: &ldquo;The museum is free. The museum opens on weekends.&rdquo; ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">2.</span> Notes: • cheaper panels • more installs • tax credits. Goal: explain why solar is rising. Write one sentence. ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">3.</span> Fix the redundancy: &ldquo;At 9 a.m. in the morning we began.&rdquo; ______</div><div class="di"><span style="font-family:var(--mono);color:var(--gold);font-weight:600">4.</span> Give a synonym for <i>elaborate</i> (verb): ______</div></div></div><details class="more"><summary>Answer key (instructor)</summary><div class="body"><b>Day 1:</b> 1 &middot; however / nevertheless&nbsp;&nbsp; 2 &middot; therefore / consequently&nbsp;&nbsp; 3 &middot; for example / for instance&nbsp;&nbsp; 4 &middot; addition&nbsp;&nbsp; 5 &middot; contrast<br><b>Day 2:</b> 1 &middot; The free museum opens on weekends.&nbsp;&nbsp; 2 &middot; e.g., &ldquo;Cheaper panels and tax credits have driven a sharp rise in solar installations.&rdquo;&nbsp;&nbsp; 3 &middot; At 9 a.m. we began.&nbsp;&nbsp; 4 &middot; expand / develop</div></details><div class="callout"><b>This sets up Lesson 8.</b> Once your sentences are clear and well-linked, conventions — commas, agreement, tense — are the last polish before a clean Writing score.</div></div></section>
+</main>
+<footer class="foot"><div class="fl"></div><b>KingCretot Experience</b><br>kce@kingcretot.com&nbsp; ·&nbsp; 914-809-0112&nbsp; ·&nbsp; PO Box 2322, Arcadia, FL 34265</footer>
+<script>
+let attempted=0, correct=0;
+function answer(btn){const q=btn.closest('.q');if(q.dataset.done)return;q.dataset.done="1";
+const ok=btn.dataset.c==="1";btn.classList.add(ok?"right":"wrong");
+q.querySelectorAll(".opt").forEach(o=>{if(o.dataset.c==="1")o.classList.add("right");o.disabled=true;});
+const ex=q.querySelector(".explain");if(ex)ex.classList.add("show");
+attempted++;if(ok)correct++;document.getElementById("score").textContent=correct+"/"+attempted;}
+let secs=0,timer=null;
+function renderT(){const m=String(Math.floor(secs/60)).padStart(2,"0");const s=String(secs%60).padStart(2,"0");document.getElementById("clock").textContent=m+":"+s;}
+function tStart(){if(timer)return;timer=setInterval(()=>{secs++;renderT();},1000);}
+function tPause(){clearInterval(timer);timer=null;}
+function tReset(){tPause();secs=0;renderT();}
+function printDoc(which){document.body.classList.add("print-"+which);window.print();setTimeout(()=>document.body.classList.remove("print-"+which),300);}
+const VOCAB=[
+  ["cohesive","adj.","Forming a united, well-connected whole.","unified, connected","disjointed, fragmented"],
+  ["elaborate","v.","To develop or explain in greater detail.","expand, develop","summarize, abbreviate"],
+  ["emphasize","v.","To give special importance to.","stress, highlight","downplay, understate"],
+  ["illustrate","v.","To make clear by using examples.","demonstrate, exemplify","obscure, confuse"],
+  ["paraphrase","v.","To restate a text in other words.","reword, restate","quote verbatim"],
+  ["preliminary","adj.","Coming before the main part; introductory.","introductory, initial","final, concluding"],
+  ["reinforce","v.","To strengthen or support.","strengthen, bolster","weaken, undermine"],
+  ["sequential","adj.","Following in order, one after another.","consecutive, ordered","random, scattered"],
+  ["succinct","adj.","Expressed clearly in few words.","concise, terse","wordy, verbose"],
+  ["transitional","adj.","Serving to connect one part to another.","connecting, linking","abrupt, disconnected"]
+];
+const vc=document.getElementById("vcards");
+VOCAB.forEach(([w,pos,def,syn,ant])=>{const d=document.createElement("div");d.className="fc";
+d.onclick=function(){this.classList.toggle("flipped");};
+d.innerHTML='<div class="in"><div class="face front"><div class="word">'+w+'</div><div class="pos">'+pos+'</div><div class="tapcue">tap to flip</div></div><div class="face back"><div class="d">'+def+'</div><div class="sa"><span class="syn">syn:</span> '+syn+'</div><div class="sa"><span class="ant">ant:</span> '+ant+'</div></div></div>';
+vc.appendChild(d);});
+</script></body></html>

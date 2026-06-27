@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAT Foundations — Lesson 1 · KingCretot Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0A1F3D; --gold:#C9A84C; --cream:#FAF7EF; --red:#C9342F; --green:#2E7D55;
+  --ink:#172230; --muted:#586273; --line:#E5E0D2; --paper:#FFFFFF; --soft:#F5F2E9;
+  --display:'Fraunces',Georgia,serif; --body:'Inter',system-ui,sans-serif; --mono:'IBM Plex Mono',monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:18px}
+body{margin:0;background:var(--soft);color:var(--ink);font-family:var(--body);font-size:1rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);color:var(--navy);line-height:1.18;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding:0 26px}
+
+/* masthead */
+.mast{background:var(--navy);color:#fff;padding:34px 0 30px}
+.mast .brand{font-family:var(--display);font-weight:700;font-size:23px}
+.mast .tag{font-weight:700;font-size:12px;letter-spacing:2.5px;margin-top:4px}
+.mast .e1{color:#8FB2F5}.mast .e2{color:var(--gold)}.mast .e3{color:#F08C8A}
+.mast .rule{height:3px;width:100%;background:var(--gold);margin:20px 0 22px;border:0}
+.mast h1{color:#fff;font-size:42px;font-weight:600;letter-spacing:-.5px}
+.mast .sub{color:#cfd8e6;margin-top:12px;font-size:18px;max-width:60ch}
+.metarow{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chip{font-size:14px;font-weight:600;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);color:#eaf0f8;padding:8px 14px;border-radius:999px}
+
+/* sticky bar */
+.bar{position:sticky;top:0;z-index:40;background:rgba(245,242,233,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:16px;height:62px}
+.nav{display:flex;gap:6px;overflow-x:auto;flex:1;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:15px;font-weight:600;padding:9px 13px;border-radius:9px}
+.nav a:hover{background:#fff;color:var(--navy)}
+.clock{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.clock .t{font-family:var(--mono);font-weight:500;font-size:18px;color:var(--navy);background:#fff;border:1px solid var(--line);border-radius:9px;padding:7px 11px;min-width:74px;text-align:center}
+.clock button{font-family:var(--body);font-weight:600;font-size:13px;border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:8px;padding:8px 10px;cursor:pointer}
+.clock button:hover{border-color:var(--gold)}
+.scorechip{flex-shrink:0;font-weight:600;font-size:15px;color:#fff;background:var(--navy);border-radius:9px;padding:8px 13px}
+.scorechip b{color:var(--gold);font-family:var(--mono)}
+
+/* sections */
+.seg{padding:50px 0 18px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#9A7D20;font-weight:700;display:flex;align-items:center;gap:11px}
+.eyebrow .num{color:#fff;background:var(--gold);border-radius:7px;padding:3px 10px;font-weight:700}
+.seg h2{font-size:33px;font-weight:600;margin:12px 0 8px}
+.seg .lede{color:var(--muted);max-width:62ch;margin:0 0 22px;font-size:18.5px}
+.time{font-family:var(--mono);font-size:14px;color:var(--muted);float:right;border:1px solid var(--line);border-radius:8px;padding:5px 11px;background:#fff;margin-top:4px}
+
+/* question cards */
+.q{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:28px 28px 24px;margin:22px 0;box-shadow:0 2px 10px rgba(10,31,61,.04)}
+.q .qhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.q .qtag{font-size:13.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);font-weight:700}
+.q .qno{font-family:var(--mono);font-weight:500;color:var(--gold);font-size:16px}
+.passage{background:var(--cream);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:16px 18px;margin:10px 0 16px;font-size:17.5px;line-height:1.6}
+.stem{font-weight:600;margin:8px 0 18px;font-size:20px;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:13px}
+.opt{display:flex;gap:14px;align-items:center;text-align:left;width:100%;background:#fff;border:2px solid var(--line);border-radius:12px;padding:16px 18px;cursor:pointer;font:inherit;font-size:18px;color:var(--ink);transition:border-color .12s,background .12s}
+.opt:hover:not(:disabled){border-color:#9DB6E8;background:#fbfcfe}
+.opt:disabled{cursor:default}
+.opt .ltr{flex-shrink:0;width:32px;height:32px;border-radius:8px;border:2px solid var(--line);display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:16px;color:var(--navy)}
+.opt.right{border-color:var(--green);background:#edf7f1}
+.opt.right .ltr{background:var(--green);border-color:var(--green);color:#fff}
+.opt.wrong{border-color:var(--red);background:#fcedec}
+.opt.wrong .ltr{background:var(--red);border-color:var(--red);color:#fff}
+.explain{display:none;margin-top:18px;border-top:1px dashed var(--line);padding-top:16px;font-size:17px;line-height:1.6}
+.explain.show{display:block}
+.explain .lbl{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:5px}
+.explain .clue{color:var(--muted);font-style:italic}
+
+details.more,details.teach{margin-top:16px;border-radius:12px;overflow:hidden}
+details.more{background:var(--soft);border:1px solid var(--line)}
+details.more>summary{cursor:pointer;font-weight:600;font-size:16px;color:var(--navy);padding:13px 16px;list-style:none}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::before{content:"+ ";color:var(--gold);font-weight:700}
+details.more[open]>summary::before{content:"– "}
+details.more .body{padding:2px 17px 16px;font-size:16.5px}
+.method{margin:12px 0;padding-left:14px;border-left:3px solid #9DB6E8}
+.method b{color:var(--navy)}
+.hack{background:#fff;border:1px dashed var(--gold);border-radius:11px;padding:13px 15px;margin-top:12px;font-size:16px}
+.hack .h{font-size:12.5px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:700;display:block;margin-bottom:3px}
+
+details.teach{background:#0E2342;border:1px solid #1c3a64}
+details.teach>summary{cursor:pointer;font-weight:700;font-size:15px;color:#fff;padding:13px 16px;list-style:none}
+details.teach>summary::-webkit-details-marker{display:none}
+details.teach>summary::before{content:"For the instructor  ›  ";color:var(--gold);font-weight:600}
+details.teach[open]>summary::before{content:"For the instructor  ⌄  ";color:var(--gold);font-weight:600}
+details.teach .body{padding:2px 17px 16px;font-size:16px;color:#d3deee;line-height:1.6}
+details.teach .body b{color:#fff}
+
+/* domain grid */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 0 6px}
+.dom{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 19px}
+.dom h3{font-size:18px;font-family:var(--body);font-weight:700;color:var(--navy)}
+.dom p{margin:6px 0 0;font-size:16px;color:var(--muted);line-height:1.55}
+.dom .pct{color:#9A7D20;font-weight:600;font-size:14px}
+
+.demo{background:var(--navy);color:#eaf0f8;border-radius:16px;padding:24px 26px;margin:22px 0}
+.demo h3{color:#fff;font-family:var(--body);font-weight:700;font-size:19px}
+.demo .ways{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:16px}
+.demo .way{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:16px}
+.demo .way .w{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:7px}
+.demo .way p{margin:0;font-size:16px;color:#dbe4f1;line-height:1.55}
+.demo code{font-family:var(--mono);background:rgba(255,255,255,.12);padding:2px 6px;border-radius:5px;font-size:15px}
+
+/* vocab */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:16px;margin:10px 0}
+.fc{height:158px;perspective:1100px;cursor:pointer}
+.fc .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.fc.flipped .in{transform:rotateY(180deg)}
+.fc .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:16px;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--line)}
+.fc .front{background:#fff}
+.fc .front .word{font-family:var(--display);font-weight:600;font-size:25px;color:var(--navy)}
+.fc .front .pos{font-size:14px;color:var(--muted);font-style:italic;margin-top:2px}
+.fc .front .tapcue{font-size:12px;color:#9A7D20;letter-spacing:1px;margin-top:auto;text-transform:uppercase;font-weight:600}
+.fc .back{background:var(--navy);color:#eaf0f8;transform:rotateY(180deg);font-size:15px;line-height:1.5}
+.fc .back .d{margin-bottom:9px}
+.fc .back .sa{font-size:14px;margin-top:3px}
+.fc .back .syn{color:#8fe3b3;font-weight:600} .fc .back .ant{color:#f4a3a3;font-weight:600}
+
+/* handout */
+.handout{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:30px 30px 26px;margin:20px 0}
+.handout .hh{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;border-bottom:3px solid var(--gold);padding-bottom:14px;margin-bottom:18px}
+.handout .hh .ht{font-family:var(--display);font-weight:600;font-size:24px;color:var(--navy)}
+.handout .hh .hs{font-size:15px;color:var(--muted);margin-top:3px}
+.handout h3{font-size:17px;font-family:var(--body);color:var(--navy)}
+.btn{font-family:var(--body);font-weight:600;font-size:14px;border:1px solid var(--navy);background:var(--navy);color:#fff;border-radius:9px;padding:10px 16px;cursor:pointer;flex-shrink:0}
+.btn:hover{background:#16315a}
+.checklist{list-style:none;padding:0;margin:0 0 6px}
+.checklist li{padding:9px 0 9px 34px;position:relative;font-size:17px;border-bottom:1px solid var(--soft)}
+.checklist li::before{content:"";position:absolute;left:0;top:11px;width:19px;height:19px;border:2px solid var(--gold);border-radius:5px}
+.daybox{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0;background:var(--soft)}
+.daybox .dl{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#9A7D20;font-weight:700}
+.daybox h3{font-size:20px;font-family:var(--display);margin:4px 0 10px}
+.daybox ol{margin:8px 0;padding-left:22px;font-size:17px}
+.daybox ol li{margin:7px 0}
+.write{border-bottom:1px solid #cdc6b2;height:26px;margin:10px 0}
+.diag{margin:8px 0}
+.diag .di{padding:12px 0;border-bottom:1px solid var(--soft);font-size:17px;line-height:1.55}
+.diag .di b{color:var(--navy)}
+.diag .di .n{font-family:var(--mono);color:var(--gold);font-weight:600;margin-right:9px}
+.key{font-family:var(--mono);font-size:14.5px;color:var(--muted);line-height:1.7}
+
+.callout{background:var(--cream);border:1px solid var(--gold);border-radius:14px;padding:18px 20px;margin:18px 0;font-size:17.5px;line-height:1.6}
+.callout b{color:var(--navy)}
+
+.foot{background:var(--navy);color:#aeb9c9;text-align:center;padding:26px;font-size:14px;margin-top:10px}
+.foot b{color:#fff;font-family:var(--display)}
+.foot .fl{height:2px;background:var(--gold);max-width:340px;margin:0 auto 14px}
+
+@media (max-width:680px){
+  html{font-size:17px}
+  .grid,.demo .ways{grid-template-columns:1fr}
+  .mast h1{font-size:31px}
+  .seg h2{font-size:27px}
+  .time{float:none;display:inline-block;margin-bottom:10px}
+}
+@media (prefers-reduced-motion:reduce){.fc .in{transition:none}html{scroll-behavior:auto}}
+@media print{
+  body{background:#fff}
+  body *{visibility:hidden}
+  body.print-prework #prework,body.print-prework #prework *,
+  body.print-homework #homework,body.print-homework #homework *{visibility:visible}
+  body.print-prework #prework,body.print-homework #homework{position:absolute;left:0;top:0;width:100%;border:0;margin:0;padding:0}
+  .btn,.time,details.teach{display:none!important}.seg{border:0}
+}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="brand">KingCretot Experience</div>
+    <div class="tag"><span class="e1">EDUCATE.</span>&nbsp;&nbsp;<span class="e2">EMPOWER.</span>&nbsp;&nbsp;<span class="e3">EXCEL.</span></div>
+    <hr class="rule">
+    <h1>SAT Foundations — Lesson 1</h1>
+    <div class="sub">The Full Map. One 60-minute session that touches every part of the SAT, builds the core toolkit, and ends with two days of work that sets up Lesson 2.</div>
+    <div class="metarow">
+      <span class="chip">60 minutes</span>
+      <span class="chip">Computer + paper</span>
+      <span class="chip">Reading &amp; Writing · Math</span>
+    </div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <nav class="nav">
+      <a href="#prework">Pre-work</a>
+      <a href="#map">The Map</a>
+      <a href="#rw">Reading &amp; Writing</a>
+      <a href="#math">Math</a>
+      <a href="#vocab">Vocab Lab</a>
+      <a href="#wrap">Wrap-up</a>
+      <a href="#homework">Homework</a>
+    </nav>
+    <div class="clock" title="For exam-mode pacing">
+      <span class="t" id="clock">00:00</span>
+      <button onclick="tStart()">Start</button>
+      <button onclick="tPause()">Pause</button>
+      <button onclick="tReset()">Reset</button>
+    </div>
+    <span class="scorechip">Score <b id="score">0/0</b></span>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section class="seg">
+  <div class="callout">
+    <b>How to run this lesson.</b> Send the <a href="#prework">pre-work handout</a> a day ahead. Open with goals (5 min), teach the map (5), work Reading &amp; Writing together (15), Math (20), the Vocabulary Lab (10), then wrap and assign the <a href="#homework">next-two-days handout</a> (5). Question cards reveal the answer and explanation when clicked; math cards open a <i>"Solve it another way"</i> panel. The dark navy notes are for the instructor only.
+  </div>
+  <details class="teach"><summary>The frame for today</summary><div class="body">Open with one line: <b>"Every question on the SAT is beatable with a method — today we build the toolbox."</b> The score story: a ~1200 start is a strong base. Moving toward 1300–1350 is mostly (1) cutting careless losses and (2) having a faster route on the medium questions. Keep energy high, keep the clock visible, and praise good <i>reasoning</i> over lucky guesses.</div></details>
+</section>
+
+<section class="seg" id="prework">
+  <div class="eyebrow"><span class="num">00</span> Before you begin</div>
+  <h2>Pre-work handout</h2>
+  <p class="lede">Give this to the student the day before. It primes the brain and gives you a quick read on where they're starting.</p>
+  <div class="handout">
+    <div class="hh">
+      <div><div class="ht">SAT Foundations — Pre-work</div><div class="hs">Complete on paper before our session · about 15 minutes</div></div>
+      <button class="btn" onclick="printDoc('prework')">Print</button>
+    </div>
+    <h3>What to have ready</h3>
+    <ul class="checklist">
+      <li>Paper, two sharpened pencils, and an eraser.</li>
+      <li>A calculator you're comfortable with (you may use one on the math section).</li>
+      <li>A quiet 60 minutes for our session — phone away.</li>
+    </ul>
+    <h3 style="margin-top:20px">Warm-up — answer on paper, no calculator</h3>
+    <div class="diag">
+      <div class="di"><span class="n">1</span><b>Words in context.</b> The committee's ___ approach meant every decision took weeks. &nbsp;(A) hasty&nbsp; (B) deliberate&nbsp; (C) careless&nbsp; (D) reckless</div>
+      <div class="di"><span class="n">2</span><b>Punctuation.</b> The experiment had one goal ___ to measure reaction time. &nbsp;(A) goal, to&nbsp; (B) goal: to&nbsp; (C) goal; to&nbsp; (D) goal to</div>
+      <div class="di"><span class="n">3</span><b>Vocabulary.</b> A synonym for <i>candor</i> is… &nbsp;(A) deceit&nbsp; (B) honesty&nbsp; (C) anger&nbsp; (D) caution</div>
+      <div class="di"><span class="n">4</span><b>Algebra.</b> If 3x − 7 = 11, then x = ______</div>
+      <div class="di"><span class="n">5</span><b>Percent.</b> 20% of 45 = ______</div>
+      <div class="di"><span class="n">6</span><b>Powers.</b> If x² = 49 and x &lt; 0, then x = ______</div>
+    </div>
+    <h3 style="margin-top:18px">Your why — write one line</h3>
+    <div class="write"></div><div class="write"></div>
+    <details class="more" style="margin-top:16px"><summary>Answer key (instructor)</summary><div class="body"><span class="key">1 · B&nbsp;&nbsp; 2 · B (a colon introduces the goal)&nbsp;&nbsp; 3 · B&nbsp;&nbsp; 4 · x = 6&nbsp;&nbsp; 5 · 9&nbsp;&nbsp; 6 · x = −7</span></div></details>
+  </div>
+</section>
+
+<section class="seg" id="map">
+  <span class="time">≈ 5 min</span>
+  <div class="eyebrow"><span class="num">01</span> Orientation</div>
+  <h2>The SAT, on one screen</h2>
+  <p class="lede">Two sections, each split into two short modules. 98 questions, 2 hours 14 minutes, scored 400–1600. There's no penalty for a wrong answer — so we never leave a blank.</p>
+  <div class="grid">
+    <div class="dom"><h3>Reading &amp; Writing <span class="pct">· 54 Q / 64 min</span></h3><p>Two 27-question modules, 32 minutes each. One short passage per question — about 71 seconds each.</p></div>
+    <div class="dom"><h3>Math <span class="pct">· 44 Q / 70 min</span></h3><p>Two modules, 35 minutes each. A calculator is allowed throughout. A mix of multiple-choice and type-in answers — about 95 seconds each.</p></div>
+  </div>
+  <div class="callout"><b>The modules adapt — like a thermostat, not a trapdoor.</b> How you do on the first module sets the difficulty, and the score ceiling, of the second. The lesson for prep: <b>accuracy on the first module is everything.</b> Steady, careful work early unlocks the higher band.</div>
+  <details class="teach"><summary>Make the score concrete</summary><div class="body">Draw the 400–1600 scale. Mark ~1200 and the 1300–1350 target. Frame it as roughly <b>5 to 8 more correct answers per section</b> — not a different student, just fewer leaks and one faster method on the medium questions. That reframe lowers anxiety and makes the goal feel mechanical and reachable.</div></details>
+</section>
+
+<section class="seg" id="rw">
+  <span class="time">≈ 15 min</span>
+  <div class="eyebrow"><span class="num">02</span> Reading &amp; Writing</div>
+  <h2>Read like a detective, edit like an engineer</h2>
+  <p class="lede">Four domains, evenly weighted. The student is already capable here — our job is to make the strong stronger by turning instinct into a method that repeats.</p>
+  <div class="grid">
+    <div class="dom"><h3>Information &amp; Ideas</h3><p>Central ideas, evidence, inference. Ask: what does the text actually <i>say</i>?</p></div>
+    <div class="dom"><h3>Craft &amp; Structure</h3><p>Words in context, purpose, structure, connecting two texts.</p></div>
+    <div class="dom"><h3>Expression of Ideas</h3><p>Transitions and synthesis — making a point land.</p></div>
+    <div class="dom"><h3>Standard English Conventions</h3><p>Grammar, punctuation, sentence boundaries — rules that repeat.</p></div>
+  </div>
+  <div class="callout"><b>The one move:</b> read the question, <b>answer it in your own words first</b>, then find the choice that matches. Predicting before you peek is what keeps trap answers from sounding tempting.</div>
+
+  <div class="q">
+    <div class="qhead"><span class="qtag">Craft &amp; Structure · Words in context</span><span class="qno">Q1</span></div>
+    <div class="stem">Although the novel was praised for its ___ prose, some readers found the stripped-down style cold and distant.</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>ornate</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>spare</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>verbose</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>florid</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div><span class="clue">Clue: "stripped-down."</span> The blank must mean minimal. <b>Spare</b> means bare and pared-down. Ornate, verbose, and florid all mean the opposite — over-decorated — so the contrast clue clears three at once.</div>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qtag">Craft &amp; Structure · Words in context</span><span class="qno">Q2</span></div>
+    <div class="stem">The senator's ___ remarks left no doubt about exactly where she stood on the bill.</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>ambiguous</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>unequivocal</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>evasive</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>tentative</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div><span class="clue">Clue: "left no doubt."</span> <b>Unequivocal</b> means leaving no doubt. The other three all describe uncertainty — the opposite of the clue.</div>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qtag">Standard English Conventions · Boundaries</span><span class="qno">Q3</span></div>
+    <div class="stem">Maria trained for months ___ she finished the marathon in record time.</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>months, she</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>months, and she</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>months she</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>months and, she</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>Two complete sentences ("Maria trained for months" and "she finished…") need a real boundary. A comma alone (A) is a splice; no punctuation (C) is a run-on. <b>Comma + and</b> joins them correctly. <span class="clue">Test: cover each side — if both halves stand alone, a comma by itself can't join them.</span></div>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qtag">Craft &amp; Structure · Purpose</span><span class="qno">Q4</span></div>
+    <div class="passage">The 1977 Voyager probes each carried a golden record etched with the sounds of Earth — whale song, greetings in 55 languages, the sound of a kiss. The engineers knew the chance any of it would ever be found was vanishingly small.</div>
+    <div class="stem">Which choice best describes the function of the last sentence?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>It explains how the golden records were manufactured.</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>It criticizes the engineers for wasting resources.</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">C</span><span>It admits the project's slim practical odds, underscoring its symbolic intent.</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>It lists the specific contents of the record.</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why C</div>"Function" questions ask what a sentence <i>does</i>, not what it says. The line admits the odds are tiny — which makes the gesture meaningful rather than practical. A and D describe content elsewhere; B adds a judgment the text never makes.</div>
+  </div>
+  <details class="teach"><summary>Coach the process, not the answer</summary><div class="body">After each one, ask <b>"what was your prediction before you looked?"</b> If they peeked first, that's the habit to fix. For conventions, have them read both halves aloud and decide "can each stand on its own?" Build the reflex; the content is easy once the method is automatic.</div></details>
+</section>
+
+<section class="seg" id="math">
+  <span class="time">≈ 20 min</span>
+  <div class="eyebrow"><span class="num">03</span> Math</div>
+  <h2>One problem, many doors</h2>
+  <p class="lede">This is where points are won. The goal isn't only the right answer — it's the <i>fastest reliable route</i>, plus a backup. Every problem below opens a panel with another way to solve and a true shortcut.</p>
+  <div class="grid">
+    <div class="dom"><h3>Algebra</h3><p>Linear equations, lines, systems. The backbone — about 35% of the math.</p></div>
+    <div class="dom"><h3>Advanced Math</h3><p>Quadratics, exponentials, functions. Where 1300+ is built.</p></div>
+    <div class="dom"><h3>Problem-Solving &amp; Data</h3><p>Ratios, percents, rates, tables, statistics.</p></div>
+    <div class="dom"><h3>Geometry &amp; Trig</h3><p>Angles, triangles, circles. A formula sheet is provided on the test.</p></div>
+  </div>
+
+  <div class="demo">
+    <h3>Warm the toolbox — solve 2x + 5 = 17 three ways</h3>
+    <div class="ways">
+      <div class="way"><div class="w">Algebra</div><p>Undo it step by step: subtract 5 → <code>2x = 12</code> → divide by 2 → <code>x = 6</code>. Cleanest when the numbers are friendly.</p></div>
+      <div class="way"><div class="w">Back-solve</div><p>Try the answer choices. Plug each into <code>2x + 5</code> until it equals 17. Great when the answers are right there in front of you.</p></div>
+      <div class="way"><div class="w">Number sense</div><p>Read it backward: <code>17 − 5 = 12</code>, and half of 12 is <code>6</code>. No writing — done in your head.</p></div>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qtag">Algebra · Lines</span><span class="qno">Q5</span></div>
+    <div class="stem">A line passes through (2, 3) and (4, 7). What is its slope?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>1/2</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>1</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">C</span><span>2</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>4</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why C</div>Slope is the change in y over the change in x: (7 − 3) / (4 − 2) = 4 / 2 = <b>2</b>.</div>
+    <details class="more"><summary>Solve it another way</summary><div class="body">
+      <div class="method"><b>Picture it:</b> from (2, 3) to (4, 7) you go <i>up 4, right 2</i> → rise over run = 2. Sketch it on the grid if that's clearer.</div>
+      <div class="hack"><span class="h">True shortcut</span> Slope is always <b>Δy ÷ Δx</b>. Subtract the y's, subtract the x's <i>in the same order</i>, divide. Keeping the order steady kills sign mistakes.</div>
+    </div></details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qtag">Algebra · Systems</span><span class="qno">Q6</span></div>
+    <div class="stem">If 2x + y = 10 and y = x + 1, what is the value of x?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>2</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>3</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>4</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>5</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>Substitute y = x + 1 into the first equation: 2x + (x + 1) = 10 → 3x + 1 = 10 → 3x = 9 → <b>x = 3</b>.</div>
+    <details class="more"><summary>Solve it another way</summary><div class="body">
+      <div class="method"><b>Back-solve:</b> test B (x = 3). Then y = 4, and 2(3) + 4 = 10. ✓ Done in seconds.</div>
+      <div class="method"><b>Elimination:</b> rewrite as 2x + y = 10 and −x + y = 1, subtract the second from the first → 3x = 9 → x = 3.</div>
+      <div class="hack"><span class="h">True shortcut</span> When a question gives you answer choices, <b>test them</b> — usually starting from B or C. Plugging a number in is often faster than solving from scratch.</div>
+    </div></details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qtag">Advanced Math · Quadratics</span><span class="qno">Q7</span></div>
+    <div class="stem">What are the solutions to x² − 5x + 6 = 0?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>x = −2 and x = −3</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>x = 2 and x = 3</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>x = 1 and x = 6</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>x = −1 and x = 6</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>Factor: find two numbers that multiply to +6 and add to −5 → −2 and −3. So (x − 2)(x − 3) = 0 → <b>x = 2 or 3</b>.</div>
+    <details class="more"><summary>Solve it another way</summary><div class="body">
+      <div class="method"><b>Test the choices:</b> plug each pair into the equation. x = 2 gives 4 − 10 + 6 = 0 ✓, x = 3 gives 9 − 15 + 6 = 0 ✓ — so B.</div>
+      <div class="method"><b>Quadratic formula:</b> always works when factoring won't come quickly — slower, but bulletproof.</div>
+      <div class="hack"><span class="h">True shortcut</span> To factor <b>x² + bx + c</b>, find two numbers that <b>multiply to c and add to b</b>. Here: product +6, sum −5 → both negative, −2 and −3.</div>
+    </div></details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qtag">Problem-Solving &amp; Data · Percent</span><span class="qno">Q8</span></div>
+    <div class="stem">A jacket costs $40. It is marked down 25%. What is the sale price?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>$10</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>$15</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">C</span><span>$30</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>$32</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why C</div>25% of 40 is 10, so the discount is $10 and the price is 40 − 10 = <b>$30</b>. Watch the trap: $10 (A) is the discount, not the price.</div>
+    <details class="more"><summary>Solve it another way</summary><div class="body">
+      <div class="method"><b>One step:</b> keeping 75% means multiply by 0.75 → 40 × 0.75 = 30. Faster than two steps.</div>
+      <div class="hack"><span class="h">True shortcut</span> A discount of r% → multiply by <b>(1 − r/100)</b>. An increase of r% → multiply by <b>(1 + r/100)</b>. One multiplication, no subtraction step to fumble.</div>
+    </div></details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qtag">Geometry · Right triangles</span><span class="qno">Q9</span></div>
+    <div class="stem">A right triangle has legs of length 6 and 8. What is the length of the hypotenuse?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>7</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>9</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">C</span><span>10</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>14</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why C</div>Pythagorean theorem: 6² + 8² = 36 + 64 = 100, and the square root of 100 is <b>10</b>.</div>
+    <details class="more"><summary>Solve it another way</summary><div class="body">
+      <div class="method"><b>Spot the pattern:</b> 6-8-10 is just the 3-4-5 triangle doubled. Recognize it and skip the arithmetic.</div>
+      <div class="hack"><span class="h">True shortcut</span> Memorize the common triples — <b>3-4-5, 5-12-13, 8-15-17</b> and their multiples. They show up constantly; spotting one saves the whole calculation.</div>
+    </div></details>
+  </div>
+  <details class="teach"><summary>Build the "two-route" habit</summary><div class="body">For each problem, have the student name <b>their</b> route first, then show one alternative. The aim by August: a primary method <i>and</i> a backup (back-solve or elimination), so no question ever fully stalls them. Reinforce: on a no-penalty test, a 30-second educated guess beats a 3-minute perfect solution that eats the clock.</div></details>
+</section>
+
+<section class="seg" id="vocab">
+  <span class="time">≈ 10 min</span>
+  <div class="eyebrow"><span class="num">04</span> Vocabulary Lab</div>
+  <h2>Week 1 words — think in synonyms and antonyms</h2>
+  <p class="lede">The SAT tests words through <i>relationships</i>: the right answer is a synonym for the meaning the sentence needs, and the traps are often near-opposites. Tap a card to flip it, and learn each word alongside its opposite — that's how the test frames them.</p>
+  <div class="cards" id="vcards"></div>
+
+  <h3 style="font-family:var(--display);font-size:21px;margin:26px 0 8px;color:var(--navy)">Quick check</h3>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Synonym</span><span class="qno">V1</span></div>
+    <div class="stem">Which word is closest in meaning to <b>lucid</b>?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>confusing</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>clear</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>colorful</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>sluggish</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div><b>Lucid</b> means clear and easy to understand. "Confusing" is its opposite — the classic trap.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Antonym</span><span class="qno">V2</span></div>
+    <div class="stem">Which word is most nearly <b>opposite</b> to <b>gregarious</b>?</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>sociable</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">B</span><span>generous</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">C</span><span>solitary</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>cheerful</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why C</div><b>Gregarious</b> means enjoying company. Its opposite is <b>solitary</b>. "Sociable" (A) is a synonym placed to bait a fast read.</div>
+  </div>
+  <div class="q">
+    <div class="qhead"><span class="qtag">Word in context</span><span class="qno">V3</span></div>
+    <div class="stem">After days of vague, guarded answers, the witness's sudden ___ surprised the courtroom.</div>
+    <div class="opts">
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">A</span><span>evasion</span></button>
+      <button class="opt" data-c="1" onclick="answer(this)"><span class="ltr">B</span><span>candor</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">C</span><span>austerity</span></button>
+      <button class="opt" data-c="0" onclick="answer(this)"><span class="ltr">D</span><span>ambivalence</span></button>
+    </div>
+    <div class="explain"><div class="lbl">Why B</div>"Sudden" plus a contrast with "vague, guarded" calls for openness. <b>Candor</b> means frankness. Evasion (A) repeats the old behavior instead of contrasting it.</div>
+  </div>
+</section>
+
+<section class="seg" id="wrap">
+  <span class="time">≈ 5 min</span>
+  <div class="eyebrow"><span class="num">05</span> Wrap-up</div>
+  <h2>Three things to carry out the door</h2>
+  <p class="lede">Close every lesson by naming the takeaways out loud — saying them is how they stick.</p>
+  <div class="grid">
+    <div class="dom"><h3>Predict, then peek</h3><p>On Reading &amp; Writing, answer in your own words before reading the choices.</p></div>
+    <div class="dom"><h3>Two routes, always</h3><p>Every math problem has a main method and a backup — back-solving or elimination.</p></div>
+    <div class="dom"><h3>Words come in pairs</h3><p>Learn each new word with its opposite; the test thinks in synonyms and antonyms.</p></div>
+  </div>
+  <details class="teach"><summary>Close the loop</summary><div class="body">Have the student set one small, specific target for next time ("finish the timed set without skipping"). Confirm the two lesson days are locked, point them to the homework, and remind them: <b>Lesson 2 builds directly on today</b> — linear &amp; exponential relationships, plus evidence-based reading.</div></details>
+</section>
+
+<section class="seg" id="homework">
+  <div class="eyebrow"><span class="num">06</span> Keep the fire lit</div>
+  <h2>Next-two-days handout</h2>
+  <p class="lede">Short, daily, and cumulative — it reinforces today and loads the next lesson. Print it and send it home.</p>
+  <div class="handout">
+    <div class="hh">
+      <div><div class="ht">SAT Foundations — Work for the Next Two Days</div><div class="hs">About 30 minutes a day · keep the concepts at the front of your mind</div></div>
+      <button class="btn" onclick="printDoc('homework')">Print</button>
+    </div>
+
+    <div class="daybox">
+      <div class="dl">Day 1 · Words &amp; Reading</div>
+      <h3>Lock in the language</h3>
+      <ol>
+        <li>From memory, write a <b>synonym and an antonym</b> for each of the 10 Week-1 words.</li>
+        <li>Use <b>five</b> of the words in original sentences that show their meaning.</li>
+        <li>Do the 5 reading drills below; for each, write your prediction <i>before</i> choosing.</li>
+        <li>One line: which question type felt trickiest today, and why?</li>
+      </ol>
+      <div class="diag">
+        <div class="di"><span class="n">1</span>The critic's ___ review angered the director, who had expected praise. &nbsp;(A) glowing (B) scathing (C) neutral (D) hesitant</div>
+        <div class="di"><span class="n">2</span>The results were ___: the same experiment gave a different answer each time. &nbsp;(A) consistent (B) erratic (C) precise (D) decisive</div>
+        <div class="di"><span class="n">3</span>The bridge was built in 1890 ___ it still carries traffic today. &nbsp;(A) 1890, it (B) 1890; it (C) 1890 it (D) 1890: it</div>
+        <div class="di"><span class="n">4</span>A synonym for <i>prudent</i> is… &nbsp;(A) reckless (B) cautious (C) wealthy (D) loud</div>
+        <div class="di"><span class="n">5</span>Choose the opposite of <i>tenacious</i>: &nbsp;(A) stubborn (B) determined (C) yielding (D) gripping</div>
+      </div>
+    </div>
+
+    <div class="daybox">
+      <div class="dl">Day 2 · Math &amp; pacing</div>
+      <h3>Run the toolbox</h3>
+      <ol>
+        <li>Solve the six problems below. For each, <b>write which method you used</b> (algebra, back-solve, elimination, pattern).</li>
+        <li>Then put 10 minutes on the clock and redo any that felt slow — exam mode.</li>
+        <li>Bring <b>one</b> problem you want to break down together next lesson.</li>
+      </ol>
+      <div class="diag">
+        <div class="di"><span class="n">1</span>If 5x + 3 = 2x + 18, then x = ______</div>
+        <div class="di"><span class="n">2</span>A line has slope 3 and passes through (0, −2). What is y when x = 4? ______</div>
+        <div class="di"><span class="n">3</span>Solve: x² − 7x + 12 = 0. ______</div>
+        <div class="di"><span class="n">4</span>A $60 item is increased by 15%. New price = ______</div>
+        <div class="di"><span class="n">5</span>If 3 pens cost $4.50, how much do 7 pens cost? ______</div>
+        <div class="di"><span class="n">6</span>A right triangle has legs 5 and 12. The hypotenuse = ______</div>
+      </div>
+      <details class="more"><summary>Answer key (instructor)</summary><div class="body"><span class="key">
+        Reading — 1 · B&nbsp;&nbsp; 2 · B&nbsp;&nbsp; 3 · B (two complete sentences → semicolon)&nbsp;&nbsp; 4 · B&nbsp;&nbsp; 5 · C (opposite of tenacious = yielding)<br>
+        Math — 1 · x = 5&nbsp;&nbsp; 2 · y = 10&nbsp;&nbsp; 3 · x = 3 and 4&nbsp;&nbsp; 4 · $69&nbsp;&nbsp; 5 · $10.50&nbsp;&nbsp; 6 · 13 (a 5-12-13 triple)
+      </span></div></details>
+    </div>
+    <div class="callout"><b>This sets up Lesson 2.</b> The Day-2 problems lean on linear and quadratic patterns — exactly where Lesson 2 goes next (linear &amp; exponential relationships, plus evidence-based reading). The work isn't busywork; it's the on-ramp.</div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="fl"></div>
+  <b>KingCretot Experience</b><br>
+  kce@kingcretot.com&nbsp; ·&nbsp; 914-809-0112&nbsp; ·&nbsp; PO Box 2322, Arcadia, FL 34265
+</footer>
+
+<script>
+let attempted=0, correct=0;
+function answer(btn){
+  const q=btn.closest('.q');
+  if(q.dataset.done) return;
+  q.dataset.done="1";
+  const ok=btn.dataset.c==="1";
+  btn.classList.add(ok?"right":"wrong");
+  q.querySelectorAll(".opt").forEach(o=>{ if(o.dataset.c==="1") o.classList.add("right"); o.disabled=true; });
+  const ex=q.querySelector(".explain"); if(ex) ex.classList.add("show");
+  attempted++; if(ok) correct++;
+  document.getElementById("score").textContent=correct+"/"+attempted;
+}
+let secs=0, timer=null;
+function renderT(){ const m=String(Math.floor(secs/60)).padStart(2,"0"); const s=String(secs%60).padStart(2,"0"); document.getElementById("clock").textContent=m+":"+s; }
+function tStart(){ if(timer) return; timer=setInterval(()=>{secs++;renderT();},1000); }
+function tPause(){ clearInterval(timer); timer=null; }
+function tReset(){ tPause(); secs=0; renderT(); }
+function printDoc(which){ document.body.classList.add("print-"+which); window.print(); setTimeout(()=>document.body.classList.remove("print-"+which),300); }
+
+const VOCAB=[
+  ["ambivalent","adj.","Having mixed, conflicting feelings.","torn, uncertain","decided, sure"],
+  ["austere","adj.","Severe or plain; without comfort or decoration.","stark, spartan","lavish, ornate"],
+  ["candor","n.","Open, honest expression.","frankness, openness","evasion, deceit"],
+  ["deride","v.","To mock or ridicule.","mock, scorn","praise, applaud"],
+  ["ephemeral","adj.","Lasting a very short time.","fleeting, brief","lasting, enduring"],
+  ["gregarious","adj.","Sociable; fond of company.","sociable, outgoing","solitary, withdrawn"],
+  ["lucid","adj.","Clear and easy to understand.","clear, coherent","confusing, murky"],
+  ["prudent","adj.","Careful and sensible; wise in practice.","cautious, sensible","reckless, rash"],
+  ["scrutinize","v.","To examine closely and critically.","inspect, examine","ignore, overlook"],
+  ["tenacious","adj.","Holding firmly; persistent.","persistent, dogged","yielding, slack"]
+];
+const vc=document.getElementById("vcards");
+VOCAB.forEach(([w,pos,def,syn,ant])=>{
+  const d=document.createElement("div");
+  d.className="fc";
+  d.onclick=function(){ this.classList.toggle("flipped"); };
+  d.innerHTML='<div class="in">'
+    +'<div class="face front"><div class="word">'+w+'</div><div class="pos">'+pos+'</div><div class="tapcue">tap to flip</div></div>'
+    +'<div class="face back"><div class="d">'+def+'</div>'
+    +'<div class="sa"><span class="syn">syn:</span> '+syn+'</div>'
+    +'<div class="sa"><span class="ant">ant:</span> '+ant+'</div></div>'
+    +'</div>';
+  vc.appendChild(d);
+});
+</script>
+</body>
+</html>
