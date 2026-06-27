@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAT Practice Exam 3 · KingCretot Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A1F3D;--gold:#C9A84C;--cream:#FAF7EF;--red:#C9342F;--green:#2E7D55;--ink:#172230;--muted:#586273;--line:#E5E0D2;--paper:#FFFFFF;--soft:#F5F2E9;--display:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--mono:'IBM Plex Mono',monospace;}
+*{box-sizing:border-box}html{font-size:18px}
+body{margin:0;background:var(--soft);color:var(--ink);font-family:var(--body);line-height:1.6}
+h1,h2,h3{font-family:var(--display);color:var(--navy);line-height:1.18;margin:0}
+.wrap{max-width:820px;margin:0 auto;padding:0 24px}
+.mast{background:var(--navy);color:#fff;padding:26px 0 22px}
+.mast .brand{font-family:var(--display);font-weight:700;font-size:21px}
+.mast .tag{font-weight:700;font-size:11px;letter-spacing:2.5px;margin-top:3px}
+.mast .e1{color:#8FB2F5}.mast .e2{color:var(--gold)}.mast .e3{color:#F08C8A}
+.mast .rule{height:3px;background:var(--gold);margin:16px 0 18px;border:0}
+.mast h1{color:#fff;font-size:30px;font-weight:600}
+.mast .sub{color:#cfd8e6;margin-top:9px;font-size:16px}
+.bar{position:sticky;top:0;z-index:50;background:#0e2342;color:#fff;border-bottom:2px solid var(--gold)}
+.bar .in{max-width:820px;margin:0 auto;padding:11px 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.bar .mod{font-weight:700;font-size:15px}
+.bar .mod small{display:block;font-weight:500;color:#cdd9ea;font-size:12px;letter-spacing:.3px}
+.bar .clock{font-family:var(--mono);font-weight:600;font-size:20px;background:rgba(201,168,76,.16);border:1px solid var(--gold);color:#f0e4c4;padding:6px 13px;border-radius:10px}
+.bar .clock.warn{background:rgba(201,52,47,.2);border-color:#F08C8A;color:#ffd9d7}
+.bar .prog{font-family:var(--mono);font-size:13px;color:#cdd9ea}
+main{padding:26px 0 10px}
+.lede{font-size:17px;color:var(--muted);margin:0 0 20px}
+.screen{display:none}.screen.active{display:block}
+.namebar{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:22px}
+.namebar label{font-weight:600;color:var(--navy);font-size:15px;display:block;margin-bottom:7px}
+.namebar input{width:100%;font:inherit;font-size:17px;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px}
+.q{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px 24px 18px;margin:16px 0;box-shadow:0 2px 10px rgba(10,31,61,.04)}
+.q .qno{font-family:var(--mono);font-weight:500;color:var(--gold);font-size:15px}
+.q .qtag{font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-left:8px}
+.passage{background:var(--soft);border-left:3px solid var(--gold);border-radius:8px;padding:14px 16px;margin:12px 0 14px;font-size:16px;line-height:1.62;white-space:pre-line}
+.formula{display:inline-block;font-family:var(--mono);font-size:14px;background:#eef3fb;border:1px solid #c9d8f0;color:#26406b;padding:7px 12px;border-radius:9px;margin:6px 0 12px}
+.stem{font-weight:600;font-size:18px;margin:10px 0 14px;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{position:relative;display:flex;gap:13px;align-items:center;border:2px solid var(--line);border-radius:12px;padding:13px 15px;cursor:pointer;font-size:16.5px;transition:border-color .12s,background .12s}
+.opt:hover{border-color:#9DB6E8;background:#fbfcfe}
+.opt input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.opt .ltr{flex-shrink:0;width:30px;height:30px;border-radius:8px;border:2px solid var(--line);display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:15px;color:var(--navy)}
+.opt.sel{border-color:var(--navy);background:#f3f6fb}
+.opt.sel .ltr{background:var(--navy);border-color:var(--navy);color:#fff}
+.grid-in{display:flex;flex-direction:column;gap:7px;margin-top:6px}
+.grid-in label{font-weight:600;color:var(--navy);font-size:14px}
+.grid-in input{font:inherit;font-family:var(--mono);font-size:18px;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;max-width:260px}
+.navrow{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:22px 0 8px;flex-wrap:wrap}
+.btn{font-family:var(--body);font-weight:600;font-size:16px;border-radius:11px;padding:13px 22px;cursor:pointer;border:2px solid var(--navy)}
+.btn-prim{background:var(--navy);color:#fff}.btn-prim:hover{background:#0e2a52}
+.btn-send{background:var(--gold);border-color:var(--gold);color:var(--navy)}.btn-send:hover{background:#b9991f}
+.unanswered{font-size:14px;color:var(--muted)}
+.break{text-align:center;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:40px 28px;margin:18px 0}
+.break .big{font-family:var(--mono);font-size:46px;font-weight:600;color:var(--navy);margin:12px 0}
+.break h2{font-size:26px;margin-bottom:8px}
+.break p{color:var(--muted);font-size:17px;max-width:520px;margin:8px auto}
+.report{background:var(--navy);color:#fff;border-radius:18px;padding:30px 28px;margin:18px 0}
+.report h2{color:#fff;font-size:26px}
+.scoreline{display:flex;gap:22px;flex-wrap:wrap;margin:18px 0 6px}
+.scorecard{background:rgba(255,255,255,.07);border:1px solid #2a4a78;border-radius:14px;padding:16px 20px;min-width:150px}
+.scorecard .k{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#9fb3d4;font-weight:700}
+.scorecard .v{font-family:var(--mono);font-size:30px;font-weight:600;color:var(--gold);margin-top:4px}
+.scorecard .sub{font-size:13px;color:#cdd9ea;margin-top:2px}
+.keywrap{margin:16px 0}
+.keyhead{font-family:var(--display);font-size:22px;color:var(--navy);margin:26px 0 6px;border-bottom:2px solid var(--gold);padding-bottom:6px}
+.key{background:var(--paper);border:1px solid var(--line);border-left-width:5px;border-radius:12px;padding:15px 18px;margin:11px 0}
+.key.correct{border-left-color:var(--green)}.key.incorrect{border-left-color:var(--red)}.key.blank{border-left-color:var(--muted)}
+.key .kq{font-weight:600;font-size:16px;margin-bottom:5px}
+.key .meta{font-family:var(--mono);font-size:13px;margin-bottom:7px}
+.key .meta .ok{color:var(--green);font-weight:600}.key .meta .no{color:var(--red);font-weight:600}
+.key .exp{font-size:15.5px;color:var(--ink);border-top:1px dashed var(--line);padding-top:9px}
+.key .exp b{color:var(--navy)}
+.note{background:var(--cream);border:1px solid var(--gold);border-radius:12px;padding:14px 16px;font-size:15px;margin:16px 0}
+.sent{display:none;background:#edf7f1;border:1px solid var(--green);color:#1d5638;border-radius:12px;padding:15px 17px;font-weight:600;margin-top:14px}
+.foot{background:var(--navy);color:#aeb9c9;text-align:center;padding:22px;font-size:13px;margin-top:24px}
+.foot b{color:#fff;font-family:var(--display)}
+.foot .fl{height:2px;background:var(--gold);max-width:320px;margin:0 auto 12px}
+@media (max-width:560px){.mast h1{font-size:25px}html{font-size:17px}}
+</style></head><body>
+<header class="mast"><div class="wrap">
+<div class="brand">KingCretot Experience</div>
+<div class="tag"><span class="e1">EDUCATE.</span>&nbsp;&nbsp;<span class="e2">EMPOWER.</span>&nbsp;&nbsp;<span class="e3">EXCEL.</span></div>
+<hr class="rule"><h1>SAT Practice Exam 3</h1>
+<div class="sub">Full-length &nbsp;·&nbsp; timed &nbsp;·&nbsp; 98 questions</div></div></header>
+<form id="examform" action="https://formspree.io/f/mpqgdkww" method="POST">
+<input type="hidden" name="_subject" value="KCE SAT — Practice Exam 3 Results">
+<input type="hidden" name="exam" value="Practice Exam 3">
+<input type="hidden" name="student_name" id="f_name" value="">
+<input type="hidden" name="total_score" id="f_total" value="">
+<input type="hidden" name="reading_writing" id="f_rw" value="">
+<input type="hidden" name="math" id="f_math" value="">
+<input type="hidden" name="module_detail" id="f_detail" value="">
+<section class="screen active" id="start"><main class="wrap">
+<p class="lede">This is a full-length, timed practice SAT. Each section has two modules. Work steadily — the difficulty climbs as you go, and Module 2 is the tougher set. You can move between questions within a module, but once a module's time is up it locks and moves on. You may use a graphing calculator on Math; any formula you need is shown with the question. Answers and full explanations appear only at the very end.</p>
+<div class="note"><b>Timing:</b> Reading &amp; Writing — two 32-minute modules. Then a 10-minute break. Then Math — two 35-minute modules. About 2 hours 14 minutes total.</div>
+<div class="namebar"><label for="sname">Student name</label><input type="text" id="sname" placeholder="Type your name to begin" required></div>
+<div class="navrow"><span class="unanswered">When you press start, the timer begins.</span>
+<button type="button" class="btn btn-prim" onclick="beginExam()">Start Reading &amp; Writing — Module 1</button></div>
+</main></section>
+<section class="screen" id="rw1"><div class="bar"><div class="in"><div class="mod">Reading &amp; Writing — Module 1<small>32 minutes · 27 questions</small></div><div class="prog">Section 1 of 2</div><div class="clock" id="clock_rw1">--:--</div></div></div>
+<main class="wrap"><div class="q" id="rw1_1" data-answer="A" data-grid="0" data-tag="Words in Context">
+<span class="qno">Q1</span><span class="qtag">Words in Context</span>
+<div class="passage">The coach's praise was never ______; she pointed to the exact moment a player had read the defense correctly, so the compliment carried real weight.</div>
+<div class="stem">Which choice completes the text with the most logical and precise word or phrase?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_1" value="A"><span class="ltr">A</span><span>vague</span></label>
+<label class="opt"><input type="radio" name="rw1_1" value="B"><span class="ltr">B</span><span>specific</span></label>
+<label class="opt"><input type="radio" name="rw1_1" value="C"><span class="ltr">C</span><span>harsh</span></label>
+<label class="opt"><input type="radio" name="rw1_1" value="D"><span class="ltr">D</span><span>frequent</span></label>
+</div>
+</div>
+<div class="q" id="rw1_2" data-answer="B" data-grid="0" data-tag="Words in Context">
+<span class="qno">Q2</span><span class="qtag">Words in Context</span>
+<div class="passage">Once considered ______, the small fishing village now draws thousands of tourists each summer to its restored harbor.</div>
+<div class="stem">Which choice completes the text with the most logical and precise word or phrase?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_2" value="A"><span class="ltr">A</span><span>bustling</span></label>
+<label class="opt"><input type="radio" name="rw1_2" value="B"><span class="ltr">B</span><span>obscure</span></label>
+<label class="opt"><input type="radio" name="rw1_2" value="C"><span class="ltr">C</span><span>crowded</span></label>
+<label class="opt"><input type="radio" name="rw1_2" value="D"><span class="ltr">D</span><span>modern</span></label>
+</div>
+</div>
+<div class="q" id="rw1_3" data-answer="C" data-grid="0" data-tag="Words in Context">
+<span class="qno">Q3</span><span class="qtag">Words in Context</span>
+<div class="passage">The report's tone was deliberately ______, avoiding alarm while still making the risks unmistakably clear.</div>
+<div class="stem">Which choice completes the text with the most logical and precise word or phrase?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_3" value="A"><span class="ltr">A</span><span>panicked</span></label>
+<label class="opt"><input type="radio" name="rw1_3" value="B"><span class="ltr">B</span><span>careless</span></label>
+<label class="opt"><input type="radio" name="rw1_3" value="C"><span class="ltr">C</span><span>measured</span></label>
+<label class="opt"><input type="radio" name="rw1_3" value="D"><span class="ltr">D</span><span>cheerful</span></label>
+</div>
+</div>
+<div class="q" id="rw1_4" data-answer="D" data-grid="0" data-tag="Text Structure &amp; Purpose">
+<span class="qno">Q4</span><span class="qtag">Text Structure &amp; Purpose</span>
+<div class="passage">The author opens by praising electric scooters as a clean way to cross a city, then spends the rest of the piece on the cluttered sidewalks, injuries, and disputes they have brought.</div>
+<div class="stem">Which choice best describes the main purpose of the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_4" value="A"><span class="ltr">A</span><span>To celebrate electric scooters</span></label>
+<label class="opt"><input type="radio" name="rw1_4" value="B"><span class="ltr">B</span><span>To explain how scooters are charged</span></label>
+<label class="opt"><input type="radio" name="rw1_4" value="C"><span class="ltr">C</span><span>To compare scooter brands</span></label>
+<label class="opt"><input type="radio" name="rw1_4" value="D"><span class="ltr">D</span><span>To present a benefit, then weigh it against emerging problems</span></label>
+</div>
+</div>
+<div class="q" id="rw1_5" data-answer="A" data-grid="0" data-tag="Cross-Text Connections">
+<span class="qno">Q5</span><span class="qtag">Cross-Text Connections</span>
+<div class="passage">Text 1: Designer Cho argues that open-plan offices spark collaboration by removing walls between coworkers.
+Text 2: Researcher Bell found that workers in open-plan offices actually emailed more and spoke face-to-face less, retreating behind headphones to focus.</div>
+<div class="stem">Based on the texts, Bell's findings (Text 2) most directly challenge Cho's claim (Text 1) by suggesting that</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_5" value="A"><span class="ltr">A</span><span>removing walls may reduce rather than increase face-to-face collaboration</span></label>
+<label class="opt"><input type="radio" name="rw1_5" value="B"><span class="ltr">B</span><span>open-plan offices have no walls</span></label>
+<label class="opt"><input type="radio" name="rw1_5" value="C"><span class="ltr">C</span><span>workers prefer email</span></label>
+<label class="opt"><input type="radio" name="rw1_5" value="D"><span class="ltr">D</span><span>collaboration is impossible</span></label>
+</div>
+</div>
+<div class="q" id="rw1_6" data-answer="B" data-grid="0" data-tag="Central Ideas">
+<span class="qno">Q6</span><span class="qtag">Central Ideas</span>
+<div class="passage">The encyclopedia's editors faced a paradox: the more comprehensive they made each entry, the less likely anyone was to read it to the end. Usefulness, they realized, sometimes meant leaving things out.</div>
+<div class="stem">Which choice best states the main idea of the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_6" value="A"><span class="ltr">A</span><span>Longer entries are always better</span></label>
+<label class="opt"><input type="radio" name="rw1_6" value="B"><span class="ltr">B</span><span>Comprehensiveness can undermine usefulness, so selective omission helps</span></label>
+<label class="opt"><input type="radio" name="rw1_6" value="C"><span class="ltr">C</span><span>Readers finish every entry</span></label>
+<label class="opt"><input type="radio" name="rw1_6" value="D"><span class="ltr">D</span><span>Encyclopedias should not exist</span></label>
+</div>
+</div>
+<div class="q" id="rw1_7" data-answer="C" data-grid="0" data-tag="Central Ideas">
+<span class="qno">Q7</span><span class="qtag">Central Ideas</span>
+<div class="passage">The violinist practiced scales for an hour before every concert, not to learn them — she had known them for decades — but to quiet her mind and steady her hands before walking onstage.</div>
+<div class="stem">Which choice best states the main idea of the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_7" value="A"><span class="ltr">A</span><span>The violinist did not know her scales</span></label>
+<label class="opt"><input type="radio" name="rw1_7" value="B"><span class="ltr">B</span><span>Scales are only for beginners</span></label>
+<label class="opt"><input type="radio" name="rw1_7" value="C"><span class="ltr">C</span><span>The violinist's pre-concert practice served to calm and prepare her, not to learn</span></label>
+<label class="opt"><input type="radio" name="rw1_7" value="D"><span class="ltr">D</span><span>The violinist disliked performing</span></label>
+</div>
+</div>
+<div class="q" id="rw1_8" data-answer="D" data-grid="0" data-tag="Command of Evidence (Textual)">
+<span class="qno">Q8</span><span class="qtag">Command of Evidence (Textual)</span>
+<div class="passage">A scientist claims that planting wildflower strips along farm fields increases crop yields by attracting pollinators.</div>
+<div class="stem">Which finding, if true, would most directly support the scientist's claim?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_8" value="A"><span class="ltr">A</span><span>Wildflowers are attractive to look at</span></label>
+<label class="opt"><input type="radio" name="rw1_8" value="B"><span class="ltr">B</span><span>Wildflowers need little water</span></label>
+<label class="opt"><input type="radio" name="rw1_8" value="C"><span class="ltr">C</span><span>Some farmers dislike wildflowers</span></label>
+<label class="opt"><input type="radio" name="rw1_8" value="D"><span class="ltr">D</span><span>Fields bordered by wildflower strips produced 12% higher yields than fields without them</span></label>
+</div>
+</div>
+<div class="q" id="rw1_9" data-answer="A" data-grid="0" data-tag="Command of Evidence (Quantitative)">
+<span class="qno">Q9</span><span class="qtag">Command of Evidence (Quantitative)</span>
+<div class="passage">A town tracked recycling after switching to weekly (from biweekly) pickup. Tons recycled per month rose from 140 to 205, while landfill waste fell from 310 to 250 tons.</div>
+<div class="stem">Which choice best uses the data to support the claim that weekly pickup improved recycling?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_9" value="A"><span class="ltr">A</span><span>Recycling rose from 140 to 205 tons while landfill waste fell from 310 to 250</span></label>
+<label class="opt"><input type="radio" name="rw1_9" value="B"><span class="ltr">B</span><span>Landfill waste rose</span></label>
+<label class="opt"><input type="radio" name="rw1_9" value="C"><span class="ltr">C</span><span>Recycling stayed flat</span></label>
+<label class="opt"><input type="radio" name="rw1_9" value="D"><span class="ltr">D</span><span>Both measures stayed the same</span></label>
+</div>
+</div>
+<div class="q" id="rw1_10" data-answer="B" data-grid="0" data-tag="Inferences">
+<span class="qno">Q10</span><span class="qtag">Inferences</span>
+<div class="passage">A species of frog freezes nearly solid each winter, its heart stopping for weeks, then thaws and revives in spring. Its cells are packed with a natural antifreeze that keeps ice from forming inside them.</div>
+<div class="stem">Which choice most logically completes the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_10" value="A"><span class="ltr">A</span><span>the frog cannot survive winter</span></label>
+<label class="opt"><input type="radio" name="rw1_10" value="B"><span class="ltr">B</span><span>the antifreeze likely protects the frog's cells from freezing damage</span></label>
+<label class="opt"><input type="radio" name="rw1_10" value="C"><span class="ltr">C</span><span>ice forms freely inside the frog's cells</span></label>
+<label class="opt"><input type="radio" name="rw1_10" value="D"><span class="ltr">D</span><span>the frog's heart never stops</span></label>
+</div>
+</div>
+<div class="q" id="rw1_11" data-answer="C" data-grid="0" data-tag="Inferences">
+<span class="qno">Q11</span><span class="qtag">Inferences</span>
+<div class="passage">The bridge's cables were arranged so that the load of any single point spread across dozens of strands. When one strand snapped during testing, the structure barely registered the loss.</div>
+<div class="stem">Which choice most logically completes the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_11" value="A"><span class="ltr">A</span><span>the bridge collapses if one strand breaks</span></label>
+<label class="opt"><input type="radio" name="rw1_11" value="B"><span class="ltr">B</span><span>the cables bear no load</span></label>
+<label class="opt"><input type="radio" name="rw1_11" value="C"><span class="ltr">C</span><span>the design distributes load to limit the effect of a single failure</span></label>
+<label class="opt"><input type="radio" name="rw1_11" value="D"><span class="ltr">D</span><span>the strands work independently</span></label>
+</div>
+</div>
+<div class="q" id="rw1_12" data-answer="D" data-grid="0" data-tag="Central Ideas">
+<span class="qno">Q12</span><span class="qtag">Central Ideas</span>
+<div class="passage">Folk tales survive not because they are written down but because they are retold. Each teller reshapes the story slightly, and it is this constant, small revision that keeps a tale alive across centuries.</div>
+<div class="stem">Which choice best states the main idea of the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_12" value="A"><span class="ltr">A</span><span>Folk tales survive only in books</span></label>
+<label class="opt"><input type="radio" name="rw1_12" value="B"><span class="ltr">B</span><span>Folk tales never change</span></label>
+<label class="opt"><input type="radio" name="rw1_12" value="C"><span class="ltr">C</span><span>Only one version of a tale is correct</span></label>
+<label class="opt"><input type="radio" name="rw1_12" value="D"><span class="ltr">D</span><span>Retelling, with its small revisions, is what keeps folk tales alive</span></label>
+</div>
+</div>
+<div class="q" id="rw1_13" data-answer="A" data-grid="0" data-tag="Command of Evidence (Textual)">
+<span class="qno">Q13</span><span class="qtag">Command of Evidence (Textual)</span>
+<div class="passage">A historian argues that a city's rapid growth in the 1800s was driven mainly by its new railroad connection rather than its port.</div>
+<div class="stem">Which finding, if true, would most directly support the historian's argument?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_13" value="A"><span class="ltr">A</span><span>The population doubled in the five years after the railroad opened, long after the port was built</span></label>
+<label class="opt"><input type="radio" name="rw1_13" value="B"><span class="ltr">B</span><span>The city had a pleasant climate</span></label>
+<label class="opt"><input type="radio" name="rw1_13" value="C"><span class="ltr">C</span><span>The port was very old</span></label>
+<label class="opt"><input type="radio" name="rw1_13" value="D"><span class="ltr">D</span><span>The city had several newspapers</span></label>
+</div>
+</div>
+<div class="q" id="rw1_14" data-answer="B" data-grid="0" data-tag="Inferences">
+<span class="qno">Q14</span><span class="qtag">Inferences</span>
+<div class="passage">A type of cactus stores water in its thick stem and is covered in fine white hairs that reflect sunlight. It thrives in deserts where daytime temperatures routinely exceed those that wilt most other plants.</div>
+<div class="stem">Which choice most logically completes the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_14" value="A"><span class="ltr">A</span><span>the cactus needs cool, shaded conditions</span></label>
+<label class="opt"><input type="radio" name="rw1_14" value="B"><span class="ltr">B</span><span>the cactus's features likely help it survive intense desert heat</span></label>
+<label class="opt"><input type="radio" name="rw1_14" value="C"><span class="ltr">C</span><span>the white hairs trap heat</span></label>
+<label class="opt"><input type="radio" name="rw1_14" value="D"><span class="ltr">D</span><span>the cactus stores no water</span></label>
+</div>
+</div>
+<div class="q" id="rw1_15" data-answer="C" data-grid="0" data-tag="Central Ideas">
+<span class="qno">Q15</span><span class="qtag">Central Ideas</span>
+<div class="passage">A hospital cut patient infections sharply not with new technology but with a checklist: simple, numbered steps that staff followed before every procedure. The power lay in making the routine impossible to skip.</div>
+<div class="stem">Which choice best states the main idea of the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_15" value="A"><span class="ltr">A</span><span>New technology cut infections</span></label>
+<label class="opt"><input type="radio" name="rw1_15" value="B"><span class="ltr">B</span><span>Checklists are useless</span></label>
+<label class="opt"><input type="radio" name="rw1_15" value="C"><span class="ltr">C</span><span>A simple checklist reduced infections by making key steps unskippable</span></label>
+<label class="opt"><input type="radio" name="rw1_15" value="D"><span class="ltr">D</span><span>Infections cannot be prevented</span></label>
+</div>
+</div>
+<div class="q" id="rw1_16" data-answer="D" data-grid="0" data-tag="Boundaries (punctuation)">
+<span class="qno">Q16</span><span class="qtag">Boundaries (punctuation)</span>
+<div class="passage">The morning began with a thick fog ______ by ten o'clock, bright sun had burned it away.</div>
+<div class="stem">Which choice completes the text so that it conforms to the conventions of Standard English?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_16" value="A"><span class="ltr">A</span><span>fog but,</span></label>
+<label class="opt"><input type="radio" name="rw1_16" value="B"><span class="ltr">B</span><span>fog; but,</span></label>
+<label class="opt"><input type="radio" name="rw1_16" value="C"><span class="ltr">C</span><span>fog but</span></label>
+<label class="opt"><input type="radio" name="rw1_16" value="D"><span class="ltr">D</span><span>fog, but</span></label>
+</div>
+</div>
+<div class="q" id="rw1_17" data-answer="A" data-grid="0" data-tag="Form, Structure &amp; Sense">
+<span class="qno">Q17</span><span class="qtag">Form, Structure &amp; Sense</span>
+<div class="passage">The set of instructions ______ printed in three languages on the back of the box.</div>
+<div class="stem">Which choice completes the text so that it conforms to the conventions of Standard English?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_17" value="A"><span class="ltr">A</span><span>is</span></label>
+<label class="opt"><input type="radio" name="rw1_17" value="B"><span class="ltr">B</span><span>are</span></label>
+<label class="opt"><input type="radio" name="rw1_17" value="C"><span class="ltr">C</span><span>were</span></label>
+<label class="opt"><input type="radio" name="rw1_17" value="D"><span class="ltr">D</span><span>have been</span></label>
+</div>
+</div>
+<div class="q" id="rw1_18" data-answer="B" data-grid="0" data-tag="Boundaries (punctuation)">
+<span class="qno">Q18</span><span class="qtag">Boundaries (punctuation)</span>
+<div class="passage">The trail offered three rewards ______ a waterfall, a wide valley view, and a quiet grove of pines.</div>
+<div class="stem">Which choice completes the text so that it conforms to the conventions of Standard English?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_18" value="A"><span class="ltr">A</span><span>rewards,</span></label>
+<label class="opt"><input type="radio" name="rw1_18" value="B"><span class="ltr">B</span><span>rewards:</span></label>
+<label class="opt"><input type="radio" name="rw1_18" value="C"><span class="ltr">C</span><span>rewards;</span></label>
+<label class="opt"><input type="radio" name="rw1_18" value="D"><span class="ltr">D</span><span>rewards</span></label>
+</div>
+</div>
+<div class="q" id="rw1_19" data-answer="C" data-grid="0" data-tag="Form, Structure &amp; Sense">
+<span class="qno">Q19</span><span class="qtag">Form, Structure &amp; Sense</span>
+<div class="passage">By the time the curtain rose, the actors ______ the final scene a dozen times that week.</div>
+<div class="stem">Which choice completes the text so that it conforms to the conventions of Standard English?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_19" value="A"><span class="ltr">A</span><span>rehearse</span></label>
+<label class="opt"><input type="radio" name="rw1_19" value="B"><span class="ltr">B</span><span>have rehearsed</span></label>
+<label class="opt"><input type="radio" name="rw1_19" value="C"><span class="ltr">C</span><span>had rehearsed</span></label>
+<label class="opt"><input type="radio" name="rw1_19" value="D"><span class="ltr">D</span><span>will rehearse</span></label>
+</div>
+</div>
+<div class="q" id="rw1_20" data-answer="D" data-grid="0" data-tag="Boundaries (punctuation)">
+<span class="qno">Q20</span><span class="qtag">Boundaries (punctuation)</span>
+<div class="passage">The scientist, ______ research had reshaped the field, remained modest about her influence.</div>
+<div class="stem">Which choice completes the text so that it conforms to the conventions of Standard English?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_20" value="A"><span class="ltr">A</span><span>who's</span></label>
+<label class="opt"><input type="radio" name="rw1_20" value="B"><span class="ltr">B</span><span>whom</span></label>
+<label class="opt"><input type="radio" name="rw1_20" value="C"><span class="ltr">C</span><span>that's</span></label>
+<label class="opt"><input type="radio" name="rw1_20" value="D"><span class="ltr">D</span><span>whose</span></label>
+</div>
+</div>
+<div class="q" id="rw1_21" data-answer="A" data-grid="0" data-tag="Form, Structure &amp; Sense">
+<span class="qno">Q21</span><span class="qtag">Form, Structure &amp; Sense</span>
+<div class="passage">Neither the director nor the producers ______ willing to delay the film's release.</div>
+<div class="stem">Which choice completes the text so that it conforms to the conventions of Standard English?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_21" value="A"><span class="ltr">A</span><span>were</span></label>
+<label class="opt"><input type="radio" name="rw1_21" value="B"><span class="ltr">B</span><span>was</span></label>
+<label class="opt"><input type="radio" name="rw1_21" value="C"><span class="ltr">C</span><span>is</span></label>
+<label class="opt"><input type="radio" name="rw1_21" value="D"><span class="ltr">D</span><span>has been</span></label>
+</div>
+</div>
+<div class="q" id="rw1_22" data-answer="B" data-grid="0" data-tag="Transitions">
+<span class="qno">Q22</span><span class="qtag">Transitions</span>
+<div class="passage">The bakery sold out of bread by nine each morning. ______, the owner began baking a second batch at dawn to meet the demand.</div>
+<div class="stem">Which choice completes the text with the most logical transition?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_22" value="A"><span class="ltr">A</span><span>Nevertheless</span></label>
+<label class="opt"><input type="radio" name="rw1_22" value="B"><span class="ltr">B</span><span>Therefore</span></label>
+<label class="opt"><input type="radio" name="rw1_22" value="C"><span class="ltr">C</span><span>However</span></label>
+<label class="opt"><input type="radio" name="rw1_22" value="D"><span class="ltr">D</span><span>For example</span></label>
+</div>
+</div>
+<div class="q" id="rw1_23" data-answer="C" data-grid="0" data-tag="Transitions">
+<span class="qno">Q23</span><span class="qtag">Transitions</span>
+<div class="passage">The new bridge shortened the commute considerably. ______, it cut the average drive from 40 minutes to 18.</div>
+<div class="stem">Which choice completes the text with the most logical transition?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_23" value="A"><span class="ltr">A</span><span>However</span></label>
+<label class="opt"><input type="radio" name="rw1_23" value="B"><span class="ltr">B</span><span>Instead</span></label>
+<label class="opt"><input type="radio" name="rw1_23" value="C"><span class="ltr">C</span><span>Specifically</span></label>
+<label class="opt"><input type="radio" name="rw1_23" value="D"><span class="ltr">D</span><span>In contrast</span></label>
+</div>
+</div>
+<div class="q" id="rw1_24" data-answer="D" data-grid="0" data-tag="Transitions">
+<span class="qno">Q24</span><span class="qtag">Transitions</span>
+<div class="passage">Streaming has made millions of songs instantly available. ______, many listeners report feeling overwhelmed, returning again and again to the same few familiar albums.</div>
+<div class="stem">Which choice completes the text with the most logical transition?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_24" value="A"><span class="ltr">A</span><span>Likewise</span></label>
+<label class="opt"><input type="radio" name="rw1_24" value="B"><span class="ltr">B</span><span>Therefore</span></label>
+<label class="opt"><input type="radio" name="rw1_24" value="C"><span class="ltr">C</span><span>For instance</span></label>
+<label class="opt"><input type="radio" name="rw1_24" value="D"><span class="ltr">D</span><span>Yet</span></label>
+</div>
+</div>
+<div class="q" id="rw1_25" data-answer="A" data-grid="0" data-tag="Rhetorical Synthesis">
+<span class="qno">Q25</span><span class="qtag">Rhetorical Synthesis</span>
+<div class="passage">Notes:
+• The lighthouse was built in 1887.
+• It was automated in 1990.
+• Its light is visible 20 miles out to sea.
+• It was restored by volunteers in 2021.</div>
+<div class="stem">The student wants to emphasize the lighthouse's continued usefulness to sailors. Which choice best accomplishes this goal?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_25" value="A"><span class="ltr">A</span><span>Its light remains visible 20 miles out to sea, still guiding ships today.</span></label>
+<label class="opt"><input type="radio" name="rw1_25" value="B"><span class="ltr">B</span><span>The lighthouse was built in 1887.</span></label>
+<label class="opt"><input type="radio" name="rw1_25" value="C"><span class="ltr">C</span><span>The lighthouse was automated in 1990.</span></label>
+<label class="opt"><input type="radio" name="rw1_25" value="D"><span class="ltr">D</span><span>Volunteers restored it in 2021.</span></label>
+</div>
+</div>
+<div class="q" id="rw1_26" data-answer="B" data-grid="0" data-tag="Rhetorical Synthesis">
+<span class="qno">Q26</span><span class="qtag">Rhetorical Synthesis</span>
+<div class="passage">Notes:
+• The dancer trained for 15 years.
+• She suffered a serious injury in 2018.
+• She returned to the stage in 2020.
+• She now teaches young dancers.</div>
+<div class="stem">The student wants to emphasize the dancer's resilience. Which choice best accomplishes this goal?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_26" value="A"><span class="ltr">A</span><span>The dancer trained for 15 years.</span></label>
+<label class="opt"><input type="radio" name="rw1_26" value="B"><span class="ltr">B</span><span>After a serious injury in 2018, the dancer fought back to return to the stage in 2020.</span></label>
+<label class="opt"><input type="radio" name="rw1_26" value="C"><span class="ltr">C</span><span>The dancer now teaches young dancers.</span></label>
+<label class="opt"><input type="radio" name="rw1_26" value="D"><span class="ltr">D</span><span>The dancer trained for many years.</span></label>
+</div>
+</div>
+<div class="q" id="rw1_27" data-answer="C" data-grid="0" data-tag="Transitions">
+<span class="qno">Q27</span><span class="qtag">Transitions</span>
+<div class="passage">The instructions seemed overwhelming at first glance. ______, broken into three short stages, the project turned out to be straightforward.</div>
+<div class="stem">Which choice completes the text with the most logical transition?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw1_27" value="A"><span class="ltr">A</span><span>Similarly</span></label>
+<label class="opt"><input type="radio" name="rw1_27" value="B"><span class="ltr">B</span><span>Therefore</span></label>
+<label class="opt"><input type="radio" name="rw1_27" value="C"><span class="ltr">C</span><span>Yet</span></label>
+<label class="opt"><input type="radio" name="rw1_27" value="D"><span class="ltr">D</span><span>For example</span></label>
+</div>
+</div><div class="navrow"><span class="unanswered">Unanswered questions are not penalized.</span>
+<button type="button" class="btn btn-prim" onclick="goRW2()">Submit Module 1 &amp; continue</button></div></main></section>
+<section class="screen" id="rw2"><div class="bar"><div class="in"><div class="mod">Reading &amp; Writing — Module 2<small>32 minutes · 27 questions</small></div><div class="prog">Section 1 of 2</div><div class="clock" id="clock_rw2">--:--</div></div></div>
+<main class="wrap"><div class="q" id="rw2_1" data-answer="A" data-grid="0" data-tag="Words in Context">
+<span class="qno">Q1</span><span class="qtag">Words in Context</span>
+<div class="passage">The critic's reputation for ______ was deserved: she could find the single weak line in an otherwise flawless poem and explain, in a sentence, exactly why it failed.</div>
+<div class="stem">Which choice completes the text with the most logical and precise word or phrase?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_1" value="A"><span class="ltr">A</span><span>acuity</span></label>
+<label class="opt"><input type="radio" name="rw2_1" value="B"><span class="ltr">B</span><span>carelessness</span></label>
+<label class="opt"><input type="radio" name="rw2_1" value="C"><span class="ltr">C</span><span>generosity</span></label>
+<label class="opt"><input type="radio" name="rw2_1" value="D"><span class="ltr">D</span><span>hesitation</span></label>
+</div>
+</div>
+<div class="q" id="rw2_2" data-answer="B" data-grid="0" data-tag="Words in Context">
+<span class="qno">Q2</span><span class="qtag">Words in Context</span>
+<div class="passage">The treaty's language was studiously ______, allowing each side to claim it had won the point in dispute.</div>
+<div class="stem">Which choice completes the text with the most logical and precise word or phrase?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_2" value="A"><span class="ltr">A</span><span>precise</span></label>
+<label class="opt"><input type="radio" name="rw2_2" value="B"><span class="ltr">B</span><span>ambiguous</span></label>
+<label class="opt"><input type="radio" name="rw2_2" value="C"><span class="ltr">C</span><span>hostile</span></label>
+<label class="opt"><input type="radio" name="rw2_2" value="D"><span class="ltr">D</span><span>brief</span></label>
+</div>
+</div>
+<div class="q" id="rw2_3" data-answer="C" data-grid="0" data-tag="Words in Context">
+<span class="qno">Q3</span><span class="qtag">Words in Context</span>
+<div class="passage">Far from being ______, the scholar's footnotes were where her boldest arguments hid, tucked beneath the cautious prose of the main text.</div>
+<div class="stem">Which choice completes the text with the most logical and precise word or phrase?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_3" value="A"><span class="ltr">A</span><span>provocative</span></label>
+<label class="opt"><input type="radio" name="rw2_3" value="B"><span class="ltr">B</span><span>lengthy</span></label>
+<label class="opt"><input type="radio" name="rw2_3" value="C"><span class="ltr">C</span><span>perfunctory</span></label>
+<label class="opt"><input type="radio" name="rw2_3" value="D"><span class="ltr">D</span><span>controversial</span></label>
+</div>
+</div>
+<div class="q" id="rw2_4" data-answer="D" data-grid="0" data-tag="Text Structure &amp; Purpose">
+<span class="qno">Q4</span><span class="qtag">Text Structure &amp; Purpose</span>
+<div class="passage">The essay's first half methodically builds the case that a famous shipwreck was caused by human error; the second half then introduces a single overlooked weather record that makes the error nearly unavoidable.</div>
+<div class="stem">Which choice best describes the structure of the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_4" value="A"><span class="ltr">A</span><span>It lists unrelated facts about a shipwreck</span></label>
+<label class="opt"><input type="radio" name="rw2_4" value="B"><span class="ltr">B</span><span>It argues the shipwreck never happened</span></label>
+<label class="opt"><input type="radio" name="rw2_4" value="C"><span class="ltr">C</span><span>It compares two ships</span></label>
+<label class="opt"><input type="radio" name="rw2_4" value="D"><span class="ltr">D</span><span>It builds an argument, then introduces evidence that reframes it</span></label>
+</div>
+</div>
+<div class="q" id="rw2_5" data-answer="A" data-grid="0" data-tag="Cross-Text Connections">
+<span class="qno">Q5</span><span class="qtag">Cross-Text Connections</span>
+<div class="passage">Text 1: Economist Reyes argues that tariffs protect domestic jobs by making imported goods more expensive and shifting demand to local producers.
+Text 2: Economist Lund counters that tariffs raise input costs for domestic manufacturers who rely on imported parts, costing more jobs downstream than they save.</div>
+<div class="stem">Based on the texts, Lund (Text 2) would most likely argue that Reyes (Text 1) overlooks</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_5" value="A"><span class="ltr">A</span><span>that domestic manufacturers may depend on imported inputs, so tariffs can cost jobs too</span></label>
+<label class="opt"><input type="radio" name="rw2_5" value="B"><span class="ltr">B</span><span>that imported goods become more expensive</span></label>
+<label class="opt"><input type="radio" name="rw2_5" value="C"><span class="ltr">C</span><span>that demand shifts to local producers</span></label>
+<label class="opt"><input type="radio" name="rw2_5" value="D"><span class="ltr">D</span><span>that tariffs are a tax</span></label>
+</div>
+</div>
+<div class="q" id="rw2_6" data-answer="B" data-grid="0" data-tag="Central Ideas">
+<span class="qno">Q6</span><span class="qtag">Central Ideas</span>
+<div class="passage">The mathematician argued that elegance in a proof is not decoration but discovery: a shorter, clearer path through an argument often reveals why a theorem is true, not merely that it is.</div>
+<div class="stem">Which choice best states the main idea of the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_6" value="A"><span class="ltr">A</span><span>Elegant proofs are merely prettier</span></label>
+<label class="opt"><input type="radio" name="rw2_6" value="B"><span class="ltr">B</span><span>An elegant proof can illuminate why a theorem holds, not just confirm it</span></label>
+<label class="opt"><input type="radio" name="rw2_6" value="C"><span class="ltr">C</span><span>Long proofs are always better</span></label>
+<label class="opt"><input type="radio" name="rw2_6" value="D"><span class="ltr">D</span><span>Elegance has no place in mathematics</span></label>
+</div>
+</div>
+<div class="q" id="rw2_7" data-answer="C" data-grid="0" data-tag="Inferences">
+<span class="qno">Q7</span><span class="qtag">Inferences</span>
+<div class="passage">On remote islands free of large predators, some bird species have, over generations, lost the ability to fly, investing instead in larger bodies and stronger legs for foraging on the ground.</div>
+<div class="stem">Which choice most logically completes the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_7" value="A"><span class="ltr">A</span><span>these birds face constant predation</span></label>
+<label class="opt"><input type="radio" name="rw2_7" value="B"><span class="ltr">B</span><span>flight requires no energy to maintain</span></label>
+<label class="opt"><input type="radio" name="rw2_7" value="C"><span class="ltr">C</span><span>flight offers little advantage where ground predators are absent</span></label>
+<label class="opt"><input type="radio" name="rw2_7" value="D"><span class="ltr">D</span><span>the birds migrate long distances by air</span></label>
+</div>
+</div>
+<div class="q" id="rw2_8" data-answer="D" data-grid="0" data-tag="Inferences">
+<span class="qno">Q8</span><span class="qtag">Inferences</span>
+<div class="passage">The architect designed the concert hall's ceiling as a series of irregular wooden panels, each angled differently. Musicians noted that, unlike in flatter halls, sound reached every seat without the muddy echoes that plague rectangular rooms.</div>
+<div class="stem">Which choice most logically completes the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_8" value="A"><span class="ltr">A</span><span>the panels block sound entirely</span></label>
+<label class="opt"><input type="radio" name="rw2_8" value="B"><span class="ltr">B</span><span>flat ceilings produce clearer sound</span></label>
+<label class="opt"><input type="radio" name="rw2_8" value="C"><span class="ltr">C</span><span>the design ignores acoustics</span></label>
+<label class="opt"><input type="radio" name="rw2_8" value="D"><span class="ltr">D</span><span>the irregular panels likely scatter sound to reduce echo</span></label>
+</div>
+</div>
+<div class="q" id="rw2_9" data-answer="A" data-grid="0" data-tag="Command of Evidence (Quantitative)">
+<span class="qno">Q9</span><span class="qtag">Command of Evidence (Quantitative)</span>
+<div class="passage">Researchers compared two tutoring formats. Students in small groups improved a mean of 14 points; those tutored one-on-one improved 13 points but at four times the cost per student.</div>
+<div class="stem">Which choice best uses the data to support the claim that small-group tutoring was more cost-effective?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_9" value="A"><span class="ltr">A</span><span>Small groups gained 14 points versus 13 for one-on-one, at one-quarter the cost</span></label>
+<label class="opt"><input type="radio" name="rw2_9" value="B"><span class="ltr">B</span><span>One-on-one tutoring improved scores more</span></label>
+<label class="opt"><input type="radio" name="rw2_9" value="C"><span class="ltr">C</span><span>Both formats cost the same</span></label>
+<label class="opt"><input type="radio" name="rw2_9" value="D"><span class="ltr">D</span><span>Small groups improved scores less</span></label>
+</div>
+</div>
+<div class="q" id="rw2_10" data-answer="B" data-grid="0" data-tag="Command of Evidence (Textual)">
+<span class="qno">Q10</span><span class="qtag">Command of Evidence (Textual)</span>
+<div class="passage">A historian argues that a printing innovation, not a change in religious belief, was the chief reason a 1500s text spread so quickly across a continent.</div>
+<div class="stem">Which finding, if true, would most directly support the historian's argument?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_10" value="A"><span class="ltr">A</span><span>The text discussed religion</span></label>
+<label class="opt"><input type="radio" name="rw2_10" value="B"><span class="ltr">B</span><span>Copies appeared in distant cities within months, a speed impossible before the new press</span></label>
+<label class="opt"><input type="radio" name="rw2_10" value="C"><span class="ltr">C</span><span>The author was well known</span></label>
+<label class="opt"><input type="radio" name="rw2_10" value="D"><span class="ltr">D</span><span>The text was short</span></label>
+</div>
+</div>
+<div class="q" id="rw2_11" data-answer="C" data-grid="0" data-tag="Words in Context">
+<span class="qno">Q11</span><span class="qtag">Words in Context</span>
+<div class="passage">The diplomat's ______ in the talks was strategic: by saying little, she let the other side reveal its priorities before she committed to anything.</div>
+<div class="stem">Which choice completes the text with the most logical and precise word or phrase?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_11" value="A"><span class="ltr">A</span><span>loquacity</span></label>
+<label class="opt"><input type="radio" name="rw2_11" value="B"><span class="ltr">B</span><span>aggression</span></label>
+<label class="opt"><input type="radio" name="rw2_11" value="C"><span class="ltr">C</span><span>reticence</span></label>
+<label class="opt"><input type="radio" name="rw2_11" value="D"><span class="ltr">D</span><span>confusion</span></label>
+</div>
+</div>
+<div class="q" id="rw2_12" data-answer="D" data-grid="0" data-tag="Central Ideas">
+<span class="qno">Q12</span><span class="qtag">Central Ideas</span>
+<div class="passage">Conservationists have begun to question the goal of restoring ecosystems to a fixed past state. Climates and species ranges shift; a marsh 'restored' to its 1900 condition may be poorly suited to the warmer world it now sits in.</div>
+<div class="stem">Which choice best states the main idea of the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_12" value="A"><span class="ltr">A</span><span>Ecosystems should always be restored to their past states</span></label>
+<label class="opt"><input type="radio" name="rw2_12" value="B"><span class="ltr">B</span><span>Ecosystems never change</span></label>
+<label class="opt"><input type="radio" name="rw2_12" value="C"><span class="ltr">C</span><span>Conservation is pointless</span></label>
+<label class="opt"><input type="radio" name="rw2_12" value="D"><span class="ltr">D</span><span>Restoring an ecosystem to a fixed past state may not suit present conditions</span></label>
+</div>
+</div>
+<div class="q" id="rw2_13" data-answer="A" data-grid="0" data-tag="Text Structure &amp; Purpose">
+<span class="qno">Q13</span><span class="qtag">Text Structure &amp; Purpose</span>
+<div class="passage">The author spends most of the article admiring a tech company's bold promises about a new device, then closes by noting that the same company made nearly identical promises about three earlier products that never shipped.</div>
+<div class="stem">Which choice best describes the function of the article's final lines?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_13" value="A"><span class="ltr">A</span><span>They cast doubt on the promises by recalling a pattern of unmet ones</span></label>
+<label class="opt"><input type="radio" name="rw2_13" value="B"><span class="ltr">B</span><span>They reaffirm the company's reliability</span></label>
+<label class="opt"><input type="radio" name="rw2_13" value="C"><span class="ltr">C</span><span>They describe the device's features</span></label>
+<label class="opt"><input type="radio" name="rw2_13" value="D"><span class="ltr">D</span><span>They praise the company's marketing</span></label>
+</div>
+</div>
+<div class="q" id="rw2_14" data-answer="B" data-grid="0" data-tag="Inferences">
+<span class="qno">Q14</span><span class="qtag">Inferences</span>
+<div class="passage">Certain ants farm fungus, feeding it leaf fragments and weeding out competing molds. Colonies whose fungus garden fails do not survive, even when other food is abundant nearby.</div>
+<div class="stem">Which choice most logically completes the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_14" value="A"><span class="ltr">A</span><span>the ants can live without their fungus</span></label>
+<label class="opt"><input type="radio" name="rw2_14" value="B"><span class="ltr">B</span><span>these ants depend on their cultivated fungus for survival</span></label>
+<label class="opt"><input type="radio" name="rw2_14" value="C"><span class="ltr">C</span><span>the fungus harms the ants</span></label>
+<label class="opt"><input type="radio" name="rw2_14" value="D"><span class="ltr">D</span><span>abundant nearby food easily replaces the fungus</span></label>
+</div>
+</div>
+<div class="q" id="rw2_15" data-answer="C" data-grid="0" data-tag="Cross-Text Connections">
+<span class="qno">Q15</span><span class="qtag">Cross-Text Connections</span>
+<div class="passage">Text 1: Critic Amaya praises a novel's refusal to resolve its plot, arguing the open ending mirrors life's uncertainty and respects the reader's intelligence.
+Text 2: Critic Devi finds the same ending a failure of nerve, contending that an author who raises questions owes readers at least an attempt at answers.</div>
+<div class="stem">Which choice best describes how the two critics differ?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_15" value="A"><span class="ltr">A</span><span>Both praise the open ending</span></label>
+<label class="opt"><input type="radio" name="rw2_15" value="B"><span class="ltr">B</span><span>Devi agrees the ending respects readers</span></label>
+<label class="opt"><input type="radio" name="rw2_15" value="C"><span class="ltr">C</span><span>They disagree about whether leaving the plot unresolved is a strength or a flaw</span></label>
+<label class="opt"><input type="radio" name="rw2_15" value="D"><span class="ltr">D</span><span>Amaya calls the ending a failure</span></label>
+</div>
+</div>
+<div class="q" id="rw2_16" data-answer="D" data-grid="0" data-tag="Boundaries (punctuation)">
+<span class="qno">Q16</span><span class="qtag">Boundaries (punctuation)</span>
+<div class="passage">The lab kept three records of every trial ______ a written log, a photograph, and a digital file ______ so that no single loss could erase the data.</div>
+<div class="stem">Which choice completes the text so that it conforms to the conventions of Standard English?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_16" value="A"><span class="ltr">A</span><span>trial: ... file:</span></label>
+<label class="opt"><input type="radio" name="rw2_16" value="B"><span class="ltr">B</span><span>trial, ... file,</span></label>
+<label class="opt"><input type="radio" name="rw2_16" value="C"><span class="ltr">C</span><span>trial; ... file;</span></label>
+<label class="opt"><input type="radio" name="rw2_16" value="D"><span class="ltr">D</span><span>trial — ... file —</span></label>
+</div>
+</div>
+<div class="q" id="rw2_17" data-answer="A" data-grid="0" data-tag="Form, Structure &amp; Sense">
+<span class="qno">Q17</span><span class="qtag">Form, Structure &amp; Sense</span>
+<div class="passage">The collection of letters, donated by the author's family after years of negotiation, ______ a side of her that her published work never showed.</div>
+<div class="stem">Which choice completes the text so that it conforms to the conventions of Standard English?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_17" value="A"><span class="ltr">A</span><span>reveals</span></label>
+<label class="opt"><input type="radio" name="rw2_17" value="B"><span class="ltr">B</span><span>reveal</span></label>
+<label class="opt"><input type="radio" name="rw2_17" value="C"><span class="ltr">C</span><span>are revealing</span></label>
+<label class="opt"><input type="radio" name="rw2_17" value="D"><span class="ltr">D</span><span>have revealed</span></label>
+</div>
+</div>
+<div class="q" id="rw2_18" data-answer="B" data-grid="0" data-tag="Boundaries (punctuation)">
+<span class="qno">Q18</span><span class="qtag">Boundaries (punctuation)</span>
+<div class="passage">The committee reached the conclusion everyone had feared ______ the project could not be completed on the current budget.</div>
+<div class="stem">Which choice completes the text so that it conforms to the conventions of Standard English?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_18" value="A"><span class="ltr">A</span><span>feared,</span></label>
+<label class="opt"><input type="radio" name="rw2_18" value="B"><span class="ltr">B</span><span>feared:</span></label>
+<label class="opt"><input type="radio" name="rw2_18" value="C"><span class="ltr">C</span><span>feared;</span></label>
+<label class="opt"><input type="radio" name="rw2_18" value="D"><span class="ltr">D</span><span>feared</span></label>
+</div>
+</div>
+<div class="q" id="rw2_19" data-answer="C" data-grid="0" data-tag="Form, Structure &amp; Sense">
+<span class="qno">Q19</span><span class="qtag">Form, Structure &amp; Sense</span>
+<div class="passage">Had the city invested in flood defenses a decade earlier, the recent storm ______ far less damage.</div>
+<div class="stem">Which choice completes the text so that it conforms to the conventions of Standard English?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_19" value="A"><span class="ltr">A</span><span>would cause</span></label>
+<label class="opt"><input type="radio" name="rw2_19" value="B"><span class="ltr">B</span><span>will cause</span></label>
+<label class="opt"><input type="radio" name="rw2_19" value="C"><span class="ltr">C</span><span>would have caused</span></label>
+<label class="opt"><input type="radio" name="rw2_19" value="D"><span class="ltr">D</span><span>caused</span></label>
+</div>
+</div>
+<div class="q" id="rw2_20" data-answer="D" data-grid="0" data-tag="Form, Structure &amp; Sense">
+<span class="qno">Q20</span><span class="qtag">Form, Structure &amp; Sense</span>
+<div class="passage">The success of the trials, like the hopes of the patients waiting for them, ______ on results that were still months away.</div>
+<div class="stem">Which choice completes the text so that it conforms to the conventions of Standard English?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_20" value="A"><span class="ltr">A</span><span>depend</span></label>
+<label class="opt"><input type="radio" name="rw2_20" value="B"><span class="ltr">B</span><span>were depending</span></label>
+<label class="opt"><input type="radio" name="rw2_20" value="C"><span class="ltr">C</span><span>have depended</span></label>
+<label class="opt"><input type="radio" name="rw2_20" value="D"><span class="ltr">D</span><span>depended</span></label>
+</div>
+</div>
+<div class="q" id="rw2_21" data-answer="A" data-grid="0" data-tag="Transitions">
+<span class="qno">Q21</span><span class="qtag">Transitions</span>
+<div class="passage">The greenhouse design captured sunlight beautifully in winter. ______, it trapped so much heat in summer that the plants inside wilted without constant ventilation.</div>
+<div class="stem">Which choice completes the text with the most logical transition?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_21" value="A"><span class="ltr">A</span><span>However</span></label>
+<label class="opt"><input type="radio" name="rw2_21" value="B"><span class="ltr">B</span><span>Accordingly</span></label>
+<label class="opt"><input type="radio" name="rw2_21" value="C"><span class="ltr">C</span><span>Likewise</span></label>
+<label class="opt"><input type="radio" name="rw2_21" value="D"><span class="ltr">D</span><span>For example</span></label>
+</div>
+</div>
+<div class="q" id="rw2_22" data-answer="B" data-grid="0" data-tag="Transitions">
+<span class="qno">Q22</span><span class="qtag">Transitions</span>
+<div class="passage">The reforms cut the time to register a business from weeks to hours. ______, they did nothing to address the licensing delays that frustrated owners later on.</div>
+<div class="stem">Which choice completes the text with the most logical transition?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_22" value="A"><span class="ltr">A</span><span>As a result</span></label>
+<label class="opt"><input type="radio" name="rw2_22" value="B"><span class="ltr">B</span><span>Even so</span></label>
+<label class="opt"><input type="radio" name="rw2_22" value="C"><span class="ltr">C</span><span>Therefore</span></label>
+<label class="opt"><input type="radio" name="rw2_22" value="D"><span class="ltr">D</span><span>Likewise</span></label>
+</div>
+</div>
+<div class="q" id="rw2_23" data-answer="C" data-grid="0" data-tag="Transitions">
+<span class="qno">Q23</span><span class="qtag">Transitions</span>
+<div class="passage">The archaeologists cleared the last layer of soil from the mosaic. ______, they uncovered an inscription that named the building's original owner.</div>
+<div class="stem">Which choice completes the text with the most logical transition?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_23" value="A"><span class="ltr">A</span><span>Nevertheless</span></label>
+<label class="opt"><input type="radio" name="rw2_23" value="B"><span class="ltr">B</span><span>By contrast</span></label>
+<label class="opt"><input type="radio" name="rw2_23" value="C"><span class="ltr">C</span><span>In doing so</span></label>
+<label class="opt"><input type="radio" name="rw2_23" value="D"><span class="ltr">D</span><span>Otherwise</span></label>
+</div>
+</div>
+<div class="q" id="rw2_24" data-answer="D" data-grid="0" data-tag="Rhetorical Synthesis">
+<span class="qno">Q24</span><span class="qtag">Rhetorical Synthesis</span>
+<div class="passage">Notes:
+• The seed vault opened in 2008.
+• It stores over a million seed samples.
+• It is built into a frozen mountainside.
+• It is designed to preserve crop diversity for centuries.</div>
+<div class="stem">The student wants to emphasize the vault's purpose of safeguarding crop diversity. Which choice best accomplishes this goal?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_24" value="A"><span class="ltr">A</span><span>The vault opened in 2008.</span></label>
+<label class="opt"><input type="radio" name="rw2_24" value="B"><span class="ltr">B</span><span>The vault is built into a mountainside.</span></label>
+<label class="opt"><input type="radio" name="rw2_24" value="C"><span class="ltr">C</span><span>The vault opened recently.</span></label>
+<label class="opt"><input type="radio" name="rw2_24" value="D"><span class="ltr">D</span><span>Storing over a million samples, the vault is designed to preserve crop diversity for centuries.</span></label>
+</div>
+</div>
+<div class="q" id="rw2_25" data-answer="A" data-grid="0" data-tag="Rhetorical Synthesis">
+<span class="qno">Q25</span><span class="qtag">Rhetorical Synthesis</span>
+<div class="passage">Notes:
+• The river was heavily polluted by the 1970s.
+• Cleanup efforts began in 1985.
+• Fish returned to the river by 2010.
+• The river now supports recreational fishing.</div>
+<div class="stem">The student wants to emphasize the river's ecological recovery. Which choice best accomplishes this goal?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_25" value="A"><span class="ltr">A</span><span>Once heavily polluted, the river saw fish return by 2010 and now supports recreational fishing.</span></label>
+<label class="opt"><input type="radio" name="rw2_25" value="B"><span class="ltr">B</span><span>The river was polluted by the 1970s.</span></label>
+<label class="opt"><input type="radio" name="rw2_25" value="C"><span class="ltr">C</span><span>Cleanup began in 1985.</span></label>
+<label class="opt"><input type="radio" name="rw2_25" value="D"><span class="ltr">D</span><span>The river was polluted long ago.</span></label>
+</div>
+</div>
+<div class="q" id="rw2_26" data-answer="B" data-grid="0" data-tag="Cross-Text Connections">
+<span class="qno">Q26</span><span class="qtag">Cross-Text Connections</span>
+<div class="passage">Text 1: Theorist Park argues that letting students use calculators frees them to focus on problem-solving rather than arithmetic.
+Text 2: Educator Singh agrees for advanced work but warns that students who lean on calculators too early may never build the number sense that makes advanced reasoning possible.</div>
+<div class="stem">Which choice best describes the relationship between the texts?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_26" value="A"><span class="ltr">A</span><span>The texts fully agree</span></label>
+<label class="opt"><input type="radio" name="rw2_26" value="B"><span class="ltr">B</span><span>Text 2 accepts Text 1's point for advanced work but adds a caution about early reliance</span></label>
+<label class="opt"><input type="radio" name="rw2_26" value="C"><span class="ltr">C</span><span>Text 2 rejects calculators entirely</span></label>
+<label class="opt"><input type="radio" name="rw2_26" value="D"><span class="ltr">D</span><span>Text 1 warns against calculators</span></label>
+</div>
+</div>
+<div class="q" id="rw2_27" data-answer="C" data-grid="0" data-tag="Words in Context">
+<span class="qno">Q27</span><span class="qtag">Words in Context</span>
+<div class="passage">The judge was known for her ______: she weighed each argument on its merits, untroubled by the reputations of the lawyers who made them.</div>
+<div class="stem">Which choice completes the text with the most logical and precise word or phrase?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw2_27" value="A"><span class="ltr">A</span><span>partiality</span></label>
+<label class="opt"><input type="radio" name="rw2_27" value="B"><span class="ltr">B</span><span>timidity</span></label>
+<label class="opt"><input type="radio" name="rw2_27" value="C"><span class="ltr">C</span><span>impartiality</span></label>
+<label class="opt"><input type="radio" name="rw2_27" value="D"><span class="ltr">D</span><span>haste</span></label>
+</div>
+</div><div class="navrow"><span class="unanswered">Last Reading &amp; Writing module — the harder set.</span>
+<button type="button" class="btn btn-prim" onclick="goBreak()">Submit &amp; take your break</button></div></main></section>
+<section class="screen" id="break"><main class="wrap"><div class="break">
+<h2>10-Minute Break</h2><div class="big" id="breakclock">10:00</div>
+<p>Stand up, stretch, get water. When you're ready, press the button to start Math — it has its own timer, so you don't have to wait the full ten minutes.</p>
+<div style="margin-top:18px"><button type="button" class="btn btn-prim" onclick="startMath()">I'm ready — start Math Module 1</button></div>
+</div></main></section>
+<section class="screen" id="m1"><div class="bar"><div class="in"><div class="mod">Math — Module 1<small>35 minutes · 22 questions</small></div><div class="prog">Section 2 of 2</div><div class="clock" id="clock_m1">--:--</div></div></div>
+<main class="wrap"><div class="q" id="m1_1" data-answer="6" data-grid="1" data-tag="Algebra — linear">
+<span class="qno">Q1</span><span class="qtag">Algebra — linear</span>
+<div class="stem">If 6x − 5 = 31, what is the value of x?</div>
+<div class="grid-in"><label>Enter your answer (numbers, decimals, or fractions like 3/4):</label><input type="text" name="m1_1" autocomplete="off" inputmode="text" placeholder="answer"></div>
+</div>
+<div class="q" id="m1_2" data-answer="A" data-grid="0" data-tag="Algebra — linear">
+<span class="qno">Q2</span><span class="qtag">Algebra — linear</span>
+<div class="stem">A car rental costs $40 per day plus $0.15 per mile. Which equation gives cost c for d days and m miles?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m1_2" value="A"><span class="ltr">A</span><span>c = 40d + 0.15m</span></label>
+<label class="opt"><input type="radio" name="m1_2" value="B"><span class="ltr">B</span><span>c = 40m + 0.15d</span></label>
+<label class="opt"><input type="radio" name="m1_2" value="C"><span class="ltr">C</span><span>c = 40.15(d + m)</span></label>
+<label class="opt"><input type="radio" name="m1_2" value="D"><span class="ltr">D</span><span>c = 0.15d + 40m</span></label>
+</div>
+</div>
+<div class="q" id="m1_3" data-answer="B" data-grid="0" data-tag="Problem-Solving — percent">
+<span class="qno">Q3</span><span class="qtag">Problem-Solving — percent</span>
+<div class="stem">A $250 bill includes an 18% tip. What is the tip amount?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m1_3" value="A"><span class="ltr">A</span><span>$40</span></label>
+<label class="opt"><input type="radio" name="m1_3" value="B"><span class="ltr">B</span><span>$45</span></label>
+<label class="opt"><input type="radio" name="m1_3" value="C"><span class="ltr">C</span><span>$50</span></label>
+<label class="opt"><input type="radio" name="m1_3" value="D"><span class="ltr">D</span><span>$55</span></label>
+</div>
+</div>
+<div class="q" id="m1_4" data-answer="C" data-grid="0" data-tag="Algebra — slope">
+<span class="qno">Q4</span><span class="qtag">Algebra — slope</span>
+<div class="formula">slope = (y₂ − y₁)/(x₂ − x₁)</div>
+<div class="stem">What is the slope of the line through (2, 1) and (6, 9)?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m1_4" value="A"><span class="ltr">A</span><span>1</span></label>
+<label class="opt"><input type="radio" name="m1_4" value="B"><span class="ltr">B</span><span>3</span></label>
+<label class="opt"><input type="radio" name="m1_4" value="C"><span class="ltr">C</span><span>2</span></label>
+<label class="opt"><input type="radio" name="m1_4" value="D"><span class="ltr">D</span><span>4</span></label>
+</div>
+</div>
+<div class="q" id="m1_5" data-answer="D" data-grid="0" data-tag="Advanced Math — exponents">
+<span class="qno">Q5</span><span class="qtag">Advanced Math — exponents</span>
+<div class="formula">(xᵃ)ᵇ = xᵃᵇ</div>
+<div class="stem">Which expression equals (x²)⁴?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m1_5" value="A"><span class="ltr">A</span><span>x⁶</span></label>
+<label class="opt"><input type="radio" name="m1_5" value="B"><span class="ltr">B</span><span>x¹⁶</span></label>
+<label class="opt"><input type="radio" name="m1_5" value="C"><span class="ltr">C</span><span>x²</span></label>
+<label class="opt"><input type="radio" name="m1_5" value="D"><span class="ltr">D</span><span>x⁸</span></label>
+</div>
+</div>
+<div class="q" id="m1_6" data-answer="12" data-grid="1" data-tag="Problem-Solving — ratio">
+<span class="qno">Q6</span><span class="qtag">Problem-Solving — ratio</span>
+<div class="stem">A trail mix uses nuts and raisins in a 3 : 2 ratio. If 18 ounces of nuts are used, how many ounces of raisins are needed?</div>
+<div class="grid-in"><label>Enter your answer (numbers, decimals, or fractions like 3/4):</label><input type="text" name="m1_6" autocomplete="off" inputmode="text" placeholder="answer"></div>
+</div>
+<div class="q" id="m1_7" data-answer="A" data-grid="0" data-tag="Algebra — systems">
+<span class="qno">Q7</span><span class="qtag">Algebra — systems</span>
+<div class="stem">If 2x + y = 13 and y = x + 1, what is x?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m1_7" value="A"><span class="ltr">A</span><span>4</span></label>
+<label class="opt"><input type="radio" name="m1_7" value="B"><span class="ltr">B</span><span>3</span></label>
+<label class="opt"><input type="radio" name="m1_7" value="C"><span class="ltr">C</span><span>5</span></label>
+<label class="opt"><input type="radio" name="m1_7" value="D"><span class="ltr">D</span><span>6</span></label>
+</div>
+</div>
+<div class="q" id="m1_8" data-answer="B" data-grid="0" data-tag="Advanced Math — quadratic">
+<span class="qno">Q8</span><span class="qtag">Advanced Math — quadratic</span>
+<div class="stem">What are the solutions to x² − 8x + 15 = 0?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m1_8" value="A"><span class="ltr">A</span><span>x = 1 and x = 15</span></label>
+<label class="opt"><input type="radio" name="m1_8" value="B"><span class="ltr">B</span><span>x = 3 and x = 5</span></label>
+<label class="opt"><input type="radio" name="m1_8" value="C"><span class="ltr">C</span><span>x = −3 and x = −5</span></label>
+<label class="opt"><input type="radio" name="m1_8" value="D"><span class="ltr">D</span><span>x = 2 and x = 6</span></label>
+</div>
+</div>
+<div class="q" id="m1_9" data-answer="C" data-grid="0" data-tag="Geometry — angles">
+<span class="qno">Q9</span><span class="qtag">Geometry — angles</span>
+<div class="formula">angles of a triangle sum to 180°</div>
+<div class="stem">In a triangle, two angles measure 30° and 90°. What is the third angle?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m1_9" value="A"><span class="ltr">A</span><span>50°</span></label>
+<label class="opt"><input type="radio" name="m1_9" value="B"><span class="ltr">B</span><span>70°</span></label>
+<label class="opt"><input type="radio" name="m1_9" value="C"><span class="ltr">C</span><span>60°</span></label>
+<label class="opt"><input type="radio" name="m1_9" value="D"><span class="ltr">D</span><span>80°</span></label>
+</div>
+</div>
+<div class="q" id="m1_10" data-answer="8" data-grid="1" data-tag="Problem-Solving — data">
+<span class="qno">Q10</span><span class="qtag">Problem-Solving — data</span>
+<div class="formula">mean = sum / count</div>
+<div class="stem">The values 3, 7, 7, 9, 14 form a data set. What is the mean?</div>
+<div class="grid-in"><label>Enter your answer (numbers, decimals, or fractions like 3/4):</label><input type="text" name="m1_10" autocomplete="off" inputmode="text" placeholder="answer"></div>
+</div>
+<div class="q" id="m1_11" data-answer="D" data-grid="0" data-tag="Algebra — inequality">
+<span class="qno">Q11</span><span class="qtag">Algebra — inequality</span>
+<div class="stem">Which describes all x with 4x + 3 ≥ 19?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m1_11" value="A"><span class="ltr">A</span><span>x ≤ 4</span></label>
+<label class="opt"><input type="radio" name="m1_11" value="B"><span class="ltr">B</span><span>x ≥ 5</span></label>
+<label class="opt"><input type="radio" name="m1_11" value="C"><span class="ltr">C</span><span>x ≤ 5</span></label>
+<label class="opt"><input type="radio" name="m1_11" value="D"><span class="ltr">D</span><span>x ≥ 4</span></label>
+</div>
+</div>
+<div class="q" id="m1_12" data-answer="15" data-grid="1" data-tag="Advanced Math — function">
+<span class="qno">Q12</span><span class="qtag">Advanced Math — function</span>
+<div class="stem">If f(x) = x² − 2x, what is f(5)?</div>
+<div class="grid-in"><label>Enter your answer (numbers, decimals, or fractions like 3/4):</label><input type="text" name="m1_12" autocomplete="off" inputmode="text" placeholder="answer"></div>
+</div>
+<div class="q" id="m1_13" data-answer="A" data-grid="0" data-tag="Geometry — area">
+<span class="qno">Q13</span><span class="qtag">Geometry — area</span>
+<div class="formula">area = length × width</div>
+<div class="stem">A rectangle has length 9 and width 7. What is its area?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m1_13" value="A"><span class="ltr">A</span><span>63</span></label>
+<label class="opt"><input type="radio" name="m1_13" value="B"><span class="ltr">B</span><span>16</span></label>
+<label class="opt"><input type="radio" name="m1_13" value="C"><span class="ltr">C</span><span>32</span></label>
+<label class="opt"><input type="radio" name="m1_13" value="D"><span class="ltr">D</span><span>56</span></label>
+</div>
+</div>
+<div class="q" id="m1_14" data-answer="B" data-grid="0" data-tag="Algebra — linear">
+<span class="qno">Q14</span><span class="qtag">Algebra — linear</span>
+<div class="stem">If y = mx + 5 passes through (4, 17), what is m?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m1_14" value="A"><span class="ltr">A</span><span>2</span></label>
+<label class="opt"><input type="radio" name="m1_14" value="B"><span class="ltr">B</span><span>3</span></label>
+<label class="opt"><input type="radio" name="m1_14" value="C"><span class="ltr">C</span><span>4</span></label>
+<label class="opt"><input type="radio" name="m1_14" value="D"><span class="ltr">D</span><span>5</span></label>
+</div>
+</div>
+<div class="q" id="m1_15" data-answer="C" data-grid="0" data-tag="Problem-Solving — proportion">
+<span class="qno">Q15</span><span class="qtag">Problem-Solving — proportion</span>
+<div class="stem">If 6 apples cost $4.20, how much do 9 apples cost?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m1_15" value="A"><span class="ltr">A</span><span>$6.00</span></label>
+<label class="opt"><input type="radio" name="m1_15" value="B"><span class="ltr">B</span><span>$6.60</span></label>
+<label class="opt"><input type="radio" name="m1_15" value="C"><span class="ltr">C</span><span>$6.30</span></label>
+<label class="opt"><input type="radio" name="m1_15" value="D"><span class="ltr">D</span><span>$7.00</span></label>
+</div>
+</div>
+<div class="q" id="m1_16" data-answer="480" data-grid="1" data-tag="Advanced Math — exponential">
+<span class="qno">Q16</span><span class="qtag">Advanced Math — exponential</span>
+<div class="formula">final = initial × 2ⁿ</div>
+<div class="stem">A 30-cell sample doubles every hour. How many cells after 4 hours?</div>
+<div class="grid-in"><label>Enter your answer (numbers, decimals, or fractions like 3/4):</label><input type="text" name="m1_16" autocomplete="off" inputmode="text" placeholder="answer"></div>
+</div>
+<div class="q" id="m1_17" data-answer="D" data-grid="0" data-tag="Geometry — circle">
+<span class="qno">Q17</span><span class="qtag">Geometry — circle</span>
+<div class="formula">area = πr²</div>
+<div class="stem">A circle has radius 4. What is its area? (Use π.)</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m1_17" value="A"><span class="ltr">A</span><span>8π</span></label>
+<label class="opt"><input type="radio" name="m1_17" value="B"><span class="ltr">B</span><span>12π</span></label>
+<label class="opt"><input type="radio" name="m1_17" value="C"><span class="ltr">C</span><span>20π</span></label>
+<label class="opt"><input type="radio" name="m1_17" value="D"><span class="ltr">D</span><span>16π</span></label>
+</div>
+</div>
+<div class="q" id="m1_18" data-answer="A" data-grid="0" data-tag="Advanced Math — factoring">
+<span class="qno">Q18</span><span class="qtag">Advanced Math — factoring</span>
+<div class="formula">a² − b² = (a + b)(a − b)</div>
+<div class="stem">Which expression equals x² − 25?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m1_18" value="A"><span class="ltr">A</span><span>(x + 5)(x − 5)</span></label>
+<label class="opt"><input type="radio" name="m1_18" value="B"><span class="ltr">B</span><span>(x − 5)²</span></label>
+<label class="opt"><input type="radio" name="m1_18" value="C"><span class="ltr">C</span><span>(x + 25)(x − 1)</span></label>
+<label class="opt"><input type="radio" name="m1_18" value="D"><span class="ltr">D</span><span>(x − 25)(x + 1)</span></label>
+</div>
+</div>
+<div class="q" id="m1_19" data-answer="B" data-grid="0" data-tag="Problem-Solving — data">
+<span class="qno">Q19</span><span class="qtag">Problem-Solving — data</span>
+<div class="stem">In a club, the ratio of new to returning members is 2 : 7. If 35 are returning, how many are new?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m1_19" value="A"><span class="ltr">A</span><span>8</span></label>
+<label class="opt"><input type="radio" name="m1_19" value="B"><span class="ltr">B</span><span>10</span></label>
+<label class="opt"><input type="radio" name="m1_19" value="C"><span class="ltr">C</span><span>12</span></label>
+<label class="opt"><input type="radio" name="m1_19" value="D"><span class="ltr">D</span><span>14</span></label>
+</div>
+</div>
+<div class="q" id="m1_20" data-answer="13" data-grid="1" data-tag="Geometry — Pythagorean">
+<span class="qno">Q20</span><span class="qtag">Geometry — Pythagorean</span>
+<div class="formula">a² + b² = c²</div>
+<div class="stem">A right triangle has legs 5 and 12. What is the length of the hypotenuse?</div>
+<div class="grid-in"><label>Enter your answer (numbers, decimals, or fractions like 3/4):</label><input type="text" name="m1_20" autocomplete="off" inputmode="text" placeholder="answer"></div>
+</div>
+<div class="q" id="m1_21" data-answer="C" data-grid="0" data-tag="Advanced Math — function">
+<span class="qno">Q21</span><span class="qtag">Advanced Math — function</span>
+<div class="stem">If g(x) = x² + 4x, for what nonzero x does g(x) = 0?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m1_21" value="A"><span class="ltr">A</span><span>−2</span></label>
+<label class="opt"><input type="radio" name="m1_21" value="B"><span class="ltr">B</span><span>2</span></label>
+<label class="opt"><input type="radio" name="m1_21" value="C"><span class="ltr">C</span><span>−4</span></label>
+<label class="opt"><input type="radio" name="m1_21" value="D"><span class="ltr">D</span><span>4</span></label>
+</div>
+</div>
+<div class="q" id="m1_22" data-answer="D" data-grid="0" data-tag="Algebra — translate">
+<span class="qno">Q22</span><span class="qtag">Algebra — translate</span>
+<div class="stem">A streaming service charges $8 to sign up plus $12 per month. Which gives total cost for m months?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m1_22" value="A"><span class="ltr">A</span><span>8m + 12</span></label>
+<label class="opt"><input type="radio" name="m1_22" value="B"><span class="ltr">B</span><span>20m</span></label>
+<label class="opt"><input type="radio" name="m1_22" value="C"><span class="ltr">C</span><span>12 + 8m</span></label>
+<label class="opt"><input type="radio" name="m1_22" value="D"><span class="ltr">D</span><span>12m + 8</span></label>
+</div>
+</div><div class="navrow"><span class="unanswered">Calculator allowed. Formulas shown where needed.</span>
+<button type="button" class="btn btn-prim" onclick="goM2()">Submit Module 1 &amp; continue</button></div></main></section>
+<section class="screen" id="m2"><div class="bar"><div class="in"><div class="mod">Math — Module 2<small>35 minutes · 22 questions</small></div><div class="prog">Section 2 of 2</div><div class="clock" id="clock_m2">--:--</div></div></div>
+<main class="wrap"><div class="q" id="m2_1" data-answer="A" data-grid="0" data-tag="Advanced Math — quadratic">
+<span class="qno">Q1</span><span class="qtag">Advanced Math — quadratic</span>
+<div class="formula">sum of roots = −b ; product = c</div>
+<div class="stem">The quadratic x² + bx + 18 has roots x = 3 and x = 6. What is b?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m2_1" value="A"><span class="ltr">A</span><span>−9</span></label>
+<label class="opt"><input type="radio" name="m2_1" value="B"><span class="ltr">B</span><span>−6</span></label>
+<label class="opt"><input type="radio" name="m2_1" value="C"><span class="ltr">C</span><span>6</span></label>
+<label class="opt"><input type="radio" name="m2_1" value="D"><span class="ltr">D</span><span>9</span></label>
+</div>
+</div>
+<div class="q" id="m2_2" data-answer="4" data-grid="1" data-tag="Algebra — systems">
+<span class="qno">Q2</span><span class="qtag">Algebra — systems</span>
+<div class="stem">If 4x + 3y = 27 and 4x − 3y = 5, what is the value of x?</div>
+<div class="grid-in"><label>Enter your answer (numbers, decimals, or fractions like 3/4):</label><input type="text" name="m2_2" autocomplete="off" inputmode="text" placeholder="answer"></div>
+</div>
+<div class="q" id="m2_3" data-answer="B" data-grid="0" data-tag="Advanced Math — exponents">
+<span class="qno">Q3</span><span class="qtag">Advanced Math — exponents</span>
+<div class="formula">if bᵃ = bᶜ then a = c</div>
+<div class="stem">If 5^(x+2) = 125, what is x?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m2_3" value="A"><span class="ltr">A</span><span>2</span></label>
+<label class="opt"><input type="radio" name="m2_3" value="B"><span class="ltr">B</span><span>1</span></label>
+<label class="opt"><input type="radio" name="m2_3" value="C"><span class="ltr">C</span><span>3</span></label>
+<label class="opt"><input type="radio" name="m2_3" value="D"><span class="ltr">D</span><span>4</span></label>
+</div>
+</div>
+<div class="q" id="m2_4" data-answer="C" data-grid="0" data-tag="Advanced Math — rational">
+<span class="qno">Q4</span><span class="qtag">Advanced Math — rational</span>
+<div class="stem">For x ≠ 5, the expression (x² − 25)/(x − 5) equals</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m2_4" value="A"><span class="ltr">A</span><span>x − 5</span></label>
+<label class="opt"><input type="radio" name="m2_4" value="B"><span class="ltr">B</span><span>x² − 5</span></label>
+<label class="opt"><input type="radio" name="m2_4" value="C"><span class="ltr">C</span><span>x + 5</span></label>
+<label class="opt"><input type="radio" name="m2_4" value="D"><span class="ltr">D</span><span>25</span></label>
+</div>
+</div>
+<div class="q" id="m2_5" data-answer="10" data-grid="1" data-tag="Algebra — linear modeling">
+<span class="qno">Q5</span><span class="qtag">Algebra — linear modeling</span>
+<div class="stem">A candle 30 cm tall burns down 2.5 cm per hour. After how many hours is it 5 cm tall?</div>
+<div class="grid-in"><label>Enter your answer (numbers, decimals, or fractions like 3/4):</label><input type="text" name="m2_5" autocomplete="off" inputmode="text" placeholder="answer"></div>
+</div>
+<div class="q" id="m2_6" data-answer="75" data-grid="1" data-tag="Geometry — similar triangles">
+<span class="qno">Q6</span><span class="qtag">Geometry — similar triangles</span>
+<div class="formula">area ratio = (side ratio)²</div>
+<div class="stem">Two similar triangles have sides in ratio 2 : 5. If the smaller has area 12, what is the larger's area?</div>
+<div class="grid-in"><label>Enter your answer (numbers, decimals, or fractions like 3/4):</label><input type="text" name="m2_6" autocomplete="off" inputmode="text" placeholder="answer"></div>
+</div>
+<div class="q" id="m2_7" data-answer="D" data-grid="0" data-tag="Advanced Math — vertex">
+<span class="qno">Q7</span><span class="qtag">Advanced Math — vertex</span>
+<div class="formula">vertex x = −b/(2a)</div>
+<div class="stem">What is the minimum value of f(x) = x² − 6x + 10?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m2_7" value="A"><span class="ltr">A</span><span>2</span></label>
+<label class="opt"><input type="radio" name="m2_7" value="B"><span class="ltr">B</span><span>3</span></label>
+<label class="opt"><input type="radio" name="m2_7" value="C"><span class="ltr">C</span><span>4</span></label>
+<label class="opt"><input type="radio" name="m2_7" value="D"><span class="ltr">D</span><span>1</span></label>
+</div>
+</div>
+<div class="q" id="m2_8" data-answer="A" data-grid="0" data-tag="Advanced Math — discriminant">
+<span class="qno">Q8</span><span class="qtag">Advanced Math — discriminant</span>
+<div class="formula">discriminant = b² − 4ac</div>
+<div class="stem">How many real solutions does 3x² + 2x + 4 = 0 have?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m2_8" value="A"><span class="ltr">A</span><span>0</span></label>
+<label class="opt"><input type="radio" name="m2_8" value="B"><span class="ltr">B</span><span>1</span></label>
+<label class="opt"><input type="radio" name="m2_8" value="C"><span class="ltr">C</span><span>2</span></label>
+<label class="opt"><input type="radio" name="m2_8" value="D"><span class="ltr">D</span><span>Infinitely many</span></label>
+</div>
+</div>
+<div class="q" id="m2_9" data-answer="B" data-grid="0" data-tag="Problem-Solving — percent change">
+<span class="qno">Q9</span><span class="qtag">Problem-Solving — percent change</span>
+<div class="stem">A value falls 30% then rises 30%. Compared with the start, it is now</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m2_9" value="A"><span class="ltr">A</span><span>unchanged</span></label>
+<label class="opt"><input type="radio" name="m2_9" value="B"><span class="ltr">B</span><span>9% lower</span></label>
+<label class="opt"><input type="radio" name="m2_9" value="C"><span class="ltr">C</span><span>9% higher</span></label>
+<label class="opt"><input type="radio" name="m2_9" value="D"><span class="ltr">D</span><span>30% lower</span></label>
+</div>
+</div>
+<div class="q" id="m2_10" data-answer="6" data-grid="1" data-tag="Algebra — absolute value">
+<span class="qno">Q10</span><span class="qtag">Algebra — absolute value</span>
+<div class="stem">What is the greatest value of x satisfying |2x − 4| = 8?</div>
+<div class="grid-in"><label>Enter your answer (numbers, decimals, or fractions like 3/4):</label><input type="text" name="m2_10" autocomplete="off" inputmode="text" placeholder="answer"></div>
+</div>
+<div class="q" id="m2_11" data-answer="C" data-grid="0" data-tag="Advanced Math — exponential model">
+<span class="qno">Q11</span><span class="qtag">Advanced Math — exponential model</span>
+<div class="formula">remaining = initial × (1/2)^(t/half-life)</div>
+<div class="stem">A 400-unit sample halves every 3 years. How much remains after 9 years?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m2_11" value="A"><span class="ltr">A</span><span>25</span></label>
+<label class="opt"><input type="radio" name="m2_11" value="B"><span class="ltr">B</span><span>75</span></label>
+<label class="opt"><input type="radio" name="m2_11" value="C"><span class="ltr">C</span><span>50</span></label>
+<label class="opt"><input type="radio" name="m2_11" value="D"><span class="ltr">D</span><span>100</span></label>
+</div>
+</div>
+<div class="q" id="m2_12" data-answer="D" data-grid="0" data-tag="Geometry — trig">
+<span class="qno">Q12</span><span class="qtag">Geometry — trig</span>
+<div class="formula">sin θ = opp/hyp, with a² + b² = c²</div>
+<div class="stem">In a right triangle, angle θ has adjacent side 12 and hypotenuse 13. What is sin θ?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m2_12" value="A"><span class="ltr">A</span><span>12/13</span></label>
+<label class="opt"><input type="radio" name="m2_12" value="B"><span class="ltr">B</span><span>13/12</span></label>
+<label class="opt"><input type="radio" name="m2_12" value="C"><span class="ltr">C</span><span>5/12</span></label>
+<label class="opt"><input type="radio" name="m2_12" value="D"><span class="ltr">D</span><span>5/13</span></label>
+</div>
+</div>
+<div class="q" id="m2_13" data-answer="A" data-grid="0" data-tag="Advanced Math — systems nonlinear">
+<span class="qno">Q13</span><span class="qtag">Advanced Math — systems nonlinear</span>
+<div class="stem">If y = x² and y = 4x − 3, which is a solution (x, y)?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m2_13" value="A"><span class="ltr">A</span><span>Both (1, 1) and (3, 9)</span></label>
+<label class="opt"><input type="radio" name="m2_13" value="B"><span class="ltr">B</span><span>(1, 1)</span></label>
+<label class="opt"><input type="radio" name="m2_13" value="C"><span class="ltr">C</span><span>(3, 9)</span></label>
+<label class="opt"><input type="radio" name="m2_13" value="D"><span class="ltr">D</span><span>No solution</span></label>
+</div>
+</div>
+<div class="q" id="m2_14" data-answer="B" data-grid="0" data-tag="Problem-Solving — weighted average">
+<span class="qno">Q14</span><span class="qtag">Problem-Solving — weighted average</span>
+<div class="stem">10 students average 70; 30 students average 90. What is the combined average of all 40?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m2_14" value="A"><span class="ltr">A</span><span>83</span></label>
+<label class="opt"><input type="radio" name="m2_14" value="B"><span class="ltr">B</span><span>85</span></label>
+<label class="opt"><input type="radio" name="m2_14" value="C"><span class="ltr">C</span><span>84</span></label>
+<label class="opt"><input type="radio" name="m2_14" value="D"><span class="ltr">D</span><span>86</span></label>
+</div>
+</div>
+<div class="q" id="m2_15" data-answer="C" data-grid="0" data-tag="Advanced Math — equivalent">
+<span class="qno">Q15</span><span class="qtag">Advanced Math — equivalent</span>
+<div class="stem">Which expression equals (6x² − 9x)/3?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m2_15" value="A"><span class="ltr">A</span><span>2x² − 9x</span></label>
+<label class="opt"><input type="radio" name="m2_15" value="B"><span class="ltr">B</span><span>6x² − 3x</span></label>
+<label class="opt"><input type="radio" name="m2_15" value="C"><span class="ltr">C</span><span>2x² − 3x</span></label>
+<label class="opt"><input type="radio" name="m2_15" value="D"><span class="ltr">D</span><span>2x² − 3</span></label>
+</div>
+</div>
+<div class="q" id="m2_16" data-answer="D" data-grid="0" data-tag="Geometry — volume">
+<span class="qno">Q16</span><span class="qtag">Geometry — volume</span>
+<div class="formula">volume = πr²h</div>
+<div class="stem">A cylinder has radius 2 and height 9. What is its volume? (Use π.)</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m2_16" value="A"><span class="ltr">A</span><span>18π</span></label>
+<label class="opt"><input type="radio" name="m2_16" value="B"><span class="ltr">B</span><span>27π</span></label>
+<label class="opt"><input type="radio" name="m2_16" value="C"><span class="ltr">C</span><span>72π</span></label>
+<label class="opt"><input type="radio" name="m2_16" value="D"><span class="ltr">D</span><span>36π</span></label>
+</div>
+</div>
+<div class="q" id="m2_17" data-answer="5" data-grid="1" data-tag="Algebra — system word problem">
+<span class="qno">Q17</span><span class="qtag">Algebra — system word problem</span>
+<div class="stem">Adult tickets cost $20 and student tickets $12. A group bought 9 tickets for $148. How many adult tickets did they buy?</div>
+<div class="grid-in"><label>Enter your answer (numbers, decimals, or fractions like 3/4):</label><input type="text" name="m2_17" autocomplete="off" inputmode="text" placeholder="answer"></div>
+</div>
+<div class="q" id="m2_18" data-answer="A" data-grid="0" data-tag="Problem-Solving — probability">
+<span class="qno">Q18</span><span class="qtag">Problem-Solving — probability</span>
+<div class="formula">P(not E) = 1 − P(E)</div>
+<div class="stem">A bag holds 3 red, 5 green, 4 blue marbles. What is the probability a random draw is NOT green?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m2_18" value="A"><span class="ltr">A</span><span>7/12</span></label>
+<label class="opt"><input type="radio" name="m2_18" value="B"><span class="ltr">B</span><span>5/12</span></label>
+<label class="opt"><input type="radio" name="m2_18" value="C"><span class="ltr">C</span><span>1/2</span></label>
+<label class="opt"><input type="radio" name="m2_18" value="D"><span class="ltr">D</span><span>2/3</span></label>
+</div>
+</div>
+<div class="q" id="m2_19" data-answer="B" data-grid="0" data-tag="Advanced Math — exponent">
+<span class="qno">Q19</span><span class="qtag">Advanced Math — exponent</span>
+<div class="formula">(x^(1/2))² = x</div>
+<div class="stem">If x^(1/2) = 7, what is x?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m2_19" value="A"><span class="ltr">A</span><span>14</span></label>
+<label class="opt"><input type="radio" name="m2_19" value="B"><span class="ltr">B</span><span>49</span></label>
+<label class="opt"><input type="radio" name="m2_19" value="C"><span class="ltr">C</span><span>21</span></label>
+<label class="opt"><input type="radio" name="m2_19" value="D"><span class="ltr">D</span><span>42</span></label>
+</div>
+</div>
+<div class="q" id="m2_20" data-answer="C" data-grid="0" data-tag="Geometry — coordinate">
+<span class="qno">Q20</span><span class="qtag">Geometry — coordinate</span>
+<div class="formula">distance = √[(x₂−x₁)² + (y₂−y₁)²]</div>
+<div class="stem">What is the distance between (1, 1) and (9, 7)?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m2_20" value="A"><span class="ltr">A</span><span>8</span></label>
+<label class="opt"><input type="radio" name="m2_20" value="B"><span class="ltr">B</span><span>9</span></label>
+<label class="opt"><input type="radio" name="m2_20" value="C"><span class="ltr">C</span><span>10</span></label>
+<label class="opt"><input type="radio" name="m2_20" value="D"><span class="ltr">D</span><span>11</span></label>
+</div>
+</div>
+<div class="q" id="m2_21" data-answer="D" data-grid="0" data-tag="Advanced Math — function composition">
+<span class="qno">Q21</span><span class="qtag">Advanced Math — function composition</span>
+<div class="stem">If f(x) = 3x − 2 and g(x) = x + 4, what is f(g(2))?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m2_21" value="A"><span class="ltr">A</span><span>12</span></label>
+<label class="opt"><input type="radio" name="m2_21" value="B"><span class="ltr">B</span><span>14</span></label>
+<label class="opt"><input type="radio" name="m2_21" value="C"><span class="ltr">C</span><span>18</span></label>
+<label class="opt"><input type="radio" name="m2_21" value="D"><span class="ltr">D</span><span>16</span></label>
+</div>
+</div>
+<div class="q" id="m2_22" data-answer="A" data-grid="0" data-tag="Algebra — linear system">
+<span class="qno">Q22</span><span class="qtag">Algebra — linear system</span>
+<div class="stem">At what x do y = 3x − 4 and y = x + 2 intersect?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m2_22" value="A"><span class="ltr">A</span><span>3</span></label>
+<label class="opt"><input type="radio" name="m2_22" value="B"><span class="ltr">B</span><span>2</span></label>
+<label class="opt"><input type="radio" name="m2_22" value="C"><span class="ltr">C</span><span>4</span></label>
+<label class="opt"><input type="radio" name="m2_22" value="D"><span class="ltr">D</span><span>5</span></label>
+</div>
+</div><div class="navrow"><span class="unanswered">Last module — the harder set.</span>
+<button type="button" class="btn btn-prim" onclick="finishExam()">Finish exam &amp; see my score</button></div></main></section>
+<section class="screen" id="report"><main class="wrap">
+<div class="report"><h2>Your Practice Score</h2><div class="scoreline">
+<div class="scorecard"><div class="k">Total</div><div class="v" id="rep_total">—</div><div class="sub">out of 1600</div></div>
+<div class="scorecard"><div class="k">Reading &amp; Writing</div><div class="v" id="rep_rw">—</div><div class="sub" id="rep_rw_sub"></div></div>
+<div class="scorecard"><div class="k">Math</div><div class="v" id="rep_math">—</div><div class="sub" id="rep_math_sub"></div></div></div>
+<p style="color:#cdd9ea;font-size:14.5px;margin-top:10px">This is an approximate practice score for feedback, not an official College Board score. Use the breakdown below to see exactly what to review.</p></div>
+<div class="navrow"><span class="unanswered">Send your results to your instructor, then review every question below.</span>
+<button type="submit" class="btn btn-send">Save &amp; email my results to my instructor</button></div>
+<div class="sent" id="sentmsg">Sent! Your instructor will see your scores. Keep scrolling to study the full answer key — it stays on this page.</div>
+<div id="keyzone" class="keywrap"></div></main></section>
+</form>
+<footer class="foot"><div class="fl"></div><b>KingCretot Experience</b><br>
+kce@kingcretot.com&nbsp; ·&nbsp; 914-809-0112&nbsp; ·&nbsp; PO Box 2322, Arcadia, FL 34265</footer>
+<script>
+
+const KEY={"rw1": [{"answer": "A", "grid": false, "tag": "Words in Context", "stem": "Which choice completes the text with the most logical and precise word or phrase?", "explain": "The contrast ('never ___; she pointed to the exact moment') needs the opposite of specific — 'vague.'"}, {"answer": "B", "grid": false, "tag": "Words in Context", "stem": "Which choice completes the text with the most logical and precise word or phrase?", "explain": "The contrast ('Once...now draws thousands') needs a word for little-known — 'obscure.'"}, {"answer": "C", "grid": false, "tag": "Words in Context", "stem": "Which choice completes the text with the most logical and precise word or phrase?", "explain": "Avoiding alarm while staying clear about risk is a measured (calm, controlled) tone."}, {"answer": "D", "grid": false, "tag": "Text Structure & Purpose", "stem": "Which choice best describes the main purpose of the text?", "explain": "A benefit is stated, then the bulk addresses problems — weighing benefit against drawbacks."}, {"answer": "A", "grid": false, "tag": "Cross-Text Connections", "stem": "Based on the texts, Bell's findings (Text 2) most directly challenge Cho's claim (Text 1) by suggesting that", "explain": "Bell found less face-to-face talk in open offices — challenging Cho's 'sparks collaboration' claim."}, {"answer": "B", "grid": false, "tag": "Central Ideas", "stem": "Which choice best states the main idea of the text?", "explain": "'Usefulness sometimes meant leaving things out' — comprehensiveness can work against being read."}, {"answer": "C", "grid": false, "tag": "Central Ideas", "stem": "Which choice best states the main idea of the text?", "explain": "She practiced 'to quiet her mind and steady her hands,' not to learn — preparation, not instruction."}, {"answer": "D", "grid": false, "tag": "Command of Evidence (Textual)", "stem": "Which finding, if true, would most directly support the scientist's claim?", "explain": "Higher yields in fields with wildflower strips directly supports the yield-increase claim."}, {"answer": "A", "grid": false, "tag": "Command of Evidence (Quantitative)", "stem": "Which choice best uses the data to support the claim that weekly pickup improved recycling?", "explain": "Recycling up and landfill waste down both support the improvement claim."}, {"answer": "B", "grid": false, "tag": "Inferences", "stem": "Which choice most logically completes the text?", "explain": "Antifreeze that keeps ice from forming inside cells protects them from freezing damage."}, {"answer": "C", "grid": false, "tag": "Inferences", "stem": "Which choice most logically completes the text?", "explain": "Load spread across many strands so one break 'barely registered' — distribution limits single-point failure."}, {"answer": "D", "grid": false, "tag": "Central Ideas", "stem": "Which choice best states the main idea of the text?", "explain": "'It is this constant, small revision that keeps a tale alive' — retelling sustains folk tales."}, {"answer": "A", "grid": false, "tag": "Command of Evidence (Textual)", "stem": "Which finding, if true, would most directly support the historian's argument?", "explain": "A population surge timed to the railroad (not the long-existing port) supports railroad-driven growth."}, {"answer": "B", "grid": false, "tag": "Inferences", "stem": "Which choice most logically completes the text?", "explain": "Water storage plus sunlight-reflecting hairs, in a plant that thrives in extreme heat, point to heat-survival adaptations."}, {"answer": "C", "grid": false, "tag": "Central Ideas", "stem": "Which choice best states the main idea of the text?", "explain": "A checklist that made steps 'impossible to skip' cut infections — the simple routine was the cause."}, {"answer": "D", "grid": false, "tag": "Boundaries (punctuation)", "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?", "explain": "Two independent clauses joined by 'but' take a comma before it."}, {"answer": "A", "grid": false, "tag": "Form, Structure & Sense", "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?", "explain": "Subject 'set' is singular → 'is.' 'Of instructions' doesn't change it."}, {"answer": "B", "grid": false, "tag": "Boundaries (punctuation)", "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?", "explain": "A colon introduces a list following an independent clause."}, {"answer": "C", "grid": false, "tag": "Form, Structure & Sense", "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?", "explain": "The rehearsing preceded the curtain rising → past perfect 'had rehearsed.'"}, {"answer": "D", "grid": false, "tag": "Boundaries (punctuation)", "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?", "explain": "Possession ('research' belonging to the scientist) requires 'whose.'"}, {"answer": "A", "grid": false, "tag": "Form, Structure & Sense", "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?", "explain": "With 'neither...nor,' the verb agrees with the nearer subject — 'the producers' (plural), so 'were.'"}, {"answer": "B", "grid": false, "tag": "Transitions", "stem": "Which choice completes the text with the most logical transition?", "explain": "Selling out led to baking more — cause and effect, so 'Therefore.'"}, {"answer": "C", "grid": false, "tag": "Transitions", "stem": "Which choice completes the text with the most logical transition?", "explain": "The second sentence specifies the shortening — 'Specifically.'"}, {"answer": "D", "grid": false, "tag": "Transitions", "stem": "Which choice completes the text with the most logical transition?", "explain": "Vast availability, yet listeners feel overwhelmed and retreat to the familiar — a contrast, 'Yet.'"}, {"answer": "A", "grid": false, "tag": "Rhetorical Synthesis", "stem": "The student wants to emphasize the lighthouse's continued usefulness to sailors. Which choice best accomplishes this goal?", "explain": "Continued usefulness to sailors is best shown by the light still guiding ships 20 miles out."}, {"answer": "B", "grid": false, "tag": "Rhetorical Synthesis", "stem": "The student wants to emphasize the dancer's resilience. Which choice best accomplishes this goal?", "explain": "Resilience is best shown by the comeback from injury to the stage."}, {"answer": "C", "grid": false, "tag": "Transitions", "stem": "Which choice completes the text with the most logical transition?", "explain": "Seemed overwhelming, yet turned out straightforward — a contrast, 'Yet.'"}], "rw2": [{"answer": "A", "grid": false, "tag": "Words in Context", "stem": "Which choice completes the text with the most logical and precise word or phrase?", "explain": "Finding the one weak line and explaining precisely why is acuity (sharp perception). 'Carelessness' is the opposite."}, {"answer": "B", "grid": false, "tag": "Words in Context", "stem": "Which choice completes the text with the most logical and precise word or phrase?", "explain": "Language that lets both sides claim victory is deliberately ambiguous. 'Precise' is the opposite."}, {"answer": "C", "grid": false, "tag": "Words in Context", "stem": "Which choice completes the text with the most logical and precise word or phrase?", "explain": "The contrast ('Far from...her boldest arguments hid' there) needs a word meaning routine/cursory — 'perfunctory.'"}, {"answer": "D", "grid": false, "tag": "Text Structure & Purpose", "stem": "Which choice best describes the structure of the text?", "explain": "It builds the human-error case, then a weather record reframes the 'error' as nearly unavoidable."}, {"answer": "A", "grid": false, "tag": "Cross-Text Connections", "stem": "Based on the texts, Lund (Text 2) would most likely argue that Reyes (Text 1) overlooks", "explain": "Lund stresses downstream manufacturers reliant on imported parts — a job-cost Reyes's view overlooks."}, {"answer": "B", "grid": false, "tag": "Central Ideas", "stem": "Which choice best states the main idea of the text?", "explain": "Elegance 'reveals why a theorem is true, not merely that it is' — illumination, not decoration."}, {"answer": "C", "grid": false, "tag": "Inferences", "stem": "Which choice most logically completes the text?", "explain": "Flight was lost where predators are absent and ground foraging favored — flight offers little advantage there."}, {"answer": "D", "grid": false, "tag": "Inferences", "stem": "Which choice most logically completes the text?", "explain": "Irregular angled panels paired with reduced echo (vs. flat/rectangular rooms) imply the panels scatter sound."}, {"answer": "A", "grid": false, "tag": "Command of Evidence (Quantitative)", "stem": "Which choice best uses the data to support the claim that small-group tutoring was more cost-effective?", "explain": "Slightly higher gain (14 vs 13) at one-quarter the cost makes small groups more cost-effective."}, {"answer": "B", "grid": false, "tag": "Command of Evidence (Textual)", "stem": "Which finding, if true, would most directly support the historian's argument?", "explain": "Spread at a speed 'impossible before the new press' supports the printing-innovation explanation over belief."}, {"answer": "C", "grid": false, "tag": "Words in Context", "stem": "Which choice completes the text with the most logical and precise word or phrase?", "explain": "Saying little on purpose is reticence (reserve). 'Loquacity' (talkativeness) is the opposite."}, {"answer": "D", "grid": false, "tag": "Central Ideas", "stem": "Which choice best states the main idea of the text?", "explain": "A marsh restored to 1900 'may be poorly suited' to a warmer present — the fixed-past goal is questioned."}, {"answer": "A", "grid": false, "tag": "Text Structure & Purpose", "stem": "Which choice best describes the function of the article's final lines?", "explain": "Recalling earlier identical promises that 'never shipped' undercuts the current ones — casting doubt."}, {"answer": "B", "grid": false, "tag": "Inferences", "stem": "Which choice most logically completes the text?", "explain": "Colonies die when the fungus fails 'even when other food is abundant' — they depend on the fungus. B, C, D contradict this."}, {"answer": "C", "grid": false, "tag": "Cross-Text Connections", "stem": "Which choice best describes how the two critics differ?", "explain": "Amaya praises the unresolved ending; Devi calls it a failure — opposite judgments of the same choice."}, {"answer": "D", "grid": false, "tag": "Boundaries (punctuation)", "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?", "explain": "A matched pair of dashes sets off the appositive list within the sentence; the main clause stays intact."}, {"answer": "A", "grid": false, "tag": "Form, Structure & Sense", "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?", "explain": "Subject 'collection' is singular → 'reveals.' The donated-by phrase is an interrupter."}, {"answer": "B", "grid": false, "tag": "Boundaries (punctuation)", "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?", "explain": "A colon introduces the explanation of 'the conclusion' after an independent clause."}, {"answer": "C", "grid": false, "tag": "Form, Structure & Sense", "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?", "explain": "Inverted past-unreal conditional ('Had the city invested...') requires 'would have caused.'"}, {"answer": "D", "grid": false, "tag": "Form, Structure & Sense", "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?", "explain": "Subject 'success' is singular; the 'like...' phrase is an interrupter; past context → 'depended.'"}, {"answer": "A", "grid": false, "tag": "Transitions", "stem": "Which choice completes the text with the most logical transition?", "explain": "Good in winter but a problem in summer — a contrast, 'However.'"}, {"answer": "B", "grid": false, "tag": "Transitions", "stem": "Which choice completes the text with the most logical transition?", "explain": "A real gain, yet a remaining gap — concessive contrast, 'Even so.'"}, {"answer": "C", "grid": false, "tag": "Transitions", "stem": "Which choice completes the text with the most logical transition?", "explain": "The uncovering happened through the clearing — 'In doing so' links action to result."}, {"answer": "D", "grid": false, "tag": "Rhetorical Synthesis", "stem": "The student wants to emphasize the vault's purpose of safeguarding crop diversity. Which choice best accomplishes this goal?", "explain": "The safeguarding purpose is best conveyed by the million samples preserved for centuries."}, {"answer": "A", "grid": false, "tag": "Rhetorical Synthesis", "stem": "The student wants to emphasize the river's ecological recovery. Which choice best accomplishes this goal?", "explain": "Ecological recovery is best shown by fish returning and fishing resuming after pollution."}, {"answer": "B", "grid": false, "tag": "Cross-Text Connections", "stem": "Which choice best describes the relationship between the texts?", "explain": "Singh agrees for advanced work but cautions about early over-reliance — partial agreement with a caveat."}, {"answer": "C", "grid": false, "tag": "Words in Context", "stem": "Which choice completes the text with the most logical and precise word or phrase?", "explain": "Weighing arguments on merit regardless of who makes them is impartiality (fairness). 'Partiality' is the opposite."}], "m1": [{"answer": "6", "grid": true, "tag": "Algebra — linear", "stem": "If 6x − 5 = 31, what is the value of x?", "explain": "6x = 36, so x = 6."}, {"answer": "A", "grid": false, "tag": "Algebra — linear", "stem": "A car rental costs $40 per day plus $0.15 per mile. Which equation gives cost c for d days and m miles?", "explain": "$40 per day and $0.15 per mile: c = 40d + 0.15m."}, {"answer": "B", "grid": false, "tag": "Problem-Solving — percent", "stem": "A $250 bill includes an 18% tip. What is the tip amount?", "explain": "18% of 250 = 0.18 × 250 = $45."}, {"answer": "C", "grid": false, "tag": "Algebra — slope", "stem": "What is the slope of the line through (2, 1) and (6, 9)?", "explain": "(9 − 1)/(6 − 2) = 8/4 = 2."}, {"answer": "D", "grid": false, "tag": "Advanced Math — exponents", "stem": "Which expression equals (x²)⁴?", "explain": "Power of a power → multiply: 2 × 4 = 8, so x⁸."}, {"answer": "12", "grid": true, "tag": "Problem-Solving — ratio", "stem": "A trail mix uses nuts and raisins in a 3 : 2 ratio. If 18 ounces of nuts are used, how many ounces of raisins are needed?", "explain": "Nuts scaled by 18/3 = 6, so raisins = 2 × 6 = 12 oz."}, {"answer": "A", "grid": false, "tag": "Algebra — systems", "stem": "If 2x + y = 13 and y = x + 1, what is x?", "explain": "2x + (x + 1) = 13 → 3x = 12 → x = 4."}, {"answer": "B", "grid": false, "tag": "Advanced Math — quadratic", "stem": "What are the solutions to x² − 8x + 15 = 0?", "explain": "(x − 3)(x − 5) = 0, so x = 3 or x = 5."}, {"answer": "C", "grid": false, "tag": "Geometry — angles", "stem": "In a triangle, two angles measure 30° and 90°. What is the third angle?", "explain": "180 − (30 + 90) = 60°."}, {"answer": "8", "grid": true, "tag": "Problem-Solving — data", "stem": "The values 3, 7, 7, 9, 14 form a data set. What is the mean?", "explain": "Sum = 40; 40 ÷ 5 = 8."}, {"answer": "D", "grid": false, "tag": "Algebra — inequality", "stem": "Which describes all x with 4x + 3 ≥ 19?", "explain": "4x ≥ 16 → x ≥ 4."}, {"answer": "15", "grid": true, "tag": "Advanced Math — function", "stem": "If f(x) = x² − 2x, what is f(5)?", "explain": "f(5) = 25 − 10 = 15."}, {"answer": "A", "grid": false, "tag": "Geometry — area", "stem": "A rectangle has length 9 and width 7. What is its area?", "explain": "9 × 7 = 63."}, {"answer": "B", "grid": false, "tag": "Algebra — linear", "stem": "If y = mx + 5 passes through (4, 17), what is m?", "explain": "17 = 4m + 5 → 4m = 12 → m = 3."}, {"answer": "C", "grid": false, "tag": "Problem-Solving — proportion", "stem": "If 6 apples cost $4.20, how much do 9 apples cost?", "explain": "One apple = 4.20/6 = $0.70; 9 × 0.70 = $6.30."}, {"answer": "480", "grid": true, "tag": "Advanced Math — exponential", "stem": "A 30-cell sample doubles every hour. How many cells after 4 hours?", "explain": "30 × 2⁴ = 30 × 16 = 480."}, {"answer": "D", "grid": false, "tag": "Geometry — circle", "stem": "A circle has radius 4. What is its area? (Use π.)", "explain": "π(4²) = 16π."}, {"answer": "A", "grid": false, "tag": "Advanced Math — factoring", "stem": "Which expression equals x² − 25?", "explain": "Difference of squares: (x + 5)(x − 5)."}, {"answer": "B", "grid": false, "tag": "Problem-Solving — data", "stem": "In a club, the ratio of new to returning members is 2 : 7. If 35 are returning, how many are new?", "explain": "Returning is 7 parts = 35, so 1 part = 5; new = 2 × 5 = 10."}, {"answer": "13", "grid": true, "tag": "Geometry — Pythagorean", "stem": "A right triangle has legs 5 and 12. What is the length of the hypotenuse?", "explain": "c² = 25 + 144 = 169, so c = 13."}, {"answer": "C", "grid": false, "tag": "Advanced Math — function", "stem": "If g(x) = x² + 4x, for what nonzero x does g(x) = 0?", "explain": "x(x + 4) = 0 → x = 0 or x = −4."}, {"answer": "D", "grid": false, "tag": "Algebra — translate", "stem": "A streaming service charges $8 to sign up plus $12 per month. Which gives total cost for m months?", "explain": "Fixed $8 plus $12 per month: 12m + 8."}], "m2": [{"answer": "A", "grid": false, "tag": "Advanced Math — quadratic", "stem": "The quadratic x² + bx + 18 has roots x = 3 and x = 6. What is b?", "explain": "Sum 3 + 6 = 9 = −b → b = −9. (Product 18 = c ✓.)"}, {"answer": "4", "grid": true, "tag": "Algebra — systems", "stem": "If 4x + 3y = 27 and 4x − 3y = 5, what is the value of x?", "explain": "Add: 8x = 32 → x = 4."}, {"answer": "B", "grid": false, "tag": "Advanced Math — exponents", "stem": "If 5^(x+2) = 125, what is x?", "explain": "125 = 5³, so x + 2 = 3 → x = 1."}, {"answer": "C", "grid": false, "tag": "Advanced Math — rational", "stem": "For x ≠ 5, the expression (x² − 25)/(x − 5) equals", "explain": "(x + 5)(x − 5)/(x − 5) = x + 5."}, {"answer": "10", "grid": true, "tag": "Algebra — linear modeling", "stem": "A candle 30 cm tall burns down 2.5 cm per hour. After how many hours is it 5 cm tall?", "explain": "30 − 2.5t = 5 → 2.5t = 25 → t = 10."}, {"answer": "75", "grid": true, "tag": "Geometry — similar triangles", "stem": "Two similar triangles have sides in ratio 2 : 5. If the smaller has area 12, what is the larger's area?", "explain": "Area scales by (5/2)² = 25/4. 12 × 25/4 = 75."}, {"answer": "D", "grid": false, "tag": "Advanced Math — vertex", "stem": "What is the minimum value of f(x) = x² − 6x + 10?", "explain": "Vertex x = 6/2 = 3; f(3) = 9 − 18 + 10 = 1. Minimum is 1."}, {"answer": "A", "grid": false, "tag": "Advanced Math — discriminant", "stem": "How many real solutions does 3x² + 2x + 4 = 0 have?", "explain": "b² − 4ac = 4 − 48 = −44 < 0, so no real solutions."}, {"answer": "B", "grid": false, "tag": "Problem-Solving — percent change", "stem": "A value falls 30% then rises 30%. Compared with the start, it is now", "explain": "100 → ×0.70 = 70 → ×1.30 = 91. That's 9% below the start."}, {"answer": "6", "grid": true, "tag": "Algebra — absolute value", "stem": "What is the greatest value of x satisfying |2x − 4| = 8?", "explain": "2x − 4 = 8 → x = 6; or 2x − 4 = −8 → x = −2. Greatest is 6."}, {"answer": "C", "grid": false, "tag": "Advanced Math — exponential model", "stem": "A 400-unit sample halves every 3 years. How much remains after 9 years?", "explain": "9 years = 3 half-lives: 400 → 200 → 100 → 50."}, {"answer": "D", "grid": false, "tag": "Geometry — trig", "stem": "In a right triangle, angle θ has adjacent side 12 and hypotenuse 13. What is sin θ?", "explain": "Opposite = √(13² − 12²) = √25 = 5. sin θ = 5/13."}, {"answer": "A", "grid": false, "tag": "Advanced Math — systems nonlinear", "stem": "If y = x² and y = 4x − 3, which is a solution (x, y)?", "explain": "x² = 4x − 3 → x² − 4x + 3 = 0 → (x − 1)(x − 3) = 0 → (1, 1) and (3, 9)."}, {"answer": "B", "grid": false, "tag": "Problem-Solving — weighted average", "stem": "10 students average 70; 30 students average 90. What is the combined average of all 40?", "explain": "Total = 10(70) + 30(90) = 700 + 2700 = 3400; 3400/40 = 85."}, {"answer": "C", "grid": false, "tag": "Advanced Math — equivalent", "stem": "Which expression equals (6x² − 9x)/3?", "explain": "Divide each term by 3: 2x² − 3x."}, {"answer": "D", "grid": false, "tag": "Geometry — volume", "stem": "A cylinder has radius 2 and height 9. What is its volume? (Use π.)", "explain": "V = π(2²)(9) = π(4)(9) = 36π."}, {"answer": "5", "grid": true, "tag": "Algebra — system word problem", "stem": "Adult tickets cost $20 and student tickets $12. A group bought 9 tickets for $148. How many adult tickets did they buy?", "explain": "20a + 12(9 − a) = 148 → 20a + 108 − 12a = 148 → 8a = 40 → a = 5."}, {"answer": "A", "grid": false, "tag": "Problem-Solving — probability", "stem": "A bag holds 3 red, 5 green, 4 blue marbles. What is the probability a random draw is NOT green?", "explain": "P(green) = 5/12, so P(not green) = 7/12."}, {"answer": "B", "grid": false, "tag": "Advanced Math — exponent", "stem": "If x^(1/2) = 7, what is x?", "explain": "Square both sides: x = 49."}, {"answer": "C", "grid": false, "tag": "Geometry — coordinate", "stem": "What is the distance between (1, 1) and (9, 7)?", "explain": "√[(8)² + (6)²] = √(64 + 36) = √100 = 10."}, {"answer": "D", "grid": false, "tag": "Advanced Math — function composition", "stem": "If f(x) = 3x − 2 and g(x) = x + 4, what is f(g(2))?", "explain": "g(2) = 6; f(6) = 3(6) − 2 = 16."}, {"answer": "A", "grid": false, "tag": "Algebra — linear system", "stem": "At what x do y = 3x − 4 and y = x + 2 intersect?", "explain": "3x − 4 = x + 2 → 2x = 6 → x = 3."}]}; let timers={};
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function selWire(scope){scope.querySelectorAll('.q').forEach(function(q){q.addEventListener('change',function(e){if(e.target.type!=='radio')return;q.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));e.target.closest('.opt').classList.add('sel');});});}
+function norm(v){return (v==null?'':String(v)).trim().toLowerCase().replace(/\s+/g,'');}
+function gridMatch(student,ans){const s=norm(student);if(!s)return false;if(s===norm(ans))return true;function val(x){x=String(x).trim();if(x.includes('/')){const p=x.split('/');if(p.length===2){const a=parseFloat(p[0]),b=parseFloat(p[1]);if(b!==0)return a/b;}}const f=parseFloat(x);return isNaN(f)?null:f;}const a=val(student),b=val(ans);if(a!==null&&b!==null)return Math.abs(a-b)<1e-6;return false;}
+function scoreModule(sec){const list=KEY[sec];let c=0;list.forEach((k,i)=>{const qid=sec+'_'+(i+1);if(k.grid){const inp=document.querySelector('[name="'+qid+'"]');if(inp&&gridMatch(inp.value,k.answer))c++;}else{const p=document.querySelector('input[name="'+qid+'"]:checked');if(p&&p.value===k.answer)c++;}});return c;}
+function startTimer(sec,minutes,onExpire){let r=minutes*60;const el=document.getElementById('clock_'+sec);function tick(){const m=Math.floor(r/60),s=r%60;if(el){el.textContent=m+':'+String(s).padStart(2,'0');el.classList.toggle('warn',r<=300);}if(r<=0){clearInterval(timers[sec]);if(onExpire)onExpire();return;}r--;}tick();timers[sec]=setInterval(tick,1000);}
+function stopTimer(sec){if(timers[sec])clearInterval(timers[sec]);}
+function beginExam(){const nm=document.getElementById('sname').value.trim();if(!nm){alert('Please type your name first.');return;}document.getElementById('f_name').value=nm;show('rw1');startTimer('rw1',32,()=>goRW2());}
+function goRW2(){stopTimer('rw1');show('rw2');startTimer('rw2',32,()=>goBreak());}
+function goBreak(){stopTimer('rw2');show('break');runBreak();}
+function runBreak(){let rem=600;const el=document.getElementById('breakclock');const t=setInterval(()=>{const m=Math.floor(rem/60),s=rem%60;el.textContent=m+':'+String(s).padStart(2,'0');if(rem<=0){clearInterval(t);}rem--;},1000);}
+function startMath(){show('m1');startTimer('m1',35,()=>goM2());}
+function goM2(){stopTimer('m1');show('m2');startTimer('m2',35,()=>finishExam());}
+function finishExam(){stopTimer('m2');buildReport();show('report');}
+function sectionScaled(c,t){return Math.max(200,Math.min(800,Math.round(200+(c/t)*600)));}
+function escapeHtml(s){const d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+function buildKeyBlock(sec,label){const list=KEY[sec];let html='<div class="keyhead">'+label+'</div>';list.forEach((k,i)=>{const qid=sec+'_'+(i+1);let picked='—',ok=false;if(k.grid){const inp=document.querySelector('[name="'+qid+'"]');picked=inp&&inp.value.trim()?inp.value.trim():'—';ok=inp?gridMatch(inp.value,k.answer):false;}else{const sel=document.querySelector('input[name="'+qid+'"]:checked');picked=sel?sel.value:'—';ok=sel&&sel.value===k.answer;}const cls=(picked==='—')?'blank':(ok?'correct':'incorrect');const metaR=(picked==='—')?'<span class="no">No answer</span>':ok?'<span class="ok">Correct</span>':'<span class="no">Your answer: '+picked+'</span>';html+='<div class="key '+cls+'"><div class="kq">Q'+(i+1)+'. '+escapeHtml(k.stem)+'</div><div class="meta">'+metaR+' &nbsp;·&nbsp; Correct answer: <b>'+escapeHtml(k.answer)+'</b> &nbsp;·&nbsp; '+escapeHtml(k.tag)+'</div><div class="exp"><b>Why:</b> '+escapeHtml(k.explain)+'</div></div>';});return html;}
+function buildReport(){const rw1c=scoreModule('rw1'),rw2c=scoreModule('rw2'),m1c=scoreModule('m1'),m2c=scoreModule('m2');const rwRaw=rw1c+rw2c,rwTot=KEY['rw1'].length+KEY['rw2'].length,mRaw=m1c+m2c,mTot=KEY['m1'].length+KEY['m2'].length;const rwScore=sectionScaled(rwRaw,rwTot),mScore=sectionScaled(mRaw,mTot),total=rwScore+mScore;document.getElementById('rep_total').textContent=total;document.getElementById('rep_rw').textContent=rwScore;document.getElementById('rep_rw_sub').textContent=rwRaw+'/'+rwTot+' correct';document.getElementById('rep_math').textContent=mScore;document.getElementById('rep_math_sub').textContent=mRaw+'/'+mTot+' correct';document.getElementById('keyzone').innerHTML=buildKeyBlock('rw1','Reading & Writing — Module 1')+buildKeyBlock('rw2','Reading & Writing — Module 2')+buildKeyBlock('m1','Math — Module 1')+buildKeyBlock('m2','Math — Module 2');document.getElementById('f_total').value=total;document.getElementById('f_rw').value=rwScore+' ('+rwRaw+'/'+rwTot+')';document.getElementById('f_math').value=mScore+' ('+mRaw+'/'+mTot+')';document.getElementById('f_detail').value='RW M1 '+rw1c+'/'+KEY['rw1'].length+'; RW M2 '+rw2c+'/'+KEY['rw2'].length+'; MATH M1 '+m1c+'/'+KEY['m1'].length+'; MATH M2 '+m2c+'/'+KEY['m2'].length;}
+window.addEventListener('DOMContentLoaded',function(){selWire(document);document.getElementById('examform').addEventListener('submit',function(){document.getElementById('sentmsg').style.display='block';});});
+
+</script>
+</body></html>
