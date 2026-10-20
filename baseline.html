@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAT Baseline Assessment · KingCretot Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A1F3D;--gold:#C9A84C;--cream:#FAF7EF;--red:#C9342F;--green:#2E7D55;--ink:#172230;--muted:#586273;--line:#E5E0D2;--paper:#FFFFFF;--soft:#F5F2E9;--display:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--mono:'IBM Plex Mono',monospace;}
+*{box-sizing:border-box}html{font-size:18px}
+body{margin:0;background:var(--soft);color:var(--ink);font-family:var(--body);line-height:1.6}
+h1,h2,h3{font-family:var(--display);color:var(--navy);line-height:1.18;margin:0}
+.wrap{max-width:820px;margin:0 auto;padding:0 24px}
+.mast{background:var(--navy);color:#fff;padding:26px 0 22px}
+.mast .brand{font-family:var(--display);font-weight:700;font-size:21px}
+.mast .tag{font-weight:700;font-size:11px;letter-spacing:2.5px;margin-top:3px}
+.mast .e1{color:#8FB2F5}.mast .e2{color:var(--gold)}.mast .e3{color:#F08C8A}
+.mast .rule{height:3px;background:var(--gold);margin:16px 0 18px;border:0}
+.mast h1{color:#fff;font-size:30px;font-weight:600}
+.mast .sub{color:#cfd8e6;margin-top:9px;font-size:16px}
+.bar{position:sticky;top:0;z-index:50;background:#0e2342;color:#fff;border-bottom:2px solid var(--gold)}
+.bar .in{max-width:820px;margin:0 auto;padding:11px 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.bar .mod{font-weight:700;font-size:15px}
+.bar .mod small{display:block;font-weight:500;color:#cdd9ea;font-size:12px;letter-spacing:.3px}
+.bar .clock{font-family:var(--mono);font-weight:600;font-size:20px;background:rgba(201,168,76,.16);border:1px solid var(--gold);color:#f0e4c4;padding:6px 13px;border-radius:10px}
+.bar .clock.warn{background:rgba(201,52,47,.2);border-color:#F08C8A;color:#ffd9d7}
+.bar .prog{font-family:var(--mono);font-size:13px;color:#cdd9ea}
+main{padding:26px 0 10px}
+.lede{font-size:17px;color:var(--muted);margin:0 0 20px}
+.screen{display:none}.screen.active{display:block}
+.namebar{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:22px}
+.namebar label{font-weight:600;color:var(--navy);font-size:15px;display:block;margin-bottom:7px}
+.namebar input{width:100%;font:inherit;font-size:17px;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px}
+.q{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px 24px 18px;margin:16px 0;box-shadow:0 2px 10px rgba(10,31,61,.04)}
+.q .qno{font-family:var(--mono);font-weight:500;color:var(--gold);font-size:15px}
+.q .qtag{font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-left:8px}
+.passage{background:var(--soft);border-left:3px solid var(--gold);border-radius:8px;padding:14px 16px;margin:12px 0 14px;font-size:16px;line-height:1.62;white-space:pre-line}
+.formula{display:inline-block;font-family:var(--mono);font-size:14px;background:#eef3fb;border:1px solid #c9d8f0;color:#26406b;padding:7px 12px;border-radius:9px;margin:6px 0 12px}
+.stem{font-weight:600;font-size:18px;margin:10px 0 14px;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{position:relative;display:flex;gap:13px;align-items:center;border:2px solid var(--line);border-radius:12px;padding:13px 15px;cursor:pointer;font-size:16.5px;transition:border-color .12s,background .12s}
+.opt:hover{border-color:#9DB6E8;background:#fbfcfe}
+.opt input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.opt .ltr{flex-shrink:0;width:30px;height:30px;border-radius:8px;border:2px solid var(--line);display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:15px;color:var(--navy)}
+.opt.sel{border-color:var(--navy);background:#f3f6fb}
+.opt.sel .ltr{background:var(--navy);border-color:var(--navy);color:#fff}
+.grid-in{display:flex;flex-direction:column;gap:7px;margin-top:6px}
+.grid-in label{font-weight:600;color:var(--navy);font-size:14px}
+.grid-in input{font:inherit;font-family:var(--mono);font-size:18px;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;max-width:260px}
+.navrow{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:22px 0 8px;flex-wrap:wrap}
+.btn{font-family:var(--body);font-weight:600;font-size:16px;border-radius:11px;padding:13px 22px;cursor:pointer;border:2px solid var(--navy)}
+.btn-prim{background:var(--navy);color:#fff}.btn-prim:hover{background:#0e2a52}
+.btn-send{background:var(--gold);border-color:var(--gold);color:var(--navy)}.btn-send:hover{background:#b9991f}
+.unanswered{font-size:14px;color:var(--muted)}
+.break{text-align:center;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:40px 28px;margin:18px 0}
+.break .big{font-family:var(--mono);font-size:46px;font-weight:600;color:var(--navy);margin:12px 0}
+.break h2{font-size:26px;margin-bottom:8px}
+.break p{color:var(--muted);font-size:17px;max-width:520px;margin:8px auto}
+.report{background:var(--navy);color:#fff;border-radius:18px;padding:30px 28px;margin:18px 0}
+.report h2{color:#fff;font-size:26px}
+.scoreline{display:flex;gap:22px;flex-wrap:wrap;margin:18px 0 6px}
+.scorecard{background:rgba(255,255,255,.07);border:1px solid #2a4a78;border-radius:14px;padding:16px 20px;min-width:150px}
+.scorecard .k{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#9fb3d4;font-weight:700}
+.scorecard .v{font-family:var(--mono);font-size:30px;font-weight:600;color:var(--gold);margin-top:4px}
+.scorecard .sub{font-size:13px;color:#cdd9ea;margin-top:2px}
+.keywrap{margin:16px 0}
+.keyhead{font-family:var(--display);font-size:22px;color:var(--navy);margin:26px 0 6px;border-bottom:2px solid var(--gold);padding-bottom:6px}
+.key{background:var(--paper);border:1px solid var(--line);border-left-width:5px;border-radius:12px;padding:15px 18px;margin:11px 0}
+.key.correct{border-left-color:var(--green)}.key.incorrect{border-left-color:var(--red)}.key.blank{border-left-color:var(--muted)}
+.key .kq{font-weight:600;font-size:16px;margin-bottom:5px}
+.key .meta{font-family:var(--mono);font-size:13px;margin-bottom:7px}
+.key .meta .ok{color:var(--green);font-weight:600}.key .meta .no{color:var(--red);font-weight:600}
+.key .exp{font-size:15.5px;color:var(--ink);border-top:1px dashed var(--line);padding-top:9px}
+.key .exp b{color:var(--navy)}
+.note{background:var(--cream);border:1px solid var(--gold);border-radius:12px;padding:14px 16px;font-size:15px;margin:16px 0}
+.sent{display:none;background:#edf7f1;border:1px solid var(--green);color:#1d5638;border-radius:12px;padding:15px 17px;font-weight:600;margin-top:14px}
+.foot{background:var(--navy);color:#aeb9c9;text-align:center;padding:22px;font-size:13px;margin-top:24px}
+.foot b{color:#fff;font-family:var(--display)}
+.foot .fl{height:2px;background:var(--gold);max-width:320px;margin:0 auto 12px}
+@media (max-width:560px){.mast h1{font-size:25px}html{font-size:17px}}
+.passage table{border-collapse:collapse;margin:10px 0;font-size:15px}.passage th{background:#0A1F3D;color:#fff;padding:6px 10px;text-align:left}.passage td{border:1px solid #E5E0D2;padding:6px 10px}</style>
+</head>
+<body>
+<header class="mast"><div class="wrap">
+<div class="brand">KingCretot Experience</div>
+<div class="tag"><span style="color:#0047BA">EDUCATE.</span>&nbsp;&nbsp;<span style="color:#C9A84C">EMPOWER.</span>&nbsp;&nbsp;<span style="color:#DB2F30">EXCEL.</span></div>
+<hr class="rule"><h1>SAT Baseline Assessment</h1>
+<div class="sub">Reading &amp; Writing + Math &nbsp;·&nbsp; timed &nbsp;·&nbsp; 49 questions</div></div></header>
+<form id="examform" onsubmit="return false">
+<section class="screen active" id="start"><main class="wrap">
+<p class="lede">This baseline shows us where you are starting so your SAT lessons can focus on what will raise your score the most. Do your best, but don't worry if some questions feel hard; that is exactly what we want to find. Take it in one sitting, in a quiet place, with a calculator for Math.</p>
+<div class="note"><b>Timing:</b> Reading &amp; Writing — 27 questions in 32 minutes. Then a short break. Then Math — 22 questions in 35 minutes. About 70 minutes total. When you finish, your answers are sent to KingCretot Experience automatically.</div>
+<div class="namebar"><label for="sname">Full name</label><input type="text" id="sname" placeholder="Type your full name to begin" required></div>
+<div class="navrow"><span class="unanswered">When you press start, the timer begins.</span>
+<button type="button" class="btn btn-prim" onclick="beginExam()">Start Reading &amp; Writing</button></div>
+</main></section>
+<section class="screen" id="rw"><div class="bar"><div class="in"><div class="mod">Reading &amp; Writing<small>32 minutes · 27 questions</small></div><div class="prog">Section 1 of 2</div><div class="clock" id="clock_rw">--:--</div></div></div>
+<main class="wrap">
+<div class="q" id="rw_1" data-tag="Words in Context">
+<span class="qno">Q1</span><span class="qtag">Words in Context</span>
+<div class="passage"><p>Ceramicist Lena Okafor-Beale's glazes are famously ______: she rarely repeats a color, and because she mixes each batch by hand in small quantities, no two pieces from her studio look exactly alike.</p></div>
+<div class="stem">Which choice completes the text with the most logical and precise word or phrase?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_1" value="A"><span class="ltr">A</span><span>ordinary</span></label>
+<label class="opt"><input type="radio" name="rw_1" value="B"><span class="ltr">B</span><span>durable</span></label>
+<label class="opt"><input type="radio" name="rw_1" value="C"><span class="ltr">C</span><span>unique</span></label>
+<label class="opt"><input type="radio" name="rw_1" value="D"><span class="ltr">D</span><span>muted</span></label>
+</div>
+</div>
+<div class="q" id="rw_2" data-tag="Words in Context">
+<span class="qno">Q2</span><span class="qtag">Words in Context</span>
+<div class="passage"><p>The town council had expected residents to object to the proposed bike paths, but public comments on the plan were overwhelmingly ______, with most speakers urging the council to approve it as quickly as possible.</p></div>
+<div class="stem">Which choice completes the text with the most logical and precise word or phrase?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_2" value="A"><span class="ltr">A</span><span>favorable</span></label>
+<label class="opt"><input type="radio" name="rw_2" value="B"><span class="ltr">B</span><span>hostile</span></label>
+<label class="opt"><input type="radio" name="rw_2" value="C"><span class="ltr">C</span><span>ambiguous</span></label>
+<label class="opt"><input type="radio" name="rw_2" value="D"><span class="ltr">D</span><span>technical</span></label>
+</div>
+</div>
+<div class="q" id="rw_3" data-tag="Words in Context">
+<span class="qno">Q3</span><span class="qtag">Words in Context</span>
+<div class="passage"><p>Hydrologist Tomas Erling cautions that a single wet year should not be taken as evidence that the region's long drought has ended. One season of heavy rain, he notes, can ______ a long-term decline in groundwater levels without actually reversing it, making the underlying problem harder to see.</p></div>
+<div class="stem">Which choice completes the text with the most logical and precise word or phrase?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_3" value="A"><span class="ltr">A</span><span>accelerate</span></label>
+<label class="opt"><input type="radio" name="rw_3" value="B"><span class="ltr">B</span><span>measure</span></label>
+<label class="opt"><input type="radio" name="rw_3" value="C"><span class="ltr">C</span><span>cause</span></label>
+<label class="opt"><input type="radio" name="rw_3" value="D"><span class="ltr">D</span><span>mask</span></label>
+</div>
+</div>
+<div class="q" id="rw_4" data-tag="Words in Context">
+<span class="qno">Q4</span><span class="qtag">Words in Context</span>
+<div class="passage"><p>In her study of nineteenth-century merchant letters, historian Ilse Vandermolen argues that the writers' elaborate courtesies were not empty formality. Such phrases, she contends, were ______: writers chose them deliberately to build the trust on which long-distance credit depended.</p></div>
+<div class="stem">Which choice completes the text with the most logical and precise word or phrase?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_4" value="A"><span class="ltr">A</span><span>perfunctory</span></label>
+<label class="opt"><input type="radio" name="rw_4" value="B"><span class="ltr">B</span><span>calculated</span></label>
+<label class="opt"><input type="radio" name="rw_4" value="C"><span class="ltr">C</span><span>effusive</span></label>
+<label class="opt"><input type="radio" name="rw_4" value="D"><span class="ltr">D</span><span>archaic</span></label>
+</div>
+</div>
+<div class="q" id="rw_5" data-tag="Text Structure &amp; Purpose">
+<span class="qno">Q5</span><span class="qtag">Text Structure &amp; Purpose</span>
+<div class="passage"><p>In many dry regions, the bare ground between plants is covered by a thin, dark layer that most hikers step on without a second thought. This layer, called a biological soil crust, is a living community of bacteria, lichens, and mosses. The crust binds loose sand in place, reducing erosion, and some of its bacteria capture nitrogen from the air, enriching the soil for nearby plants. A single footprint, however, can break the crust, which may take decades to recover.</p></div>
+<div class="stem">Which choice best describes the overall structure of the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_5" value="A"><span class="ltr">A</span><span>It identifies an easily overlooked feature, describes benefits it provides, and then notes how easily it can be damaged.</span></label>
+<label class="opt"><input type="radio" name="rw_5" value="B"><span class="ltr">B</span><span>It describes a common hiking practice, explains why scientists support it, and then recommends that it be expanded.</span></label>
+<label class="opt"><input type="radio" name="rw_5" value="C"><span class="ltr">C</span><span>It compares two types of soil and then argues that one is more beneficial to plants than the other.</span></label>
+<label class="opt"><input type="radio" name="rw_5" value="D"><span class="ltr">D</span><span>It presents a scientific debate about erosion and then explains how that debate was settled.</span></label>
+</div>
+</div>
+<div class="q" id="rw_6" data-tag="Text Structure &amp; Purpose">
+<span class="qno">Q6</span><span class="qtag">Text Structure &amp; Purpose</span>
+<div class="passage"><p>Many shrubs in seasonally dry grasslands drop their leaves during long dry spells, a habit usually explained as a way to reduce water loss. Ecologist Mateo Ferraz-Lindqvist suggests that, for the shrub he studied, shedding leaves serves a second purpose as well. <u>After the leaves fall, they form a layer around the base of the shrub that shades the soil and slows evaporation from it.</u> The shed leaves, in other words, may continue to help the plant after they are no longer attached to it.</p></div>
+<div class="stem">Which choice best describes the function of the underlined sentence in the text as a whole?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_6" value="A"><span class="ltr">A</span><span>It presents the conventional explanation that Ferraz-Lindqvist rejects.</span></label>
+<label class="opt"><input type="radio" name="rw_6" value="B"><span class="ltr">B</span><span>It offers evidence that dropping leaves does not reduce water loss.</span></label>
+<label class="opt"><input type="radio" name="rw_6" value="C"><span class="ltr">C</span><span>It explains the mechanism behind the second purpose that Ferraz-Lindqvist proposes.</span></label>
+<label class="opt"><input type="radio" name="rw_6" value="D"><span class="ltr">D</span><span>It describes a limitation of the study Ferraz-Lindqvist conducted.</span></label>
+</div>
+</div>
+<div class="q" id="rw_7" data-tag="Cross-Text Connections">
+<span class="qno">Q7</span><span class="qtag">Cross-Text Connections</span>
+<div class="passage"><p><b>Text 1</b><br>Many urban planners argue that converting downtown parking lots into small public parks raises nearby property values, because residents and businesses place a high value on access to green space. As evidence, supporters point to several cities where home prices near new parks rose faster than the citywide average after the parks opened.</p><p><b>Text 2</b><br>Economist Ruth Adebayo-Lind cautions that such comparisons can mislead. Cities often build new parks in neighborhoods that are already attracting investment, so faster price growth near parks may reflect where parks are placed rather than what parks do. To isolate the parks' effect, she argues, researchers should compare neighborhoods that received parks with similar neighborhoods that were considered for parks but did not get them.</p></div>
+<div class="stem">Based on the texts, how would Adebayo-Lind (Text 2) most likely respond to the evidence cited by supporters in Text 1?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_7" value="A"><span class="ltr">A</span><span>She would agree that the evidence shows parks raise property values but argue that the effect is smaller than supporters claim.</span></label>
+<label class="opt"><input type="radio" name="rw_7" value="B"><span class="ltr">B</span><span>She would argue that the faster price growth may be explained by factors that influenced where the parks were built rather than by the parks themselves.</span></label>
+<label class="opt"><input type="radio" name="rw_7" value="C"><span class="ltr">C</span><span>She would claim that new parks actually lower nearby property values by reducing the amount of available parking.</span></label>
+<label class="opt"><input type="radio" name="rw_7" value="D"><span class="ltr">D</span><span>She would argue that residents and businesses place little value on access to green space.</span></label>
+</div>
+</div>
+<div class="q" id="rw_8" data-tag="Central Ideas">
+<span class="qno">Q8</span><span class="qtag">Central Ideas</span>
+<div class="passage"><p>When a honeybee colony outgrows its hive, roughly half of the worker bees leave with the old queen to find a new home. Scout bees fly out to inspect possible sites, such as hollow trees or gaps inside walls, and return to perform dances that advertise what they found. Over hours or even days, more and more scouts come to favor a single site, and once enough of them agree, the whole swarm flies off to it.</p></div>
+<div class="stem">Which choice best states the main idea of the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_8" value="A"><span class="ltr">A</span><span>Scout bees prefer hollow trees to gaps inside walls when choosing a new home.</span></label>
+<label class="opt"><input type="radio" name="rw_8" value="B"><span class="ltr">B</span><span>The old queen inspects possible nest sites and selects the colony's new home herself.</span></label>
+<label class="opt"><input type="radio" name="rw_8" value="C"><span class="ltr">C</span><span>Honeybee colonies rarely grow too large for their hives.</span></label>
+<label class="opt"><input type="radio" name="rw_8" value="D"><span class="ltr">D</span><span>A swarming honeybee colony chooses a new home through a gradual process in which scouts come to agree on one site.</span></label>
+</div>
+</div>
+<div class="q" id="rw_9" data-tag="Central Ideas">
+<span class="qno">Q9</span><span class="qtag">Central Ideas</span>
+<div class="passage"><p>In the 1920s, the river town of Callow Bend thrived on barge traffic carrying grain downstream. After a rail line reached the region in 1934, shippers gradually abandoned the slower barges, and by 1950 the town's population had fallen by half. Yet residents did not simply leave the waterfront to decay. Over the following decades they converted its empty warehouses into a library, a market hall, and apartments, and the riverfront that once served freight now draws visitors to its restored brick buildings.</p></div>
+<div class="stem">Which choice best states the main idea of the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_9" value="A"><span class="ltr">A</span><span>The rail line was built specifically to put Callow Bend's barge operators out of business.</span></label>
+<label class="opt"><input type="radio" name="rw_9" value="B"><span class="ltr">B</span><span>Callow Bend's population returned to its 1920s level once the warehouses were converted.</span></label>
+<label class="opt"><input type="radio" name="rw_9" value="C"><span class="ltr">C</span><span>Although Callow Bend lost the industry that built its waterfront, residents adapted the area for new uses.</span></label>
+<label class="opt"><input type="radio" name="rw_9" value="D"><span class="ltr">D</span><span>Barges remained a faster way than trains to carry grain out of the region.</span></label>
+</div>
+</div>
+<div class="q" id="rw_10" data-tag="Command of Evidence (Textual)">
+<span class="qno">Q10</span><span class="qtag">Command of Evidence (Textual)</span>
+<div class="passage"><p>Agronomist Kalinda Brooks has been studying farms that grow clover in the strips of soil between rows of corn. She hypothesizes that this practice reduces the number of weeds in a field without lowering the amount of corn the field produces.</p></div>
+<div class="stem">Which finding, if true, would most directly support Brooks's hypothesis?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_10" value="A"><span class="ltr">A</span><span>Fields with clover between the rows had about 40% fewer weeds than fields without clover, and the two groups of fields produced similar amounts of corn.</span></label>
+<label class="opt"><input type="radio" name="rw_10" value="B"><span class="ltr">B</span><span>Fields with clover between the rows had fewer weeds than fields without clover but produced substantially less corn.</span></label>
+<label class="opt"><input type="radio" name="rw_10" value="C"><span class="ltr">C</span><span>Farmers who planted clover between the rows spent more on seed than farmers who did not.</span></label>
+<label class="opt"><input type="radio" name="rw_10" value="D"><span class="ltr">D</span><span>Clover grows well in many of the same soils in which corn grows well.</span></label>
+</div>
+</div>
+<div class="q" id="rw_11" data-tag="Command of Evidence (Textual)">
+<span class="qno">Q11</span><span class="qtag">Command of Evidence (Textual)</span>
+<div class="passage"><p>Researchers studying a population of city crows observed that the birds often dropped walnuts onto crosswalks shortly before the traffic signal turned green for cars. After cars had driven over and cracked the nuts, and the signal had changed to let pedestrians cross, the crows walked out to collect the pieces. The researchers concluded that the crows had learned to time their drops to the traffic signals rather than simply dropping nuts wherever cars happened to be.</p></div>
+<div class="stem">Which finding, if true, would most directly weaken the researchers' conclusion?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_11" value="A"><span class="ltr">A</span><span>The crows also cracked walnuts by dropping them onto rocks in nearby parks.</span></label>
+<label class="opt"><input type="radio" name="rw_11" value="B"><span class="ltr">B</span><span>The crows collected walnut pieces far more often while pedestrians were crossing than while cars were moving.</span></label>
+<label class="opt"><input type="radio" name="rw_11" value="C"><span class="ltr">C</span><span>Several other bird species in the city also feed on walnuts.</span></label>
+<label class="opt"><input type="radio" name="rw_11" value="D"><span class="ltr">D</span><span>The crows dropped walnuts onto crosswalks at about the same rate regardless of what the traffic signal was showing.</span></label>
+</div>
+</div>
+<div class="q" id="rw_12" data-tag="Command of Evidence (Quantitative)">
+<span class="qno">Q12</span><span class="qtag">Command of Evidence (Quantitative)</span>
+<div class="passage"><p>In 2024, the Fenwick Public Library kept its Northside branch open until 9:00 p.m. on weeknights, while its Lakeview branch continued to close at 6:00 p.m. A library analyst compared average weekly visits at both branches in 2023 and 2025 and concluded that the longer hours, rather than a general rise in library use across the city, likely explain most of the increase in visits at Northside.</p><table><thead><tr><th>Branch</th><th>Average weekly visits, 2023</th><th>Average weekly visits, 2025</th></tr></thead><tbody><tr><td>Northside</td><td>1,240</td><td>1,710</td></tr><tr><td>Lakeview</td><td>1,180</td><td>1,205</td></tr></tbody></table></div>
+<div class="stem">Which choice most effectively uses data from the table to support the analyst's conclusion?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_12" value="A"><span class="ltr">A</span><span>Northside had more average weekly visits than Lakeview in both 2023 and 2025.</span></label>
+<label class="opt"><input type="radio" name="rw_12" value="B"><span class="ltr">B</span><span>Average weekly visits at Northside rose by 470, while visits at Lakeview rose by only 25.</span></label>
+<label class="opt"><input type="radio" name="rw_12" value="C"><span class="ltr">C</span><span>Lakeview had more average weekly visits in 2025 than it did in 2023.</span></label>
+<label class="opt"><input type="radio" name="rw_12" value="D"><span class="ltr">D</span><span>Northside had 1,710 average weekly visits in 2025, the highest figure in the table.</span></label>
+</div>
+</div>
+<div class="q" id="rw_13" data-tag="Command of Evidence (Quantitative)">
+<span class="qno">Q13</span><span class="qtag">Command of Evidence (Quantitative)</span>
+<div class="passage"><p>Plant physiologist Haruto Ellingsen grew three varieties of tomato under two light conditions, full sun and 50% shade, and recorded the average mass of the fruit each variety produced. He argues that the variety Kesta is better suited to shaded gardens than the other two varieties are, because ______</p><table><thead><tr><th>Variety</th><th>Average fruit mass, full sun (g)</th><th>Average fruit mass, 50% shade (g)</th></tr></thead><tbody><tr><td>Arlo</td><td>142</td><td>96</td></tr><tr><td>Kesta</td><td>118</td><td>109</td></tr><tr><td>Nimbo</td><td>155</td><td>101</td></tr></tbody></table></div>
+<div class="stem">Which choice most effectively uses data from the table to complete the statement?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_13" value="A"><span class="ltr">A</span><span>in full sun, Kesta's average fruit mass was lower than Arlo's and Nimbo's by 24 and 37 grams, respectively.</span></label>
+<label class="opt"><input type="radio" name="rw_13" value="B"><span class="ltr">B</span><span>all three varieties produced lighter fruit in 50% shade than they did in full sun.</span></label>
+<label class="opt"><input type="radio" name="rw_13" value="C"><span class="ltr">C</span><span>in 50% shade, Kesta's average fruit mass was 109 grams, greater than that of either Arlo or Nimbo.</span></label>
+<label class="opt"><input type="radio" name="rw_13" value="D"><span class="ltr">D</span><span>in full sun, Nimbo's average fruit mass of 155 grams was the greatest of the three varieties.</span></label>
+</div>
+</div>
+<div class="q" id="rw_14" data-tag="Inferences">
+<span class="qno">Q14</span><span class="qtag">Inferences</span>
+<div class="passage"><p>Ice drilled from the Vessel Glacier contains thin layers of volcanic ash. Each eruption spreads ash across the glacier's surface within a few weeks, and fresh snow then buries that ash, year after year, under new ice. A geologist examining an undisturbed core finds one ash layer 40 meters below the surface and another 25 meters below the surface. The geologist can therefore conclude that ______</p></div>
+<div class="stem">Which choice most logically completes the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_14" value="A"><span class="ltr">A</span><span>the eruption that produced the 40-meter layer occurred before the eruption that produced the 25-meter layer.</span></label>
+<label class="opt"><input type="radio" name="rw_14" value="B"><span class="ltr">B</span><span>the two eruptions that produced the layers occurred within a few weeks of each other.</span></label>
+<label class="opt"><input type="radio" name="rw_14" value="C"><span class="ltr">C</span><span>the eruption that produced the 40-meter layer was larger than the eruption that produced the 25-meter layer.</span></label>
+<label class="opt"><input type="radio" name="rw_14" value="D"><span class="ltr">D</span><span>no snow fell on the glacier between the two eruptions.</span></label>
+</div>
+</div>
+<div class="q" id="rw_15" data-tag="Inferences">
+<span class="qno">Q15</span><span class="qtag">Inferences</span>
+<div class="passage"><p>To study how young songbirds learn to sing, biologist Elsa Moraine-Hart raised juvenile finches in three groups. Birds in the first group heard recordings of adult finch song, birds in the second group lived with a live adult male, and birds in the third group heard no adult song at all. As adults, birds in the second group sang songs closest to normal finch song, birds in the first group produced songs only partly similar to normal song, and birds in the third group sang highly abnormal songs. These results suggest that ______</p></div>
+<div class="stem">Which choice most logically completes the text?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_15" value="A"><span class="ltr">A</span><span>young finches cannot learn any features of normal song from recordings alone.</span></label>
+<label class="opt"><input type="radio" name="rw_15" value="B"><span class="ltr">B</span><span>although hearing adult song helps young finches learn to sing, something about the presence of a live adult further improves that learning.</span></label>
+<label class="opt"><input type="radio" name="rw_15" value="C"><span class="ltr">C</span><span>finches raised without hearing adult song eventually develop normal songs on their own.</span></label>
+<label class="opt"><input type="radio" name="rw_15" value="D"><span class="ltr">D</span><span>the songs on the recordings were different from the songs the live adult males sang.</span></label>
+</div>
+</div>
+<div class="q" id="rw_16" data-tag="Boundaries (punctuation)">
+<span class="qno">Q16</span><span class="qtag">Boundaries (punctuation)</span>
+<div class="passage"><p>Botanist Yuki Saltonstall keeps detailed records of every seed she ______ each packet is labeled with the date, location, and soil type of the site where its seeds were found.</p></div>
+<div class="stem">Which choice completes the text so that it conforms to the conventions of Standard English?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_16" value="A"><span class="ltr">A</span><span>collects,</span></label>
+<label class="opt"><input type="radio" name="rw_16" value="B"><span class="ltr">B</span><span>collects</span></label>
+<label class="opt"><input type="radio" name="rw_16" value="C"><span class="ltr">C</span><span>collects, which</span></label>
+<label class="opt"><input type="radio" name="rw_16" value="D"><span class="ltr">D</span><span>collects;</span></label>
+</div>
+</div>
+<div class="q" id="rw_17" data-tag="Boundaries (punctuation)">
+<span class="qno">Q17</span><span class="qtag">Boundaries (punctuation)</span>
+<div class="passage"><p>For ten years, a forestry team has measured the trunk of every tree in a single grove of oaks. This year's results surprised the ______ the oldest trees in the grove, not the youngest, were growing the fastest.</p></div>
+<div class="stem">Which choice completes the text so that it conforms to the conventions of Standard English?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_17" value="A"><span class="ltr">A</span><span>team:</span></label>
+<label class="opt"><input type="radio" name="rw_17" value="B"><span class="ltr">B</span><span>team,</span></label>
+<label class="opt"><input type="radio" name="rw_17" value="C"><span class="ltr">C</span><span>team</span></label>
+<label class="opt"><input type="radio" name="rw_17" value="D"><span class="ltr">D</span><span>team, that</span></label>
+</div>
+</div>
+<div class="q" id="rw_18" data-tag="Boundaries (punctuation)">
+<span class="qno">Q18</span><span class="qtag">Boundaries (punctuation)</span>
+<div class="passage"><p>Marine engineer ______ designed a buoy that turns the up-and-down motion of ocean waves into electricity for remote weather stations. His prototype has now operated off the coast for three winters without needing a single repair.</p></div>
+<div class="stem">Which choice completes the text so that it conforms to the conventions of Standard English?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_18" value="A"><span class="ltr">A</span><span>Farid Osei-Kwame,</span></label>
+<label class="opt"><input type="radio" name="rw_18" value="B"><span class="ltr">B</span><span>Farid Osei-Kwame;</span></label>
+<label class="opt"><input type="radio" name="rw_18" value="C"><span class="ltr">C</span><span>Farid Osei-Kwame</span></label>
+<label class="opt"><input type="radio" name="rw_18" value="D"><span class="ltr">D</span><span>Farid Osei-Kwame&mdash;</span></label>
+</div>
+</div>
+<div class="q" id="rw_19" data-tag="Boundaries (punctuation)">
+<span class="qno">Q19</span><span class="qtag">Boundaries (punctuation)</span>
+<div class="passage"><p>Organizers had worried that experimental works would draw small crowds. Instead, the festival's closing ______ a ninety-minute piece for solo cello and recorded birdsong&mdash;drew the largest audience of the week.</p></div>
+<div class="stem">Which choice completes the text so that it conforms to the conventions of Standard English?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_19" value="A"><span class="ltr">A</span><span>performance,</span></label>
+<label class="opt"><input type="radio" name="rw_19" value="B"><span class="ltr">B</span><span>performance</span></label>
+<label class="opt"><input type="radio" name="rw_19" value="C"><span class="ltr">C</span><span>performance;</span></label>
+<label class="opt"><input type="radio" name="rw_19" value="D"><span class="ltr">D</span><span>performance&mdash;</span></label>
+</div>
+</div>
+<div class="q" id="rw_20" data-tag="Form, Structure &amp; Sense">
+<span class="qno">Q20</span><span class="qtag">Form, Structure &amp; Sense</span>
+<div class="passage"><p>Both of the city-run swimming pools reopened last week after being renovated, and swimmers have already praised ______ new shaded seating areas and longer evening hours.</p></div>
+<div class="stem">Which choice completes the text so that it conforms to the conventions of Standard English?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_20" value="A"><span class="ltr">A</span><span>its</span></label>
+<label class="opt"><input type="radio" name="rw_20" value="B"><span class="ltr">B</span><span>their</span></label>
+<label class="opt"><input type="radio" name="rw_20" value="C"><span class="ltr">C</span><span>it's</span></label>
+<label class="opt"><input type="radio" name="rw_20" value="D"><span class="ltr">D</span><span>they're</span></label>
+</div>
+</div>
+<div class="q" id="rw_21" data-tag="Form, Structure &amp; Sense">
+<span class="qno">Q21</span><span class="qtag">Form, Structure &amp; Sense</span>
+<div class="passage"><p>The collection of handwritten recipes that archivist Mirela Dobos-Reyna discovered in a farmhouse attic ______ dishes from at least four generations of a single family.</p></div>
+<div class="stem">Which choice completes the text so that it conforms to the conventions of Standard English?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_21" value="A"><span class="ltr">A</span><span>includes</span></label>
+<label class="opt"><input type="radio" name="rw_21" value="B"><span class="ltr">B</span><span>include</span></label>
+<label class="opt"><input type="radio" name="rw_21" value="C"><span class="ltr">C</span><span>have included</span></label>
+<label class="opt"><input type="radio" name="rw_21" value="D"><span class="ltr">D</span><span>are including</span></label>
+</div>
+</div>
+<div class="q" id="rw_22" data-tag="Form, Structure &amp; Sense">
+<span class="qno">Q22</span><span class="qtag">Form, Structure &amp; Sense</span>
+<div class="passage"><p>Scientists had long suspected that a rare fungus grew in the valley's oak forests, but no one had documented it. Having analyzed soil samples from more than two hundred sites across the valley, ______</p></div>
+<div class="stem">Which choice completes the text so that it conforms to the conventions of Standard English?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_22" value="A"><span class="ltr">A</span><span>the presence of a rare fungus was confirmed by ecologist Anouk Braeckman-Silva.</span></label>
+<label class="opt"><input type="radio" name="rw_22" value="B"><span class="ltr">B</span><span>a rare fungus, according to ecologist Anouk Braeckman-Silva, was present.</span></label>
+<label class="opt"><input type="radio" name="rw_22" value="C"><span class="ltr">C</span><span>ecologist Anouk Braeckman-Silva confirmed the presence of a rare fungus.</span></label>
+<label class="opt"><input type="radio" name="rw_22" value="D"><span class="ltr">D</span><span>ecologist Anouk Braeckman-Silva's confirmation of a rare fungus was made.</span></label>
+</div>
+</div>
+<div class="q" id="rw_23" data-tag="Transitions">
+<span class="qno">Q23</span><span class="qtag">Transitions</span>
+<div class="passage"><p>Sea otters often wrap themselves in strands of kelp, a large seaweed anchored to the ocean floor, before they go to sleep at the surface. ______ the kelp keeps the resting otters from drifting away from one another and from their feeding grounds.</p></div>
+<div class="stem">Which choice completes the text with the most logical transition?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_23" value="A"><span class="ltr">A</span><span>However,</span></label>
+<label class="opt"><input type="radio" name="rw_23" value="B"><span class="ltr">B</span><span>In this way,</span></label>
+<label class="opt"><input type="radio" name="rw_23" value="C"><span class="ltr">C</span><span>Nevertheless,</span></label>
+<label class="opt"><input type="radio" name="rw_23" value="D"><span class="ltr">D</span><span>By contrast,</span></label>
+</div>
+</div>
+<div class="q" id="rw_24" data-tag="Transitions">
+<span class="qno">Q24</span><span class="qtag">Transitions</span>
+<div class="passage"><p>Some early bicycles had a front wheel much larger than the rear wheel, which let riders travel farther with each turn of the pedals. ______ the high seat made these bicycles dangerous: a rider whose front wheel struck a stone could be thrown headfirst over the handlebars.</p></div>
+<div class="stem">Which choice completes the text with the most logical transition?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_24" value="A"><span class="ltr">A</span><span>Similarly,</span></label>
+<label class="opt"><input type="radio" name="rw_24" value="B"><span class="ltr">B</span><span>For example,</span></label>
+<label class="opt"><input type="radio" name="rw_24" value="C"><span class="ltr">C</span><span>Therefore,</span></label>
+<label class="opt"><input type="radio" name="rw_24" value="D"><span class="ltr">D</span><span>However,</span></label>
+</div>
+</div>
+<div class="q" id="rw_25" data-tag="Transitions">
+<span class="qno">Q25</span><span class="qtag">Transitions</span>
+<div class="passage"><p>Researchers had long assumed that the paintings in the cave were all made within a few centuries of one another. Radiocarbon dates from charcoal in the pigments, ______ indicate that some of the images were added more than five thousand years after the earliest ones.</p></div>
+<div class="stem">Which choice completes the text with the most logical transition?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_25" value="A"><span class="ltr">A</span><span>however,</span></label>
+<label class="opt"><input type="radio" name="rw_25" value="B"><span class="ltr">B</span><span>for instance,</span></label>
+<label class="opt"><input type="radio" name="rw_25" value="C"><span class="ltr">C</span><span>in addition,</span></label>
+<label class="opt"><input type="radio" name="rw_25" value="D"><span class="ltr">D</span><span>as a result,</span></label>
+</div>
+</div>
+<div class="q" id="rw_26" data-tag="Rhetorical Synthesis">
+<span class="qno">Q26</span><span class="qtag">Rhetorical Synthesis</span>
+<div class="passage"><p>While researching a topic, a student has taken the following notes:</p><ul><li>The Marrow Creek Bridge is a covered wooden bridge in Halden County.</li><li>It was built in 1871.</li><li>It is 38 meters long.</li><li>In 2019, it was restored using timber from local forests.</li><li>It is the oldest covered bridge in the county that is still open to cars.</li></ul></div>
+<div class="stem">The student wants to emphasize the age of the Marrow Creek Bridge. Which choice most effectively uses relevant information from the notes to accomplish this goal?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_26" value="A"><span class="ltr">A</span><span>The Marrow Creek Bridge, a covered wooden bridge in Halden County, is 38 meters long.</span></label>
+<label class="opt"><input type="radio" name="rw_26" value="B"><span class="ltr">B</span><span>Built in 1871, the Marrow Creek Bridge is the oldest covered bridge in Halden County still open to cars.</span></label>
+<label class="opt"><input type="radio" name="rw_26" value="C"><span class="ltr">C</span><span>In 2019, the Marrow Creek Bridge was restored using timber from local forests.</span></label>
+<label class="opt"><input type="radio" name="rw_26" value="D"><span class="ltr">D</span><span>The Marrow Creek Bridge is a covered wooden bridge in Halden County that is open to cars.</span></label>
+</div>
+</div>
+<div class="q" id="rw_27" data-tag="Rhetorical Synthesis">
+<span class="qno">Q27</span><span class="qtag">Rhetorical Synthesis</span>
+<div class="passage"><p>While researching a topic, a student has taken the following notes:</p><ul><li>Mosses and liverworts are both nonvascular plants.</li><li>Nonvascular plants lack internal tubes for transporting water.</li><li>Most mosses have small leaflike structures arranged in a spiral around a central stem.</li><li>Many liverworts have a flat, ribbonlike body called a thallus.</li><li>Both groups reproduce using spores rather than seeds.</li></ul></div>
+<div class="stem">The student wants to emphasize a difference between mosses and liverworts. Which choice most effectively uses relevant information from the notes to accomplish this goal?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="rw_27" value="A"><span class="ltr">A</span><span>Mosses and liverworts are both nonvascular plants, and both reproduce using spores rather than seeds.</span></label>
+<label class="opt"><input type="radio" name="rw_27" value="B"><span class="ltr">B</span><span>Nonvascular plants such as mosses and liverworts lack internal tubes for transporting water.</span></label>
+<label class="opt"><input type="radio" name="rw_27" value="C"><span class="ltr">C</span><span>While most mosses have leaflike structures arranged in a spiral around a stem, many liverworts have a flat, ribbonlike body called a thallus.</span></label>
+<label class="opt"><input type="radio" name="rw_27" value="D"><span class="ltr">D</span><span>Many liverworts have a flat, ribbonlike body called a thallus, and they reproduce using spores rather than seeds.</span></label>
+</div>
+</div>
+<div class="navrow"><span class="unanswered">Unanswered questions are not penalized.</span>
+<button type="button" class="btn btn-prim" onclick="goBreak()">Submit Reading &amp; Writing &amp; take your break</button></div></main></section>
+<section class="screen" id="break"><main class="wrap"><div class="break">
+<h2>Short Break</h2><div class="big" id="breakclock">5:00</div>
+<p>Stand up, stretch, get water. When you're ready, press the button to start Math. It has its own timer.</p>
+<div style="margin-top:18px"><button type="button" class="btn btn-prim" onclick="startMath()">I'm ready — start Math</button></div>
+</div></main></section>
+<section class="screen" id="m"><div class="bar"><div class="in"><div class="mod">Math<small>35 minutes · 22 questions</small></div><div class="prog">Section 2 of 2</div><div class="clock" id="clock_m">--:--</div></div></div>
+<main class="wrap">
+<div class="q" id="m_1" data-tag="Algebra">
+<span class="qno">Q1</span><span class="qtag">Algebra</span>
+<div class="stem">If 5x + 8 = 3x + 22, what is the value of x?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m_1" value="A"><span class="ltr">A</span><span>15/4</span></label>
+<label class="opt"><input type="radio" name="m_1" value="B"><span class="ltr">B</span><span>7</span></label>
+<label class="opt"><input type="radio" name="m_1" value="C"><span class="ltr">C</span><span>14</span></label>
+<label class="opt"><input type="radio" name="m_1" value="D"><span class="ltr">D</span><span>15</span></label>
+</div>
+</div>
+<div class="q" id="m_2" data-tag="Problem-Solving &amp; Data Analysis">
+<span class="qno">Q2</span><span class="qtag">Problem-Solving &amp; Data Analysis</span>
+<div class="stem">Of the 240 shirts a store sold last month, 35% were sold on weekends. How many of the shirts were sold on weekends?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m_2" value="A"><span class="ltr">A</span><span>84</span></label>
+<label class="opt"><input type="radio" name="m_2" value="B"><span class="ltr">B</span><span>8.4</span></label>
+<label class="opt"><input type="radio" name="m_2" value="C"><span class="ltr">C</span><span>156</span></label>
+<label class="opt"><input type="radio" name="m_2" value="D"><span class="ltr">D</span><span>205</span></label>
+</div>
+</div>
+<div class="q" id="m_3" data-tag="Algebra">
+<span class="qno">Q3</span><span class="qtag">Algebra</span>
+<div class="stem">The total cost C, in dollars, to rent a kayak for h hours is given by the equation C = 12h + 15. What is the best interpretation of 12 in this context?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m_3" value="A"><span class="ltr">A</span><span>The kayak is rented for a total of 12 hours.</span></label>
+<label class="opt"><input type="radio" name="m_3" value="B"><span class="ltr">B</span><span>There is a one-time fee of $12 to rent the kayak.</span></label>
+<label class="opt"><input type="radio" name="m_3" value="C"><span class="ltr">C</span><span>The total cost to rent the kayak for 1 hour is $12.</span></label>
+<label class="opt"><input type="radio" name="m_3" value="D"><span class="ltr">D</span><span>The total cost increases by $12 for each additional hour of rental.</span></label>
+</div>
+</div>
+<div class="q" id="m_4" data-tag="Advanced Math">
+<span class="qno">Q4</span><span class="qtag">Advanced Math</span>
+<div class="stem">The function f is defined by f(x) = 3x<sup>2</sup> &minus; 2x. What is the value of f(&minus;2)?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m_4" value="A"><span class="ltr">A</span><span>&minus;16</span></label>
+<label class="opt"><input type="radio" name="m_4" value="B"><span class="ltr">B</span><span>8</span></label>
+<label class="opt"><input type="radio" name="m_4" value="C"><span class="ltr">C</span><span>16</span></label>
+<label class="opt"><input type="radio" name="m_4" value="D"><span class="ltr">D</span><span>40</span></label>
+</div>
+</div>
+<div class="q" id="m_5" data-tag="Geometry &amp; Trigonometry">
+<span class="qno">Q5</span><span class="qtag">Geometry &amp; Trigonometry</span>
+<div class="stem">A rectangular storage box is 6 inches long, 4 inches wide, and 2.5 inches tall. What is the volume of the box, in cubic inches?</div>
+<div class="grid-in"><label>Enter your answer (numbers, decimals, or fractions like 3/4):</label><input type="text" name="m_5" autocomplete="off" inputmode="text" placeholder="answer"></div>
+</div>
+<div class="q" id="m_6" data-tag="Algebra">
+<span class="qno">Q6</span><span class="qtag">Algebra</span>
+<div class="stem">In the xy-plane, the point (k, 11) lies on the line y = 4x &minus; 9. What is the value of k?</div>
+<div class="grid-in"><label>Enter your answer (numbers, decimals, or fractions like 3/4):</label><input type="text" name="m_6" autocomplete="off" inputmode="text" placeholder="answer"></div>
+</div>
+<div class="q" id="m_7" data-tag="Advanced Math">
+<span class="qno">Q7</span><span class="qtag">Advanced Math</span>
+<div class="stem">Which expression is equivalent to (2x &minus; 5)<sup>2</sup>?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m_7" value="A"><span class="ltr">A</span><span>4x<sup>2</sup> &minus; 20x + 25</span></label>
+<label class="opt"><input type="radio" name="m_7" value="B"><span class="ltr">B</span><span>4x<sup>2</sup> &minus; 25</span></label>
+<label class="opt"><input type="radio" name="m_7" value="C"><span class="ltr">C</span><span>4x<sup>2</sup> + 25</span></label>
+<label class="opt"><input type="radio" name="m_7" value="D"><span class="ltr">D</span><span>4x<sup>2</sup> &minus; 10x + 25</span></label>
+</div>
+</div>
+<div class="q" id="m_8" data-tag="Algebra">
+<span class="qno">Q8</span><span class="qtag">Algebra</span>
+<div class="passage"><p>2x + 5y = 1<br>3x &minus; y = 10</p></div>
+<div class="stem">If (x, y) is the solution to the system of equations shown, what is the value of x + y?</div>
+<div class="grid-in"><label>Enter your answer (numbers, decimals, or fractions like 3/4):</label><input type="text" name="m_8" autocomplete="off" inputmode="text" placeholder="answer"></div>
+</div>
+<div class="q" id="m_9" data-tag="Geometry &amp; Trigonometry">
+<span class="qno">Q9</span><span class="qtag">Geometry &amp; Trigonometry</span>
+<div class="stem">In triangle PQR, angle R is a right angle, PR = 9, and QR = 12. What is the value of tan P?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m_9" value="A"><span class="ltr">A</span><span>3/5</span></label>
+<label class="opt"><input type="radio" name="m_9" value="B"><span class="ltr">B</span><span>3/4</span></label>
+<label class="opt"><input type="radio" name="m_9" value="C"><span class="ltr">C</span><span>4/5</span></label>
+<label class="opt"><input type="radio" name="m_9" value="D"><span class="ltr">D</span><span>4/3</span></label>
+</div>
+</div>
+<div class="q" id="m_10" data-tag="Advanced Math">
+<span class="qno">Q10</span><span class="qtag">Advanced Math</span>
+<div class="stem">The value V, in dollars, of a used car t years after it was purchased is modeled by V(t) = 24,000(0.85)<sup>t</sup>. Which statement best describes how the value of the car changes according to the model?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m_10" value="A"><span class="ltr">A</span><span>It decreases by 85% each year.</span></label>
+<label class="opt"><input type="radio" name="m_10" value="B"><span class="ltr">B</span><span>It decreases by 15% each year.</span></label>
+<label class="opt"><input type="radio" name="m_10" value="C"><span class="ltr">C</span><span>It decreases by $3,600 each year.</span></label>
+<label class="opt"><input type="radio" name="m_10" value="D"><span class="ltr">D</span><span>It decreases by 0.85% each year.</span></label>
+</div>
+</div>
+<div class="q" id="m_11" data-tag="Algebra">
+<span class="qno">Q11</span><span class="qtag">Algebra</span>
+<div class="stem">A delivery van can carry at most 1,500 pounds, including the driver. The driver weighs 180 pounds, and each box weighs 45 pounds. What is the greatest number of boxes the van can carry on one trip with the driver?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m_11" value="A"><span class="ltr">A</span><span>30</span></label>
+<label class="opt"><input type="radio" name="m_11" value="B"><span class="ltr">B</span><span>33</span></label>
+<label class="opt"><input type="radio" name="m_11" value="C"><span class="ltr">C</span><span>29</span></label>
+<label class="opt"><input type="radio" name="m_11" value="D"><span class="ltr">D</span><span>34</span></label>
+</div>
+</div>
+<div class="q" id="m_12" data-tag="Problem-Solving &amp; Data Analysis">
+<span class="qno">Q12</span><span class="qtag">Problem-Solving &amp; Data Analysis</span>
+<div class="passage"><p>A school surveyed 200 students in grades 11 and 12 about whether they prefer in-person or online tutoring sessions. The results are shown in the table.</p><table><thead><tr><th></th><th>In person</th><th>Online</th><th>Total</th></tr></thead><tbody><tr><td>Grade 11</td><td>48</td><td>32</td><td>80</td></tr><tr><td>Grade 12</td><td>52</td><td>68</td><td>120</td></tr><tr><td>Total</td><td>100</td><td>100</td><td>200</td></tr></tbody></table></div>
+<div class="stem">If one of the students who prefer online sessions is selected at random, what is the probability that the student is in grade 12?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m_12" value="A"><span class="ltr">A</span><span>17/50</span></label>
+<label class="opt"><input type="radio" name="m_12" value="B"><span class="ltr">B</span><span>17/30</span></label>
+<label class="opt"><input type="radio" name="m_12" value="C"><span class="ltr">C</span><span>1/2</span></label>
+<label class="opt"><input type="radio" name="m_12" value="D"><span class="ltr">D</span><span>17/25</span></label>
+</div>
+</div>
+<div class="q" id="m_13" data-tag="Advanced Math">
+<span class="qno">Q13</span><span class="qtag">Advanced Math</span>
+<div class="stem">If x &gt; 0 and 2x<sup>2</sup> + 5x &minus; 12 = 0, what is the value of x?</div>
+<div class="grid-in"><label>Enter your answer (numbers, decimals, or fractions like 3/4):</label><input type="text" name="m_13" autocomplete="off" inputmode="text" placeholder="answer"></div>
+</div>
+<div class="q" id="m_14" data-tag="Algebra">
+<span class="qno">Q14</span><span class="qtag">Algebra</span>
+<div class="stem">In the xy-plane, line k is defined by 3x &minus; 4y = 12. Line j is perpendicular to line k and passes through the point (0, 5). Which equation defines line j?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m_14" value="A"><span class="ltr">A</span><span>y = &minus;(4/3)x + 5</span></label>
+<label class="opt"><input type="radio" name="m_14" value="B"><span class="ltr">B</span><span>y = (4/3)x + 5</span></label>
+<label class="opt"><input type="radio" name="m_14" value="C"><span class="ltr">C</span><span>y = &minus;(3/4)x + 5</span></label>
+<label class="opt"><input type="radio" name="m_14" value="D"><span class="ltr">D</span><span>y = (3/4)x + 5</span></label>
+</div>
+</div>
+<div class="q" id="m_15" data-tag="Geometry &amp; Trigonometry">
+<span class="qno">Q15</span><span class="qtag">Geometry &amp; Trigonometry</span>
+<div class="stem">A circle has a radius of 9 centimeters. What is the length, in centimeters, of an arc of this circle that has a central angle of 140&deg;?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m_15" value="A"><span class="ltr">A</span><span>3.5&pi;</span></label>
+<label class="opt"><input type="radio" name="m_15" value="B"><span class="ltr">B</span><span>14&pi;</span></label>
+<label class="opt"><input type="radio" name="m_15" value="C"><span class="ltr">C</span><span>7&pi;</span></label>
+<label class="opt"><input type="radio" name="m_15" value="D"><span class="ltr">D</span><span>31.5&pi;</span></label>
+</div>
+</div>
+<div class="q" id="m_16" data-tag="Algebra">
+<span class="qno">Q16</span><span class="qtag">Algebra</span>
+<div class="passage"><p>4x &minus; ky = 7<br>6x + 9y = 2</p></div>
+<div class="stem">In the system of equations shown, k is a constant. For what value of k does the system have no solution?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m_16" value="A"><span class="ltr">A</span><span>&minus;27/2</span></label>
+<label class="opt"><input type="radio" name="m_16" value="B"><span class="ltr">B</span><span>&minus;6</span></label>
+<label class="opt"><input type="radio" name="m_16" value="C"><span class="ltr">C</span><span>6</span></label>
+<label class="opt"><input type="radio" name="m_16" value="D"><span class="ltr">D</span><span>27/2</span></label>
+</div>
+</div>
+<div class="q" id="m_17" data-tag="Problem-Solving &amp; Data Analysis">
+<span class="qno">Q17</span><span class="qtag">Problem-Solving &amp; Data Analysis</span>
+<div class="stem">The mean of a list of 10 numbers is 24. When two numbers are removed from the list, the mean of the remaining 8 numbers is 21. If one of the removed numbers is 16 greater than the other, what is the greater of the two removed numbers?</div>
+<div class="grid-in"><label>Enter your answer (numbers, decimals, or fractions like 3/4):</label><input type="text" name="m_17" autocomplete="off" inputmode="text" placeholder="answer"></div>
+</div>
+<div class="q" id="m_18" data-tag="Advanced Math">
+<span class="qno">Q18</span><span class="qtag">Advanced Math</span>
+<div class="stem">For x &ne; 3 and x &ne; &minus;3, which expression is equivalent to x/(x &minus; 3) &minus; 3/(x + 3)?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m_18" value="A"><span class="ltr">A</span><span>(x<sup>2</sup> + 6x &minus; 9)/(x<sup>2</sup> &minus; 9)</span></label>
+<label class="opt"><input type="radio" name="m_18" value="B"><span class="ltr">B</span><span>(x &minus; 3)/(x<sup>2</sup> &minus; 9)</span></label>
+<label class="opt"><input type="radio" name="m_18" value="C"><span class="ltr">C</span><span>1</span></label>
+<label class="opt"><input type="radio" name="m_18" value="D"><span class="ltr">D</span><span>(x<sup>2</sup> + 9)/(x<sup>2</sup> &minus; 9)</span></label>
+</div>
+</div>
+<div class="q" id="m_19" data-tag="Advanced Math">
+<span class="qno">Q19</span><span class="qtag">Advanced Math</span>
+<div class="stem">In the xy-plane, the line y = 4x + c, where c is a constant, intersects the graph of y = x<sup>2</sup> + 2x + 7 at exactly one point. What is the value of c?</div>
+<div class="grid-in"><label>Enter your answer (numbers, decimals, or fractions like 3/4):</label><input type="text" name="m_19" autocomplete="off" inputmode="text" placeholder="answer"></div>
+</div>
+<div class="q" id="m_20" data-tag="Geometry &amp; Trigonometry">
+<span class="qno">Q20</span><span class="qtag">Geometry &amp; Trigonometry</span>
+<div class="stem">In the xy-plane, a circle has the equation x<sup>2</sup> + y<sup>2</sup> &minus; 8x + 6y = 11. What is the radius of the circle?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m_20" value="A"><span class="ltr">A</span><span>&radic;11</span></label>
+<label class="opt"><input type="radio" name="m_20" value="B"><span class="ltr">B</span><span>5</span></label>
+<label class="opt"><input type="radio" name="m_20" value="C"><span class="ltr">C</span><span>6</span></label>
+<label class="opt"><input type="radio" name="m_20" value="D"><span class="ltr">D</span><span>36</span></label>
+</div>
+</div>
+<div class="q" id="m_21" data-tag="Problem-Solving &amp; Data Analysis">
+<span class="qno">Q21</span><span class="qtag">Problem-Solving &amp; Data Analysis</span>
+<div class="passage"><p>A polling firm surveyed a random sample of 400 adult residents of Bellport and found that 58% of those surveyed support building a new recreation center. The margin of error for this estimate is 4 percentage points.</p></div>
+<div class="stem">Which of the following is the most appropriate conclusion based on the survey?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m_21" value="A"><span class="ltr">A</span><span>It is plausible that between 54% and 62% of all adult residents of Bellport support building the recreation center.</span></label>
+<label class="opt"><input type="radio" name="m_21" value="B"><span class="ltr">B</span><span>Exactly 58% of all adult residents of Bellport support building the recreation center.</span></label>
+<label class="opt"><input type="radio" name="m_21" value="C"><span class="ltr">C</span><span>Between 54% and 62% of the 400 residents surveyed support building the recreation center.</span></label>
+<label class="opt"><input type="radio" name="m_21" value="D"><span class="ltr">D</span><span>It is plausible that between 54% and 62% of all adults in the state support building the recreation center.</span></label>
+</div>
+</div>
+<div class="q" id="m_22" data-tag="Advanced Math">
+<span class="qno">Q22</span><span class="qtag">Advanced Math</span>
+<div class="stem">The population P of a town t years after 2020 is modeled by P(t) = 50,000(1.21)<sup>t</sup>. Which of the following is equivalent to P(t) and shows the percent by which the population increases every half-year?</div>
+<div class="opts">
+<label class="opt"><input type="radio" name="m_22" value="A"><span class="ltr">A</span><span>50,000(1.105)<sup>2t</sup></span></label>
+<label class="opt"><input type="radio" name="m_22" value="B"><span class="ltr">B</span><span>50,000(1.1)<sup>2t</sup></span></label>
+<label class="opt"><input type="radio" name="m_22" value="C"><span class="ltr">C</span><span>50,000(1.21)<sup>t/2</sup></span></label>
+<label class="opt"><input type="radio" name="m_22" value="D"><span class="ltr">D</span><span>50,000(1.1)<sup>t/2</sup></span></label>
+</div>
+</div>
+<div class="navrow"><span class="unanswered">Unanswered questions are not penalized.</span>
+<button type="button" class="btn btn-prim" onclick="finishExam()">Finish the baseline</button></div></main></section>
+<section class="screen" id="done"><main class="wrap"><div class="break">
+<h2>All done. Thank you!</h2>
+<p id="sendstatus">Sending your answers to KingCretot Experience…</p>
+<p>Your results go to KingCretot Experience, and we will go over them together at your first SAT lesson.</p>
+<div id="retry" style="display:none;margin-top:16px"><button type="button" class="btn btn-prim" onclick="sendResults()">Try sending again</button></div>
+</div></main></section>
+</form>
+<footer class="foot"><div class="fl"></div><b>KingCretot Experience</b><br>
+kce@kingcretot.com&nbsp; ·&nbsp; 914-809-0112&nbsp; ·&nbsp; PO Box 2322, Arcadia, FL 34265</footer>
+<script>
+const KEY={"rw": [{"answer": "C", "grid": false, "tag": "Words in Context"}, {"answer": "A", "grid": false, "tag": "Words in Context"}, {"answer": "D", "grid": false, "tag": "Words in Context"}, {"answer": "B", "grid": false, "tag": "Words in Context"}, {"answer": "A", "grid": false, "tag": "Text Structure & Purpose"}, {"answer": "C", "grid": false, "tag": "Text Structure & Purpose"}, {"answer": "B", "grid": false, "tag": "Cross-Text Connections"}, {"answer": "D", "grid": false, "tag": "Central Ideas"}, {"answer": "C", "grid": false, "tag": "Central Ideas"}, {"answer": "A", "grid": false, "tag": "Command of Evidence (Textual)"}, {"answer": "D", "grid": false, "tag": "Command of Evidence (Textual)"}, {"answer": "B", "grid": false, "tag": "Command of Evidence (Quantitative)"}, {"answer": "C", "grid": false, "tag": "Command of Evidence (Quantitative)"}, {"answer": "A", "grid": false, "tag": "Inferences"}, {"answer": "B", "grid": false, "tag": "Inferences"}, {"answer": "D", "grid": false, "tag": "Boundaries (punctuation)"}, {"answer": "A", "grid": false, "tag": "Boundaries (punctuation)"}, {"answer": "C", "grid": false, "tag": "Boundaries (punctuation)"}, {"answer": "D", "grid": false, "tag": "Boundaries (punctuation)"}, {"answer": "B", "grid": false, "tag": "Form, Structure & Sense"}, {"answer": "A", "grid": false, "tag": "Form, Structure & Sense"}, {"answer": "C", "grid": false, "tag": "Form, Structure & Sense"}, {"answer": "B", "grid": false, "tag": "Transitions"}, {"answer": "D", "grid": false, "tag": "Transitions"}, {"answer": "A", "grid": false, "tag": "Transitions"}, {"answer": "B", "grid": false, "tag": "Rhetorical Synthesis"}, {"answer": "C", "grid": false, "tag": "Rhetorical Synthesis"}], "m": [{"answer": "B", "grid": false, "tag": "Algebra"}, {"answer": "A", "grid": false, "tag": "Problem-Solving & Data Analysis"}, {"answer": "D", "grid": false, "tag": "Algebra"}, {"answer": "C", "grid": false, "tag": "Advanced Math"}, {"answer": "60", "grid": true, "tag": "Geometry & Trigonometry"}, {"answer": "5", "grid": true, "tag": "Algebra"}, {"answer": "A", "grid": false, "tag": "Advanced Math"}, {"answer": "2", "grid": true, "tag": "Algebra"}, {"answer": "D", "grid": false, "tag": "Geometry & Trigonometry"}, {"answer": "B", "grid": false, "tag": "Advanced Math"}, {"answer": "C", "grid": false, "tag": "Algebra"}, {"answer": "D", "grid": false, "tag": "Problem-Solving & Data Analysis"}, {"answer": "3/2", "grid": true, "tag": "Advanced Math"}, {"answer": "A", "grid": false, "tag": "Algebra"}, {"answer": "C", "grid": false, "tag": "Geometry & Trigonometry"}, {"answer": "B", "grid": false, "tag": "Algebra"}, {"answer": "44", "grid": true, "tag": "Problem-Solving & Data Analysis"}, {"answer": "D", "grid": false, "tag": "Advanced Math"}, {"answer": "6", "grid": true, "tag": "Advanced Math"}, {"answer": "C", "grid": false, "tag": "Geometry & Trigonometry"}, {"answer": "A", "grid": false, "tag": "Problem-Solving & Data Analysis"}, {"answer": "B", "grid": false, "tag": "Advanced Math"}]};
+const STATE_KEY='kce_sat_baseline_v1';
+const timers={};
+function loadState(){try{const r=localStorage.getItem(STATE_KEY);return r?JSON.parse(r):null;}catch(e){return null;}}
+function saveState(p){try{const c=loadState()||{answers:{},timerEnds:{}};const n=Object.assign({},c,p||{});if(p&&p.answers)n.answers=Object.assign({},c.answers||{},p.answers);if(p&&p.timerEnds)n.timerEnds=Object.assign({},c.timerEnds||{},p.timerEnds);localStorage.setItem(STATE_KEY,JSON.stringify(n));}catch(e){}}
+function clearState(){try{localStorage.removeItem(STATE_KEY);}catch(e){}}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);if(id!=='start'&&id!=='done')saveState({screen:id});}
+function selWire(){document.querySelectorAll('.q').forEach(function(q){q.addEventListener('change',function(e){if(e.target.type==='radio'){q.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));e.target.closest('.opt').classList.add('sel');const a={};a[e.target.name]=e.target.value;saveState({answers:a});}});q.addEventListener('input',function(e){if(e.target.type==='text'){const a={};a[e.target.name]=e.target.value;saveState({answers:a});}});});}
+function startTimer(sec,minutes,onExpire){const st=loadState();let end=st&&st.timerEnds&&st.timerEnds[sec];if(!end){end=Date.now()+minutes*60000;const te={};te[sec]=end;saveState({timerEnds:te});}const el=document.getElementById('clock_'+sec);function tick(){const r=Math.max(0,Math.round((end-Date.now())/1000));el.textContent=Math.floor(r/60)+':'+String(r%60).padStart(2,'0');el.classList.toggle('warn',r<=300);if(r<=0){clearInterval(timers[sec]);onExpire();}}tick();timers[sec]=setInterval(tick,1000);}
+function stopTimer(s){if(timers[s])clearInterval(timers[s]);}
+function beginExam(){const nm=document.getElementById('sname').value.trim();if(!nm){alert('Please type your full name first.');return;}clearState();saveState({studentName:nm});show('rw');startTimer('rw',32,goBreak);}
+function goBreak(){stopTimer('rw');show('break');let rem=300;const el=document.getElementById('breakclock');const t=setInterval(()=>{el.textContent=Math.floor(rem/60)+':'+String(rem%60).padStart(2,'0');if(rem<=0)clearInterval(t);rem--;},1000);}
+function startMath(){show('m');startTimer('m',35,finishExam);}
+function norm(v){return (v==null?'':String(v)).trim().toLowerCase().replace(/\s+/g,'');}
+function gridMatch(s,a){if(!norm(s))return false;if(norm(s)===norm(a))return true;function val(x){x=String(x).trim();if(x.includes('/')){const p=x.split('/');if(p.length===2){const u=parseFloat(p[0]),d=parseFloat(p[1]);if(d)return u/d;}}const f=parseFloat(x);return isNaN(f)?null:f;}const x=val(s),y=val(a);return x!==null&&y!==null&&Math.abs(x-y)<1e-4;}
+let PAYLOAD=null;
+function grade(sec){const res={correct:0,total:KEY[sec].length,byTag:{},missed:[],answers:[]};KEY[sec].forEach((k,i)=>{const qid=sec+'_'+(i+1);let picked='',ok=false;if(k.grid){const inp=document.querySelector('[name="'+qid+'"]');picked=inp?inp.value.trim():'';ok=gridMatch(picked,k.answer);}else{const p=document.querySelector('input[name="'+qid+'"]:checked');picked=p?p.value:'';ok=picked===k.answer;}const t=res.byTag[k.tag]||(res.byTag[k.tag]={c:0,n:0});t.n++;if(ok){t.c++;res.correct++;}else res.missed.push('Q'+(i+1)+' '+k.tag+' (answered '+(picked||'blank')+', correct '+k.answer+')');res.answers.push('Q'+(i+1)+':'+(picked||'-'));});return res;}
+function tagLines(r){return Object.keys(r.byTag).map(t=>t+': '+r.byTag[t].c+'/'+r.byTag[t].n).join('\n');}
+function scaled(c,t){return Math.max(200,Math.min(800,Math.round(200+(c/t)*600)));}
+function finishExam(){stopTimer('m');const st=loadState()||{};const rw=grade('rw'),m=grade('m');const rs=scaled(rw.correct,rw.total),ms=scaled(m.correct,m.total);
+PAYLOAD={_subject:'KCE SAT — Baseline Assessment Results — '+(st.studentName||''),assessment:'SAT Baseline Assessment',student_name:st.studentName||'',estimated_total:String(rs+ms),reading_writing:rs+' ('+rw.correct+'/'+rw.total+')',math:ms+' ('+m.correct+'/'+m.total+')',rw_by_domain:tagLines(rw),math_by_domain:tagLines(m),rw_missed:rw.missed.join('\n'),math_missed:m.missed.join('\n'),rw_answers:rw.answers.join(' '),math_answers:m.answers.join(' '),completed:new Date().toLocaleString()};
+show('done');sendResults();}
+function sendResults(){const s=document.getElementById('sendstatus');s.textContent='Sending your answers to KingCretot Experience…';document.getElementById('retry').style.display='none';
+fetch('https://formspree.io/f/mpqgdkww',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(PAYLOAD)}).then(r=>{if(!r.ok)throw 0;s.textContent='Your answers were sent to KingCretot Experience.';clearState();}).catch(()=>{s.textContent='We could not send your answers. Check your internet connection and press the button below.';document.getElementById('retry').style.display='block';});}
+function restore(){const st=loadState();if(!st||!st.screen)return;if(st.answers)Object.keys(st.answers).forEach(n=>{const v=st.answers[n];const ins=document.querySelectorAll('input[name="'+n+'"]');if(!ins.length)return;if(ins[0].type==='radio'){ins.forEach(r=>{if(r.value===v){r.checked=true;r.closest('.opt').classList.add('sel');}});}else ins[0].value=v;});
+if(st.screen==='rw'){show('rw');startTimer('rw',32,goBreak);}else if(st.screen==='break'){goBreak();}else if(st.screen==='m'){show('m');startTimer('m',35,finishExam);}}
+window.addEventListener('DOMContentLoaded',function(){selWire();restore();});
+</script>
+</body></html>
