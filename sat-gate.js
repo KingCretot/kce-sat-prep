@@ -76,9 +76,9 @@ function hooks(){
     io.observe(hw);
   } else if(/-midweek\.html$/.test(e.f)){      /* mid-week: finished when results are sent */
     var f=document.getElementById('mwform'); if(f) f.addEventListener('submit',function(){markDone(e.id);});
-  } else if(/^SAT Practice Exam/.test(e.f)){   /* practice exam: finished when the score is emailed */
-    var x=document.getElementById('examform'); if(x){ x.addEventListener('submit',function(){markDone(e.id);});
-      var sb=x.querySelector('button[type=submit]'); if(sb&&!done(e.id)){var n=document.createElement('div');n.className='sg-note';
+  } else if(/^SAT Practice Exam/.test(e.f)){   /* practice exam: reminder to send; finished when the email is accepted */
+    var x=document.getElementById('examform'); if(x){ /* finished is recorded by sat-exam-send.js once the email is accepted */
+      var sb=x.querySelector('button[type=submit]'); if(sb){var n=document.createElement('div');n.className='sg-note';
         n.innerHTML='<b>Important:</b> press <b>Save &amp; email my results</b> before you leave this page. That sends your score to your instructor and opens the next module. If you close this page first, the exam has to be taken again.';
         n.style.cssText='background:#FDF0F0;border-left:4px solid #DB2F30;border-radius:8px;padding:10px 14px;margin:12px 0;font:15px/1.5 Arial,Helvetica,sans-serif;color:#1d2733';
         sb.parentNode.parentNode.insertBefore(n,sb.parentNode);} }

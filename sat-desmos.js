@@ -3,7 +3,7 @@
    modules, the way the real test does. Shown only while a Math module is on screen. */
 (function(){
 var SRC='https://www.desmos.com/testing/cb-digital-sat/graphing';
-var MATH=['m1','m2'];
+var MATH=['m1','m2','m'];
 var panel,frame,loaded=false,wide=false;
 function css(){var s=document.createElement('style');s.textContent=
 '.sd-btn{display:inline-flex;align-items:center;gap:7px;background:#C9A84C;color:#0A1F3D;border:none;border-radius:10px;padding:8px 14px;font:700 15px Arial,Helvetica,sans-serif;cursor:pointer}'+
@@ -36,7 +36,7 @@ function build(){
 function btns(){return document.querySelectorAll('.sd-btn');}
 function setPressed(v){btns().forEach(function(b){b.setAttribute('aria-pressed',v?'true':'false');b.lastChild.textContent=v?' Hide calculator':' Calculator';});}
 var tick=null;
-function clock(){var c=document.getElementById('sd-clock');for(var i=0;i<MATH.length;i++){var s=document.getElementById(MATH[i]);if(s&&s.classList.contains('active')){var k=s.querySelector('.clock');c.textContent='Module '+(i+1)+' · '+(k?k.textContent:'');c.style.borderColor=k&&k.classList.contains('warn')?'#F08C8A':'';c.style.color=k&&k.classList.contains('warn')?'#ffd9d7':'';return;}}c.textContent='';}
+function clock(){var c=document.getElementById('sd-clock');for(var i=0;i<MATH.length;i++){var s=document.getElementById(MATH[i]);if(s&&s.classList.contains('active')){var k=s.querySelector('.clock');c.textContent=(MATH[i]==='m'?'Math':'Module '+(i+1))+' · '+(k?k.textContent:'');c.style.borderColor=k&&k.classList.contains('warn')?'#F08C8A':'';c.style.color=k&&k.classList.contains('warn')?'#ffd9d7':'';return;}}c.textContent='';}
 function open(){if(!loaded){frame.src=SRC;loaded=true;}panel.classList.add('on');document.body.classList.add('sd-open');setPressed(true);clock();clearInterval(tick);tick=setInterval(clock,200);}
 function close(){clearInterval(tick);panel.classList.remove('on');document.body.classList.remove('sd-open');setPressed(false);}
 function toggle(){panel.classList.contains('on')?close():open();}

@@ -76,6 +76,7 @@ details.setup code{font-family:var(--mono);background:rgba(255,255,255,.12);padd
 <input type="hidden" name="week" value="Week 5 — Math">
 <input type="hidden" name="score" id="f_score" value="not checked">
 <input type="hidden" name="answers_summary" id="f_summary" value="">
+<input type="hidden" name="missed_questions" id="f_missed" value="">
 <div class="namebar"><label for="sname">Student name</label>
 <input type="text" id="sname" name="student_name" placeholder="Type your name" required></div>
 
@@ -158,6 +159,7 @@ document.querySelectorAll('.q').forEach(function(q){
     e.target.closest('.opt').classList.add('sel');
   });
 });
+function qtxt(el){if(!el)return '';var c=el.cloneNode(true);c.querySelectorAll('sup').forEach(function(s){s.replaceWith('^'+s.textContent);});c.querySelectorAll('sub').forEach(function(s){s.replaceWith('_'+s.textContent);});c.querySelectorAll('br').forEach(function(b){b.replaceWith(' / ');});c.querySelectorAll('p,div,li,tr,.psg').forEach(function(b){b.append(' / ');});return c.textContent.replace(/\s+/g,' ').replace(/(\s\/\s*)+$/,'').replace(/(\s\/){2,}/g,' /').trim();}
 function checkWork(){
   let correct=0, total=0; const parts=[];
   document.querySelectorAll('.q').forEach((q,i)=>{
@@ -181,6 +183,8 @@ function checkWork(){
   document.getElementById('scorebox').classList.add('show');
   document.getElementById('f_score').value=correct+'/'+total;
   document.getElementById('f_summary').value=parts.join('  |  ');
+  var ms=[];document.querySelectorAll('.q').forEach(function(q,i){var a=q.dataset.correct,p=q.querySelector('input:checked'),v=p?p.value:'';if(v!==a){var tg=q.querySelector('.qtag'),se=q.querySelector('.stem');var sm=qtxt(se);if(sm.length>160)sm=sm.slice(0,157)+'\u2026';var ps=qtxt(q.querySelector('.passage'));if(ps.length>120)ps=ps.slice(0,117)+'\u2026';ms.push('Q'+(i+1)+(tg?' \u00b7 '+tg.textContent.trim():'')+' \u00b7 answered '+(v||'(blank)')+', correct '+a+(ps?' \u00b7 Passage: "'+ps+'"':'')+(sm?' \u00b7 '+sm:''));}});
+  document.getElementById('f_missed').value=ms.length?ms.join('\n'):'None \u2014 every question correct.';
   document.getElementById('sendbtn').disabled=false;
   document.getElementById('checkfirst').style.display='none';
 }

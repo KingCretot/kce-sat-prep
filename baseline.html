@@ -88,7 +88,7 @@ main{padding:26px 0 10px}
 <div class="sub">Reading &amp; Writing + Math &nbsp;·&nbsp; timed &nbsp;·&nbsp; 49 questions</div></div></header>
 <form id="examform" onsubmit="return false">
 <section class="screen active" id="start"><main class="wrap">
-<p class="lede">This baseline shows us where you are starting so your SAT lessons can focus on what will raise your score the most. Do your best, but don't worry if some questions feel hard; that is exactly what we want to find. Take it in one sitting, in a quiet place, with a calculator for Math.</p>
+<p class="lede">This baseline shows us where you are starting so your SAT lessons can focus on what will raise your score the most. Do your best, but don't worry if some questions feel hard; that is exactly what we want to find. Take it in one sitting, in a quiet place. On Math, press <b>Calculator</b> at the top to open the built-in Desmos graphing calculator, the same one you get on test day (your own approved calculator is fine too).</p>
 <div class="note"><b>Timing:</b> Reading &amp; Writing — 27 questions in 32 minutes. Then a short break. Then Math — 22 questions in 35 minutes. About 70 minutes total. When you finish, your answers are sent to KingCretot Experience automatically.</div>
 <div class="namebar"><label for="sname">Full name</label><input type="text" id="sname" placeholder="Type your full name to begin" required></div>
 <div class="navrow"><span class="unanswered">When you press start, the timer begins.</span>
@@ -624,7 +624,8 @@ function startMath(){show('m');startTimer('m',35,finishExam);}
 function norm(v){return (v==null?'':String(v)).trim().toLowerCase().replace(/\s+/g,'');}
 function gridMatch(s,a){if(!norm(s))return false;if(norm(s)===norm(a))return true;function val(x){x=String(x).trim();if(x.includes('/')){const p=x.split('/');if(p.length===2){const u=parseFloat(p[0]),d=parseFloat(p[1]);if(d)return u/d;}}const f=parseFloat(x);return isNaN(f)?null:f;}const x=val(s),y=val(a);return x!==null&&y!==null&&Math.abs(x-y)<1e-4;}
 let PAYLOAD=null;
-function grade(sec){const res={correct:0,total:KEY[sec].length,byTag:{},missed:[],answers:[]};KEY[sec].forEach((k,i)=>{const qid=sec+'_'+(i+1);let picked='',ok=false;if(k.grid){const inp=document.querySelector('[name="'+qid+'"]');picked=inp?inp.value.trim():'';ok=gridMatch(picked,k.answer);}else{const p=document.querySelector('input[name="'+qid+'"]:checked');picked=p?p.value:'';ok=picked===k.answer;}const t=res.byTag[k.tag]||(res.byTag[k.tag]={c:0,n:0});t.n++;if(ok){t.c++;res.correct++;}else res.missed.push('Q'+(i+1)+' '+k.tag+' (answered '+(picked||'blank')+', correct '+k.answer+')');res.answers.push('Q'+(i+1)+':'+(picked||'-'));});return res;}
+function qtxt(el){if(!el)return '';var c=el.cloneNode(true);c.querySelectorAll('sup').forEach(function(s){s.replaceWith('^'+s.textContent);});c.querySelectorAll('sub').forEach(function(s){s.replaceWith('_'+s.textContent);});c.querySelectorAll('br').forEach(function(b){b.replaceWith(' / ');});c.querySelectorAll('p,div,li,tr,.psg').forEach(function(b){b.append(' / ');});return c.textContent.replace(/\s+/g,' ').replace(/(\s\/\s*)+$/,'').replace(/(\s\/){2,}/g,' /').trim();}
+function grade(sec){const res={correct:0,total:KEY[sec].length,byTag:{},missed:[],answers:[]};KEY[sec].forEach((k,i)=>{const qid=sec+'_'+(i+1);let picked='',ok=false;if(k.grid){const inp=document.querySelector('[name="'+qid+'"]');picked=inp?inp.value.trim():'';ok=gridMatch(picked,k.answer);}else{const p=document.querySelector('input[name="'+qid+'"]:checked');picked=p?p.value:'';ok=picked===k.answer;}const t=res.byTag[k.tag]||(res.byTag[k.tag]={c:0,n:0});t.n++;if(ok){t.c++;res.correct++;}else{let sm=qtxt(document.querySelector('#'+qid+' .stem'));if(sm.length>160)sm=sm.slice(0,157)+'…';let ps=qtxt(document.querySelector('#'+qid+' .passage'));if(ps.length>120)ps=ps.slice(0,117)+'…';res.missed.push('Q'+(i+1)+' · '+k.tag+' · answered '+(picked||'(blank)')+', correct '+k.answer+(ps?' · Passage: "'+ps+'"':'')+(sm?' · '+sm:''));}res.answers.push('Q'+(i+1)+':'+(picked||'-'));});return res;}
 function tagLines(r){return Object.keys(r.byTag).map(t=>t+': '+r.byTag[t].c+'/'+r.byTag[t].n).join('\n');}
 function scaled(c,t){return Math.max(200,Math.min(800,Math.round(200+(c/t)*600)));}
 function finishExam(){try{window.KCESAT&&KCESAT.done();}catch(e){}stopTimer('m');const st=loadState()||{};const rw=grade('rw'),m=grade('m');const rs=scaled(rw.correct,rw.total),ms=scaled(m.correct,m.total);
@@ -637,4 +638,5 @@ if(st.screen==='rw'){show('rw');startTimer('rw',32,goBreak);}else if(st.screen==
 window.addEventListener('DOMContentLoaded',function(){selWire();restore();});
 </script>
 <script src="sat-gate.js"></script>
+<script src="sat-desmos.js"></script>
 </body></html>
