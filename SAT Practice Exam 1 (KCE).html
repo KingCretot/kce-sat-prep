@@ -93,7 +93,7 @@ main{padding:26px 0 10px}
 <input type="hidden" name="math" id="f_math" value="">
 <input type="hidden" name="module_detail" id="f_detail" value="">
 <section class="screen active" id="start"><main class="wrap">
-<p class="lede">This is a full-length, timed practice SAT. Each section has two modules. Work steadily — the difficulty climbs as you go, and Module 2 is the tougher set. You can move between questions within a module, but once a module's time is up it locks and moves on. You may use a graphing calculator on Math; any formula you need is shown with the question. Answers and full explanations appear only at the very end.</p>
+<p class="lede">This is a full-length, timed practice SAT. Each section has two modules. Work steadily — the difficulty climbs as you go, and Module 2 is the tougher set. You can move between questions within a module, but once a module's time is up it locks and moves on. On Math, press <b>Calculator</b> at the top to open the built-in Desmos graphing calculator, the same one you get on test day (your own approved calculator is fine too). Any formula you need is shown with the question. Answers and full explanations appear only at the very end.</p>
 <div class="note"><b>Timing:</b> Reading &amp; Writing — two 32-minute modules. Then a 10-minute break. Then Math — two 35-minute modules. About 2 hours 14 minutes total.</div>
 <div class="namebar"><label for="sname">Student name</label><input type="text" id="sname" placeholder="Type your name to begin" required></div>
 <div class="navrow"><span class="unanswered">When you press start, the timer begins.</span>
@@ -1186,4 +1186,6 @@ function buildReport(){const rw1c=scoreModule('rw1'),rw2c=scoreModule('rw2'),m1c
 window.addEventListener('DOMContentLoaded',function(){selWire(document);document.getElementById('examform').addEventListener('submit',function(){document.getElementById('sentmsg').style.display='block';clearState();});restoreIfAny();});
 
 </script>
+<script src="sat-gate.js"></script>
+<script src="sat-desmos.js"></script>
 </body></html>

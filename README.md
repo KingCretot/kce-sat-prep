@@ -1,45 +1,37 @@
 # KingCretot Experience — SAT Prep Program
 
-Interactive live lessons and mid-week practice for the 10-week SAT program, hosted on GitHub Pages.
+Live at **https://sat.kingcretot.com/** (GitHub Pages). The whole course is one page, `index.html`.
 
-## What’s here
+## How the course works
 
-```
-kce-sat-prep/
-├─ index.html              ← the hub (links every week)
-├─ lessons/
-│  ├─ week-01-lesson.html
-│  … through week-10-lesson.html
-├─ mid-week/
-│  ├─ week-01-midweek.html
-│  … through week-10-midweek.html
-└─ .nojekyll               ← serves files as-is
-```
+27 modules in one chain: the SAT Baseline, then each week's live lesson and mid-week practice,
+the Desmos Tutorial in Week 1, and a full-length practice exam after Weeks 2, 4, 6, 8 and 10.
 
-The **workbooks, teacher guides, and quiz Forms** are not hosted here — they are delivered as PDFs and Google Forms through Google Classroom.
+- A module opens once the module before it is **finished** (no minimum score).
+- Code **9110** opens a locked module from its lock screen, or every module on a device
+  ("Open every module on this device" on the course page).
+- Progress is saved per device and browser (localStorage `kce_sat_progress_v1`).
 
-## Publish it (one time, ~3 minutes)
+What counts as finished:
 
-1. Create a new GitHub repository named **`kce-sat-prep`** (Public).
-2. Upload everything in this folder (keep the folder structure).
-3. In the repo, go to **Settings › Pages**.
-4. Under **Build and deployment**, set **Source: Deploy from a branch**, **Branch: `main`**, **Folder: `/ (root)`**, then **Save**.
-5. Wait ~1–2 minutes. Your hub goes live at:
+| Module | Finished when |
+|---|---|
+| Baseline | the student finishes it (results email automatically) |
+| Live lesson | the Homework section is reached |
+| Mid-week | "Save & email my results" is sent |
+| Desmos Tutorial | the last step is done |
+| Practice exam | "Save & email my results" is sent from the score report |
 
-   `https://YOUR-USERNAME.github.io/kce-sat-prep/`
+## Files
 
-   (Replace `YOUR-USERNAME` with your GitHub username.)
+- `index.html` — the course page. **Generated**: edit `tools/build_course.py` (module list) or
+  `tools/index.template.html` (layout), then run `python3 tools/build_course.py`.
+- `sat-gate.js` — the lock. Its module list is written by the build script.
+- `sat-desmos.js` — the Calculator button on Math Modules 1 and 2 of every practice exam. It opens the
+  College Board version of the Desmos graphing calculator, the one on the digital SAT
+  (`https://www.desmos.com/testing/cb-digital-sat/graphing`).
+- `desmos-tutorial.html` — Week 1 Desmos Tutorial (10 steps with an embedded calculator).
+- `baseline.html`, `week-NN-lesson.html`, `week-NN-midweek.html`, `SAT Practice Exam N (KCE).html`.
 
-That root URL is the link you give the Google Classroom setup script.
-
-## Direct links once published
-
-- Hub: `https://YOUR-USERNAME.github.io/kce-sat-prep/`
-- Week N live lesson: `…/lessons/week-0N-lesson.html`
-- Week N mid-week: `…/mid-week/week-0N-midweek.html`
-
-## Mid-week email
-
-Every mid-week mini-lesson already posts results to your Formspree endpoint
-`formspree.io/f/mpqgdkww`. No setup needed — when a student submits, you get an
-email with their name, answers, and score.
+Workbooks, teacher guides and quizzes are delivered through Google Classroom, not this repo.
+All results go to Formspree `mpqgdkww`.

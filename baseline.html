@@ -627,7 +627,7 @@ let PAYLOAD=null;
 function grade(sec){const res={correct:0,total:KEY[sec].length,byTag:{},missed:[],answers:[]};KEY[sec].forEach((k,i)=>{const qid=sec+'_'+(i+1);let picked='',ok=false;if(k.grid){const inp=document.querySelector('[name="'+qid+'"]');picked=inp?inp.value.trim():'';ok=gridMatch(picked,k.answer);}else{const p=document.querySelector('input[name="'+qid+'"]:checked');picked=p?p.value:'';ok=picked===k.answer;}const t=res.byTag[k.tag]||(res.byTag[k.tag]={c:0,n:0});t.n++;if(ok){t.c++;res.correct++;}else res.missed.push('Q'+(i+1)+' '+k.tag+' (answered '+(picked||'blank')+', correct '+k.answer+')');res.answers.push('Q'+(i+1)+':'+(picked||'-'));});return res;}
 function tagLines(r){return Object.keys(r.byTag).map(t=>t+': '+r.byTag[t].c+'/'+r.byTag[t].n).join('\n');}
 function scaled(c,t){return Math.max(200,Math.min(800,Math.round(200+(c/t)*600)));}
-function finishExam(){stopTimer('m');const st=loadState()||{};const rw=grade('rw'),m=grade('m');const rs=scaled(rw.correct,rw.total),ms=scaled(m.correct,m.total);
+function finishExam(){try{window.KCESAT&&KCESAT.done();}catch(e){}stopTimer('m');const st=loadState()||{};const rw=grade('rw'),m=grade('m');const rs=scaled(rw.correct,rw.total),ms=scaled(m.correct,m.total);
 PAYLOAD={_subject:'KCE SAT — Baseline Assessment Results — '+(st.studentName||''),assessment:'SAT Baseline Assessment',student_name:st.studentName||'',estimated_total:String(rs+ms),reading_writing:rs+' ('+rw.correct+'/'+rw.total+')',math:ms+' ('+m.correct+'/'+m.total+')',rw_by_domain:tagLines(rw),math_by_domain:tagLines(m),rw_missed:rw.missed.join('\n'),math_missed:m.missed.join('\n'),rw_answers:rw.answers.join(' '),math_answers:m.answers.join(' '),completed:new Date().toLocaleString()};
 show('done');sendResults();}
 function sendResults(){const s=document.getElementById('sendstatus');s.textContent='Sending your answers to KingCretot Experience…';document.getElementById('retry').style.display='none';
@@ -636,4 +636,5 @@ function restore(){const st=loadState();if(!st||!st.screen)return;if(st.answers)
 if(st.screen==='rw'){show('rw');startTimer('rw',32,goBreak);}else if(st.screen==='break'){goBreak();}else if(st.screen==='m'){show('m');startTimer('m',35,finishExam);}}
 window.addEventListener('DOMContentLoaded',function(){selWire();restore();});
 </script>
+<script src="sat-gate.js"></script>
 </body></html>

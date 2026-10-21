@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Use Desmos on the SAT · KingCretot Experience</title>
+<style>
+:root{--navy:#0A1F3D;--gold:#C9A84C;--blue:#0047BA;--red:#DB2F30;--cream:#FAF7EF;--ink:#1d2733;--line:#E7E0CF;--muted:#5b6475;--green:#1e7a3c}
+*{box-sizing:border-box}
+html,body{margin:0}
+body.tut{display:flex;flex-direction:column;height:100vh}
+body{font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff;line-height:1.55;font-size:16px}
+h1,h2,h3{font-family:Georgia,'Times New Roman',serif;color:var(--navy);margin:0}
+.mast{background:var(--navy);color:#fff;padding:16px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.mast .brand{font-family:Georgia,serif;color:var(--gold);font-weight:700;font-size:20px}
+.mast .tagline{font-size:10px;font-weight:700;letter-spacing:2.5px}
+.mast .e1{color:var(--blue)}.mast .e2{color:var(--gold)}.mast .e3{color:var(--red)}
+.mast h1{color:#fff;font-size:20px;flex:1;min-width:220px}
+.mast a{color:var(--navy);background:var(--gold);text-decoration:none;font-weight:700;font-size:14px;padding:8px 12px;border-radius:9px}
+.band{display:flex;height:5px}.band i{flex:1}
+.app{display:grid;grid-template-columns:minmax(340px,440px) 1fr;flex:1;min-height:0}
+.steps{overflow-y:auto;border-right:3px solid var(--gold);background:var(--cream);padding:18px 18px 30px}
+.calc{display:flex;flex-direction:column;min-height:0}
+.calc-head{background:#0e2342;color:#fff;display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:13px;flex-wrap:wrap}
+.calc-head .t{flex:1;font-weight:700}
+.calc-head button,.calc-head a{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:5px 10px;font:700 13px Arial,Helvetica,sans-serif;cursor:pointer;text-decoration:none}
+#desmos{flex:1;width:100%;border:0;min-height:0}
+.who{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:14px;display:grid;grid-template-columns:1fr 130px;gap:10px}
+.who label{display:block;font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.who input{width:100%;font:inherit;padding:8px 10px;border:1.5px solid var(--line);border-radius:8px}
+.prog{display:flex;gap:5px;margin:0 0 14px}
+.prog i{flex:1;height:7px;border-radius:4px;background:#e4dcc6}
+.prog i.on{background:var(--gold)}.prog i.ok{background:var(--green)}.prog i.shown{background:#9aa3b2}
+.step{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px}
+.step.on{display:block}
+.kick{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8a6d16}
+.step h2{font-size:22px;margin:4px 0 10px}
+.step p{margin:0 0 10px}
+.do{background:#eef3fe;border-left:4px solid var(--blue);border-radius:8px;padding:10px 12px;margin:10px 0}
+.do b.h{display:block;color:var(--blue);font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.ar::after{content:'→'}@media (max-width:900px){.ar::after{content:'↓ below'}}
+.do ol{margin:4px 0 0;padding-left:20px}.do li{margin:3px 0}
+code,.k{font-family:Consolas,Menlo,monospace;background:#f3efe3;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:15px;white-space:nowrap}
+.tip{background:#fbf3dd;border-left:4px solid var(--gold);border-radius:8px;padding:9px 12px;margin:10px 0;font-size:15px}
+.chk{border-top:1px dashed var(--line);margin-top:12px;padding-top:12px}
+.chk .q{font-weight:700;color:var(--navy);margin-bottom:8px}
+.chk .row{display:flex;gap:8px;flex-wrap:wrap}
+.chk input[type=text]{flex:1;min-width:120px;font:inherit;font-size:17px;padding:9px 11px;border:2px solid var(--line);border-radius:9px}
+.opts{display:grid;gap:7px}
+.opt{display:flex;gap:10px;align-items:center;border:2px solid var(--line);border-radius:10px;padding:9px 11px;cursor:pointer;background:#fff}
+.opt input{accent-color:var(--navy)}
+.opt.sel{border-color:var(--navy)}.opt.good{border-color:var(--green);background:#e6f4ea}.opt.bad{border-color:var(--red);background:#fdeeed}
+.btn{font:700 15px Arial,Helvetica,sans-serif;border:none;border-radius:10px;padding:10px 16px;cursor:pointer;background:var(--navy);color:#fff}
+.btn.gold{background:var(--gold);color:var(--navy)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.fb{margin-top:10px;font-size:15px;min-height:22px}
+.fb.good{color:var(--green);font-weight:700}.fb.bad{color:var(--red);font-weight:700}
+.fb .why{display:block;color:var(--ink);font-weight:400;margin-top:4px}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+.done-card h2{font-size:26px}
+.score{font-family:Georgia,serif;font-size:44px;color:var(--navy);font-weight:700}
+.sendmsg{font-size:14px;color:var(--muted);margin-top:8px}
+@media (max-width:900px){
+  body.tut{display:block;height:auto}
+  .app{grid-template-columns:1fr}
+  .steps{border-right:0;border-bottom:3px solid var(--gold);overflow:visible;padding:14px 16px 20px}
+  .calc{height:72vh;min-height:430px;position:sticky;top:0}
+  .mast{padding:12px 16px}
+}
+</style>
+</head>
+<body class="tut">
+<header class="mast">
+  <div><div class="brand">KingCretot Experience</div><div class="tagline"><span class="e1">EDUCATE</span><span class="e2"> · EMPOWER · </span><span class="e3">EXCEL</span></div></div>
+  <h1>Week 1 · How to Use Desmos on the SAT</h1>
+  <a href="index.html">Course page</a>
+</header>
+<div class="band"><i style="background:#0047BA"></i><i style="background:#C9A84C"></i><i style="background:#DB2F30"></i></div>
+
+<div class="app">
+<section class="steps" aria-label="Tutorial steps">
+  <div class="who">
+    <div><label for="sname">Name</label><input id="sname" type="text" autocomplete="name" placeholder="First and last name"></div>
+    <div><label for="sdate">Date</label><input id="sdate" type="text" readonly></div>
+  </div>
+  <div class="prog" id="prog" aria-hidden="true"></div>
+
+  <!-- 1 -->
+  <article class="step" data-answer="1024" data-why="Desmos works out 2^10 = 1,024 as soon as you type it. Typing ^ jumps up into the exponent; press the right arrow to come back down.">
+    <div class="kick">Step 1 of 10 · Meet the calculator</div>
+    <h2>Your test-day calculator</h2>
+    <p>The digital SAT has this exact calculator built in on every Math question. The left side is the <b>expression list</b>, where you type. The right side is the <b>graph</b>.</p>
+    <div class="do"><b class="h">Try it in Desmos <span class="ar"></span></b><ol>
+      <li>Click line 1 of the expression list.</li>
+      <li>Type <code>2^10</code> and look at the answer that appears under it.</li>
+    </ol></div>
+    <div class="tip"><b>Good to know:</b> <span class="k">+</span> and <span class="k">−</span> on the graph zoom in and out. The × on a line deletes it. The keyboard button at the bottom left opens a math keypad with √, π and more.</div>
+    <div class="chk"><div class="q">What answer does Desmos show for 2^10?</div>
+      <div class="row"><input type="text" aria-label="Your answer"><button type="button" class="btn">Check</button></div><div class="fb" aria-live="polite"></div></div>
+  </article>
+
+  <!-- 2 -->
+  <article class="step" data-answer="2" data-why="Type y = 3x − 6. The line crosses the x-axis at (2, 0), so the x-intercept is 2. Click the gray dot on the axis to see its coordinates.">
+    <div class="kick">Step 2 of 10 · Graph a line</div>
+    <h2>Read the intercepts</h2>
+    <p>When a graph is <b>selected</b>, Desmos marks the points where it crosses the axes with <b>gray dots</b>. Click a gray dot to see its coordinates. If the dots disappear, click the line again.</p>
+    <div class="do"><b class="h">Try it in Desmos <span class="ar"></span></b><ol>
+      <li>On a new line, type <code>y=3x-6</code></li>
+      <li>Click the line so it is highlighted, then click the gray dot where it crosses the <b>x-axis</b>.</li>
+    </ol></div>
+    <div class="chk"><div class="q">What is the x-intercept of y = 3x − 6? (Type just the x-value.)</div>
+      <div class="row"><input type="text" aria-label="Your answer"><button type="button" class="btn">Check</button></div><div class="fb" aria-live="polite"></div></div>
+  </article>
+
+  <!-- 3 -->
+  <article class="step" data-answer="5" data-why="The lines y = 2x + 1 and y = −x + 7 cross at (2, 5). The solution of the system is x = 2, y = 5.">
+    <div class="kick">Step 3 of 10 · Systems of equations</div>
+    <h2>Find where two lines meet</h2>
+    <p>The solution to a system of two equations is the point where their graphs <b>intersect</b>. Desmos puts a gray dot right on it.</p>
+    <div class="do"><b class="h">Try it in Desmos <span class="ar"></span></b><ol>
+      <li>Type <code>y=2x+1</code> on one line.</li>
+      <li>Type <code>y=-x+7</code> on the next line.</li>
+      <li>Click one of the lines, then click the gray dot where the two lines cross.</li>
+    </ol></div>
+    <div class="tip"><b>SAT tip:</b> if an equation is not in y = form (like 2x + 3y = 12), type it exactly as written. Desmos graphs it anyway.</div>
+    <div class="chk"><div class="q">The system has one solution (x, y). What is y?</div>
+      <div class="row"><input type="text" aria-label="Your answer"><button type="button" class="btn">Check</button></div><div class="fb" aria-live="polite"></div></div>
+  </article>
+
+  <!-- 4 -->
+  <article class="step" data-answer="-4" data-why="y = x² − 6x + 5 opens upward, so its vertex is the lowest point: (3, −4). The minimum value is −4. The gray dots on the x-axis, (1, 0) and (5, 0), are its solutions.">
+    <div class="kick">Step 4 of 10 · Quadratics</div>
+    <h2>Vertex and solutions in one look</h2>
+    <p>For a parabola, Desmos marks the <b>vertex</b> (the highest or lowest point) and the <b>x-intercepts</b> (the solutions, or zeros) with gray dots.</p>
+    <div class="do"><b class="h">Try it in Desmos <span class="ar"></span></b><ol>
+      <li>Type <code>y=x^2-6x+5</code> (after the 2, press the right arrow to come down from the exponent).</li>
+      <li>Click the curve, then click the gray dot at the bottom of it.</li>
+      <li>Click the two gray dots on the x-axis.</li>
+    </ol></div>
+    <div class="chk"><div class="q">What is the minimum value of y = x² − 6x + 5?</div>
+      <div class="row"><input type="text" aria-label="Your answer"><button type="button" class="btn">Check</button></div><div class="fb" aria-live="polite"></div></div>
+  </article>
+
+  <!-- 5 -->
+  <article class="step" data-answer="4" data-why="Typed as an equation in x only, 2x + 3 = 5x − 9 shows up as a vertical line crossing the x-axis at 4. Check: 2(4) + 3 = 11 and 5(4) − 9 = 11.">
+    <div class="kick">Step 5 of 10 · Solve an equation</div>
+    <h2>Type the whole equation</h2>
+    <p>You can type an equation in one variable exactly as the question gives it. Desmos draws the answer as a <b>vertical line</b> at the solution.</p>
+    <div class="do"><b class="h">Try it in Desmos <span class="ar"></span></b><ol>
+      <li>Type <code>2x+3=5x-9</code></li>
+      <li>Read where the vertical line crosses the x-axis. Zoom in with <span class="k">+</span> if you need a closer look.</li>
+    </ol></div>
+    <div class="tip"><b>Another way:</b> graph each side on its own, <code>y=2x+3</code> and <code>y=5x-9</code>, and click where they cross. The x-value is the solution.</div>
+    <div class="chk"><div class="q">What value of x solves 2x + 3 = 5x − 9?</div>
+      <div class="row"><input type="text" aria-label="Your answer"><button type="button" class="btn">Check</button></div><div class="fb" aria-live="polite"></div></div>
+  </article>
+
+  <!-- 6 -->
+  <article class="step" data-answer="3" data-why="Plot the point (2, 11), then type y = 4x + b and add the slider for b. The line passes through the point when b = 3, because 4(2) + 3 = 11.">
+    <div class="kick">Step 6 of 10 · Sliders</div>
+    <h2>Find a missing constant</h2>
+    <p>When a question has an unknown constant, type it as a letter. Desmos offers a <b>slider</b> for it. Move the slider until the graph does what the question says.</p>
+    <div class="do"><b class="h">Try it in Desmos <span class="ar"></span></b><ol>
+      <li>Type the point <code>(2,11)</code> on its own line.</li>
+      <li>Type <code>y=4x+b</code> and click the <b>b</b> button to add a slider.</li>
+      <li>Drag the slider until the line passes through the point.</li>
+    </ol></div>
+    <div class="tip"><b>Faster:</b> click the slider's number and type a value straight in.</div>
+    <div class="chk"><div class="q">The line y = 4x + b passes through (2, 11). What is b?</div>
+      <div class="row"><input type="text" aria-label="Your answer"><button type="button" class="btn">Check</button></div><div class="fb" aria-live="polite"></div></div>
+  </article>
+
+  <!-- 7 -->
+  <article class="step" data-answer="2" data-why="The regression y₁ ~ mx₁ + b gives m = 2 and b = 3, so the line of best fit is y = 2x + 3. The slope is 2.">
+    <div class="kick">Step 7 of 10 · Tables and regression</div>
+    <h2>Fit a line to data</h2>
+    <p>For a table of values or a line of best fit, use a <b>table</b> and a <b>regression</b>. Desmos finds the equation for you.</p>
+    <div class="do"><b class="h">Try it in Desmos <span class="ar"></span></b><ol>
+      <li>Click the <b>+</b> at the top left and choose <b>table</b>.</li>
+      <li>Fill in x₁: 1, 2, 3, 4 and y₁: 5, 7, 9, 11.</li>
+      <li>On a new line, type <code>y_1~mx_1+b</code> (the ~ key is next to the 1 on most keyboards; hold Shift).</li>
+      <li>Read m and b under the regression.</li>
+    </ol></div>
+    <div class="tip"><b>Typing tip:</b> <code>y_1</code> makes the small 1 (a subscript). Press the right arrow to leave the subscript.</div>
+    <div class="chk"><div class="q">What is the slope m of the line of best fit?</div>
+      <div class="row"><input type="text" aria-label="Your answer"><button type="button" class="btn">Check</button></div><div class="fb" aria-live="polite"></div></div>
+  </article>
+
+  <!-- 8 -->
+  <article class="step" data-answer="B" data-mc="1" data-why="(3, 2) is in both shaded regions: 2 < 2(3) + 1 = 7, and 2 > −3 + 4 = 1. The other points miss at least one inequality.">
+    <div class="kick">Step 8 of 10 · Inequalities</div>
+    <h2>See the solution region</h2>
+    <p>Desmos shades inequalities. The solution of a system of inequalities is where the shadings <b>overlap</b>.</p>
+    <div class="do"><b class="h">Try it in Desmos <span class="ar"></span></b><ol>
+      <li>Type <code>y&lt;2x+1</code></li>
+      <li>Type <code>y&gt;-x+4</code></li>
+      <li>Type each answer choice as a point, like <code>(3,2)</code>, and see which one sits in the overlap.</li>
+    </ol></div>
+    <div class="chk"><div class="q">Which point is a solution to the system y &lt; 2x + 1 and y &gt; −x + 4?</div>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q8" value="A"> A. (0, 0)</label>
+        <label class="opt"><input type="radio" name="q8" value="B"> B. (3, 2)</label>
+        <label class="opt"><input type="radio" name="q8" value="C"> C. (1, 5)</label>
+        <label class="opt"><input type="radio" name="q8" value="D"> D. (−1, 6)</label>
+      </div>
+      <div class="row" style="margin-top:8px"><button type="button" class="btn">Check</button></div><div class="fb" aria-live="polite"></div></div>
+  </article>
+
+  <!-- 9 -->
+  <article class="step" data-answer="0.5" data-why="In degree mode, sin(30) = 0.5. In radian mode Desmos would read 30 as radians and give about −0.988, which is a wrong answer on a degree question.">
+    <div class="kick">Step 9 of 10 · Settings</div>
+    <h2>Degrees or radians</h2>
+    <p>SAT trigonometry questions are usually in <b>degrees</b>. Desmos starts in radians, so switch it before any trig question that uses degrees.</p>
+    <div class="do"><b class="h">Try it in Desmos <span class="ar"></span></b><ol>
+      <li>Click the <b>wrench</b> (graph settings) at the top right of the graph.</li>
+      <li>Choose <b>Degrees</b>.</li>
+      <li>Type <code>sin(30)</code></li>
+    </ol></div>
+    <div class="tip"><b>Also in the wrench menu:</b> show or hide the grid. The house button resets the view if you get lost.</div>
+    <div class="chk"><div class="q">In degree mode, what does Desmos show for sin(30)?</div>
+      <div class="row"><input type="text" aria-label="Your answer"><button type="button" class="btn">Check</button></div><div class="fb" aria-live="polite"></div></div>
+  </article>
+
+  <!-- 10 -->
+  <article class="step" data-answer="A" data-mc="1" data-why="3x − 7 = 20 takes two quick steps by hand: add 7, divide by 3, x = 9. Typing it into Desmos takes longer. Save Desmos for systems, quadratics, data, inequalities and anything messy.">
+    <div class="kick">Step 10 of 10 · Use it wisely</div>
+    <h2>When Desmos saves time, and when it doesn't</h2>
+    <p>Desmos is fastest for <b>systems, quadratics, data and inequalities</b>, and for checking an answer. For one- or two-step problems, your pencil is usually faster.</p>
+    <div class="tip"><b>Test-day habits:</b> clear old lines with × before a new question (or start a fresh line), type carefully with parentheses, and check that the graph matches the question before you choose.</div>
+    <div class="chk"><div class="q">Which question is usually faster to solve by hand than with Desmos?</div>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q10" value="A"> A. Solve 3x − 7 = 20.</label>
+        <label class="opt"><input type="radio" name="q10" value="B"> B. Find where y = x² − 4 and y = x + 2 intersect.</label>
+        <label class="opt"><input type="radio" name="q10" value="C"> C. Find the vertex of y = 2x² − 12x + 7.</label>
+        <label class="opt"><input type="radio" name="q10" value="D"> D. Find the line of best fit for a table of data.</label>
+      </div>
+      <div class="row" style="margin-top:8px"><button type="button" class="btn">Check</button></div><div class="fb" aria-live="polite"></div></div>
+  </article>
+
+  <!-- finish -->
+  <article class="step done-card" id="finish">
+    <div class="kick">Tutorial finished</div>
+    <h2>You're ready to use Desmos on the SAT</h2>
+    <p>Right on the first try:</p>
+    <div class="score" id="fscore">0/10</div>
+    <p>You'll find this same calculator behind the <b>Calculator</b> button on the Math modules of every KCE practice exam.</p>
+    <div class="sendmsg" id="sendmsg"></div>
+    <div class="nav"><button type="button" class="btn" id="again">Go back through the steps</button><a class="btn gold" href="index.html" style="text-decoration:none">Back to the course page</a></div>
+  </article>
+
+  <div class="nav" id="nav"><button type="button" class="btn" id="back">← Back</button><button type="button" class="btn gold" id="next" disabled>Next →</button></div>
+</section>
+
+<section class="calc" aria-label="Desmos graphing calculator">
+  <div class="calc-head"><span class="t">Desmos Graphing Calculator · College Board version</span>
+    <button type="button" id="fresh" title="Reload a blank calculator">Fresh calculator</button>
+    <a href="https://www.desmos.com/testing/cb-digital-sat/graphing" target="_blank" rel="noopener" title="If the calculator does not load here, open it in a new tab">New tab</a></div>
+  <iframe id="desmos" title="Desmos graphing calculator" src="https://www.desmos.com/testing/cb-digital-sat/graphing" allow="clipboard-read; clipboard-write"></iframe>
+</section>
+</div>
+
+<script>
+(function(){
+var steps=[].slice.call(document.querySelectorAll('.step')), qs=steps.filter(function(s){return s.id!=='finish';});
+var cur=0, first={}, solved={}, tries={}, shown={}, moved=false;
+var d=new Date(); document.getElementById('sdate').value=(d.getMonth()+1)+'/'+d.getDate()+'/'+d.getFullYear();
+try{var n=localStorage.getItem('kce_sat_name');if(n)document.getElementById('sname').value=n;}catch(e){}
+document.getElementById('sname').addEventListener('input',function(){try{localStorage.setItem('kce_sat_name',this.value)}catch(e){}});
+var prog=document.getElementById('prog'); qs.forEach(function(){prog.appendChild(document.createElement('i'));});
+function norm(v){return String(v).trim().replace(/[−–]/g,'-').replace(/\s+/g,'').replace(/,/g,'');}
+function numEq(a,b){var x=parseFloat(a),y=parseFloat(b);if(/^-?\d+\/\d+$/.test(a)){var p=a.split('/');x=p[0]/p[1];}return !isNaN(x)&&/^-?(\d+\.?\d*|\.\d+|\d+\/\d+)$/.test(a)&&Math.abs(x-y)<1e-9;}
+function show(i){
+  cur=i; steps.forEach(function(s,k){s.classList.toggle('on',k===i);});
+  var fin=steps[i].id==='finish'; document.getElementById('nav').style.display=fin?'none':'flex';
+  document.getElementById('back').disabled=i===0;
+  document.getElementById('next').disabled=!solved[i];
+  [].forEach.call(prog.children,function(b,k){b.className=shown[k]?'shown':(solved[k]?'ok':(k===i?'on':''));});
+  document.querySelector('.steps').scrollTop=0;
+  if(window.innerWidth<=900 && moved) steps[i].scrollIntoView({block:'start'});
+  moved=true;
+}
+qs.forEach(function(s,i){
+  var mc=s.getAttribute('data-mc')==='1', fb=s.querySelector('.fb'), btn=s.querySelector('.chk .btn'), inp=s.querySelector('input[type=text]');
+  if(mc){[].forEach.call(s.querySelectorAll('.opt input'),function(r){r.addEventListener('change',function(){[].forEach.call(s.querySelectorAll('.opt'),function(o){o.classList.remove('sel','good','bad');});r.closest('.opt').classList.add('sel');});});}
+  if(inp) inp.addEventListener('keydown',function(e){if(e.key==='Enter')btn.click();});
+  btn.addEventListener('click',function(){
+    if(solved[i]) return;
+    var nm=document.getElementById('sname'); if(!nm.value.trim()){fb.className='fb bad';fb.textContent='Type your name at the top first.';nm.focus();return;}
+    var ans=s.getAttribute('data-answer'), val, ok;
+    if(mc){var p=s.querySelector('.opt input:checked'); if(!p){fb.className='fb bad';fb.textContent='Choose an answer first.';return;} val=p.value; ok=val===ans;}
+    else{val=norm(inp.value); if(!val){fb.className='fb bad';fb.textContent='Type your answer first.';return;}
+      if(!/^-?(\d+\.?\d*|\.\d+|\d+\/\d+)$/.test(val)){fb.className='fb bad';fb.textContent='Type just the number, like 7 or -2.5 (no x =, no parentheses). This did not use a try.';return;}
+      ok=numEq(val,ans);}
+    tries[i]=(tries[i]||0)+1;
+    if(ok){ if(tries[i]===1) first[i]=1; solved[i]=1; fb.className='fb good';
+      fb.innerHTML='Yes! That’s it.<span class="why"></span>'; fb.querySelector('.why').textContent=s.getAttribute('data-why');
+      if(mc){s.querySelector('.opt input:checked').closest('.opt').classList.add('good');}
+      document.getElementById('next').disabled=false; show(i); }
+    else if(tries[i]>=3){ solved[i]=1; shown[i]=1; fb.className='fb bad';
+      fb.innerHTML='Not quite. The answer is <b></b>.<span class="why"></span>'; fb.querySelector('b').textContent=ans==='-4'?'−4':ans; fb.querySelector('.why').textContent=s.getAttribute('data-why');
+      if(mc){[].forEach.call(s.querySelectorAll('.opt input'),function(r){if(r.value===ans)r.closest('.opt').classList.add('good');});}
+      show(i); }
+    else{ fb.className='fb bad'; fb.textContent='Not yet. Check what you typed in Desmos and try again ('+(3-tries[i])+(3-tries[i]===1?' try':' tries')+' left).';
+      if(mc){s.querySelector('.opt input:checked').closest('.opt').classList.add('bad');} }
+  });
+});
+document.getElementById('next').onclick=function(){ if(cur<qs.length-1){show(cur+1);} else finish(); };
+document.getElementById('back').onclick=function(){ if(cur>0) show(cur-1); };
+document.getElementById('again').onclick=function(){ show(0); };
+document.getElementById('fresh').onclick=function(){ var f=document.getElementById('desmos'); f.src=f.src; };
+var sent=false;
+function finish(){
+  var n=Object.keys(first).length; document.getElementById('fscore').textContent=n+'/'+qs.length;
+  show(steps.length-1);
+  try{ if(window.KCESAT) KCESAT.done(); }catch(e){}
+  if(sent) return; sent=true;
+  var name=document.getElementById('sname').value.trim()||'(no name entered)', msg=document.getElementById('sendmsg');
+  msg.textContent='Sending your results to KingCretot Experience…';
+  fetch('https://formspree.io/f/mpqgdkww',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({_subject:'KCE SAT — Desmos Tutorial finished — '+name,student:name,date:document.getElementById('sdate').value,module:'SAT Week 1 · Desmos Tutorial',first_try_correct:n+'/'+qs.length})})
+  .then(function(r){msg.textContent=r.ok?'Your results were sent to your instructor.':'Your results could not be sent. Tell your instructor you finished.';})
+  .catch(function(){msg.textContent='Your results could not be sent. Tell your instructor you finished.';});
+}
+show(0);
+})();
+</script>
+<script src="sat-gate.js"></script>
+</body>
+</html>

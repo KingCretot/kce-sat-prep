@@ -348,4 +348,5 @@ VOCAB.forEach(([w,pos,def,syn,ant])=>{const d=document.createElement("div");d.cl
 d.onclick=function(){this.classList.toggle("flipped");};
 d.innerHTML='<div class="in"><div class="face front"><div class="word">'+w+'</div><div class="pos">'+pos+'</div><div class="tapcue">tap to flip</div></div><div class="face back"><div class="d">'+def+'</div><div class="sa"><span class="syn">syn:</span> '+syn+'</div><div class="sa"><span class="ant">ant:</span> '+ant+'</div></div></div>';
 vc.appendChild(d);});
-</script></body></html>
+</script><script src="sat-gate.js"></script>
+</body></html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KCE SAT Prep — 10-Week Program · KingCretot Experience</title>
+<meta name="description" content="KingCretot Experience SAT Prep: a Baseline, ten weekly lessons with mid-week practice, a Desmos tutorial and five full-length practice exams, all on one page.">
+<style>
+:root{--navy:#0A1F3D;--gold:#C9A84C;--blue:#0047BA;--red:#DB2F30;--cream:#FAF7EF;--ink:#1d2733;--line:#E7E0CF;--muted:#5b6475}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff;line-height:1.55}
+h1,h2,h3{font-family:Georgia,'Times New Roman',serif}
+.wrap{max-width:1080px;margin:0 auto}
+.mast{background:var(--navy);color:#fff;padding:42px 24px 36px}
+.brand{font-family:Georgia,serif;font-weight:700;font-size:30px;color:var(--gold)}
+.tagline{font-size:12px;font-weight:700;letter-spacing:3px;margin-top:6px}
+.tagline .e1{color:var(--blue)}.tagline .e2{color:var(--gold)}.tagline .e3{color:var(--red)}
+.rule{border:none;border-top:2px solid var(--gold);margin:20px 0;max-width:120px}
+.mast h1{font-weight:700;font-size:34px;margin:6px 0 8px;color:#fff}
+.mast p{max-width:680px;color:#c7d2e0;font-size:16px;margin:0}
+.band{display:flex;height:6px}.band i{flex:1}
+.intro{background:var(--cream);border-bottom:1px solid var(--line);padding:18px 24px}
+.intro .wrap{display:flex;gap:10px 26px;flex-wrap:wrap;font-size:14px;color:#4a5666}
+.intro b{color:var(--navy)}
+.teacher{max-width:1128px;margin:16px auto 0;padding:0 24px;font-size:14px;color:var(--muted)}
+.teacher input{width:84px;padding:6px 8px;border:2px solid var(--line);border-radius:8px;font-size:15px;text-align:center;margin:0 6px}
+.teacher button{background:none;border:none;color:var(--blue);text-decoration:underline;cursor:pointer;font:inherit;padding:0}
+.sg-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+main.wrap{max-width:1128px;padding:10px 24px 10px}
+.block{margin:34px 0 16px}
+.fl{height:3px;width:60px;background:var(--gold);border-radius:2px;margin-bottom:12px}
+.block h2{color:var(--navy);font-size:26px;margin:0 0 4px}
+.block p{margin:0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.card{position:relative;border:1px solid var(--line);border-radius:14px;padding:20px 20px 18px;background:#fff;transition:.15s;display:flex;flex-direction:column}
+.card:hover{border-color:var(--gold);box-shadow:0 6px 22px rgba(10,31,61,.08)}
+.card.milestone{background:var(--navy);border-color:var(--navy)}
+.card.milestone h3{color:#fff}.card.milestone .sub{color:#c7d2e0}.card.milestone .meta{color:#e8d9ab}
+.card.milestone .wk{color:var(--gold)}
+.card.milestone .btn.primary{background:var(--gold);color:var(--navy)}
+.wk{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8a6d16}
+.card h3{font-weight:700;font-size:21px;color:var(--navy);margin:5px 0 8px;line-height:1.25}
+.sub{font-size:14px;color:#4a5666;margin:0 0 8px}
+.meta{font-size:13px;color:#7a6418;font-weight:700;margin-bottom:12px}
+.tags{margin-bottom:14px}
+.tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:999px}
+.t-diag{background:#f0ecf8;color:#5b3fa0}.t-lesson{background:#eef3fe;color:#0047BA}.t-tool{background:#e9f6f6;color:#1d6f70}
+.t-mid{background:#fbf3dd;color:#7a6418}.t-exam{background:var(--gold);color:var(--navy)}
+.links{margin-top:auto}
+.btn{display:block;text-align:center;text-decoration:none;font-weight:700;font-size:15px;padding:12px 14px;border-radius:10px}
+.btn.primary{background:var(--navy);color:#fff}.btn.primary:hover{background:#13294b}
+.card.milestone .btn.primary:hover{background:#dcbf6c}
+.sg-lockbtn{background:#e6e3da!important;color:#3f4857!important;cursor:not-allowed;font-weight:700}
+.card.sg-locked{background:#f7f6f2}.card.sg-locked h3,.card.sg-locked .sub,.card.sg-locked .meta{opacity:.75}.card.sg-locked:hover{box-shadow:none;border-color:var(--line)}
+.card.milestone.sg-locked{background:#33445e;border-color:#33445e}.card.milestone.sg-locked:hover{border-color:#33445e}
+.sg-done{display:inline-block;align-self:flex-start;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:999px;background:#e6f4ea;color:#1e7a3c;margin:0 0 10px}
+.btn.sg-again{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+.card.milestone .btn.sg-again{background:transparent;color:var(--gold);border-color:var(--gold)}
+.card.sg-next{border:2px solid var(--gold);box-shadow:0 6px 22px rgba(201,168,76,.25)}
+.sg-up{position:absolute;top:-11px;right:16px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:999px}
+.sg-msg{color:var(--red)}
+footer{margin-top:40px;background:var(--navy);color:#fff;text-align:center;padding:20px 24px;font-size:13px;line-height:1.7}
+footer .nm{font-family:Georgia,serif;color:var(--gold);font-size:17px}
+footer .g{color:var(--gold)}
+@media (max-width:640px){.mast{padding:30px 16px 26px}.mast h1{font-size:27px}main,.intro,.teacher{padding-left:16px;padding-right:16px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="mast"><div class="wrap">
+  <div class="brand">KingCretot Experience</div>
+  <div class="tagline"><span class="e1">EDUCATE</span><span class="e2"> · EMPOWER · </span><span class="e3">EXCEL</span></div>
+  <hr class="rule">
+  <h1>SAT Prep — 10-Week Program</h1>
+  <p>Everything for the course on one page. Start with the Baseline, then work through each week in order: the live lesson, the mid-week practice, and a full-length practice exam every two weeks. Each module opens once you finish the one before it.</p>
+</div></header>
+<div class="band"><i style="background:#0047BA"></i><i style="background:#C9A84C"></i><i style="background:#DB2F30"></i></div>
+<div class="intro"><div class="wrap">
+  <div><b><!--COUNT--> modules</b> · <span id="sg-progress">0 finished</span></div>
+  <div><b>10 live lessons</b> · with your instructor</div>
+  <div><b>5 full-length exams</b> · 98 questions each</div>
+  <div><b>Desmos built in</b> · the same calculator as test day</div>
+</div></div>
+<div class="teacher" id="sg-teacher"></div>
+<main class="wrap">
+<!--MODULES-->
+</main>
+<footer>
+  <div class="nm">KingCretot Experience</div>
+  Approved Provider: <span class="g">Step Up For Students</span> · <span class="g">Arizona ESA</span> · <span class="g">West Virginia Hope Scholarship</span><br>
+  kingcretot.com · kce@kingcretot.com · 914.809.0112 · <span style="white-space:nowrap">PO Box 2322, Arcadia, FL 34265</span><br>
+  Progress is saved on this device and browser.
+</footer>
+<script src="sat-gate.js"></script>
+</body>
+</html>

@@ -1,228 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KingCretot Experience — SAT Prep Program</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KCE SAT Prep — 10-Week Program · KingCretot Experience</title>
+<meta name="description" content="KingCretot Experience SAT Prep: a Baseline, ten weekly lessons with mid-week practice, a Desmos tutorial and five full-length practice exams, all on one page.">
 <style>
-:root{--navy:#0A1F3D;--gold:#C9A84C;--cream:#FAF7EF;--red:#C9342F;--blue:#5B8DEF;--green:#2E7D55;
---ink:#1d2733;--line:#E7E0CF;--soft:#FAF7EF;--display:'Fraunces',serif;--body:'Inter',sans-serif;--mono:'IBM Plex Mono',monospace;}
+:root{--navy:#0A1F3D;--gold:#C9A84C;--blue:#0047BA;--red:#DB2F30;--cream:#FAF7EF;--ink:#1d2733;--line:#E7E0CF;--muted:#5b6475}
 *{box-sizing:border-box}
-body{margin:0;font-family:var(--body);color:var(--ink);background:#fff;line-height:1.55}
-.mast{background:var(--navy);color:#fff;padding:46px 24px 40px}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff;line-height:1.55}
+h1,h2,h3{font-family:Georgia,'Times New Roman',serif}
 .wrap{max-width:1080px;margin:0 auto}
-.brand{font-family:var(--display);font-weight:700;font-size:30px;letter-spacing:.2px}
-.tag{font-family:var(--mono);font-size:12px;letter-spacing:1px;margin-top:6px}
-.tag .e1{color:var(--blue)}.tag .e2{color:var(--gold)}.tag .e3{color:var(--red)}
+.mast{background:var(--navy);color:#fff;padding:42px 24px 36px}
+.brand{font-family:Georgia,serif;font-weight:700;font-size:30px;color:var(--gold)}
+.tagline{font-size:12px;font-weight:700;letter-spacing:3px;margin-top:6px}
+.tagline .e1{color:var(--blue)}.tagline .e2{color:var(--gold)}.tagline .e3{color:var(--red)}
 .rule{border:none;border-top:2px solid var(--gold);margin:20px 0;max-width:120px}
-.mast h1{font-family:var(--display);font-weight:600;font-size:34px;margin:6px 0 8px}
-.mast p{max-width:640px;color:#c7d2e0;font-size:16px;margin:0}
-.intro{background:var(--cream);border-bottom:1px solid var(--line);padding:22px 24px}
-.intro .wrap{display:flex;gap:26px;flex-wrap:wrap;font-size:14px;color:#4a5666}
+.mast h1{font-weight:700;font-size:34px;margin:6px 0 8px;color:#fff}
+.mast p{max-width:680px;color:#c7d2e0;font-size:16px;margin:0}
+.band{display:flex;height:6px}.band i{flex:1}
+.intro{background:var(--cream);border-bottom:1px solid var(--line);padding:18px 24px}
+.intro .wrap{display:flex;gap:10px 26px;flex-wrap:wrap;font-size:14px;color:#4a5666}
 .intro b{color:var(--navy)}
-main{padding:34px 24px 10px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
-.card{border:1px solid var(--line);border-radius:14px;padding:20px 20px 18px;background:#fff;transition:.15s;box-shadow:0 1px 0 rgba(10,31,61,.03)}
-.card:hover{border-color:var(--gold);box-shadow:0 6px 22px rgba(10,31,61,.08);transform:translateY(-2px)}
-.card.milestone{background:var(--navy);border-color:var(--navy)}
-.card.milestone:hover{border-color:var(--gold);transform:translateY(-2px)}
-.card.milestone .wk{color:var(--gold)}
-.card.milestone h3{color:#fff}
-.card.milestone .sub{color:#c7d2e0;font-size:13px;margin:0 0 14px;line-height:1.5}
-.card.milestone .tag.t-exam{background:var(--gold);color:var(--navy)}
-.card.milestone .btn.primary{background:var(--gold);color:var(--navy)}
-.card.milestone .btn.primary:hover{background:#dcbf6c}
-.wk{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#9A7D20}
-.card h3{font-family:var(--display);font-weight:600;font-size:21px;color:var(--navy);margin:5px 0 10px;line-height:1.25}
-.tags{margin-bottom:14px}
-.tag.t-math,.tag.t-foundations,.tag.t-reading,.tag.t-writing,.tag.t-diagnostic,.tag.t-review{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:999px}
-.t-math{background:#eef3fe;color:#2b56b8}.t-reading{background:#eaf5ee;color:#1f6b43}
-.t-writing{background:#fdeeed;color:#b02b27}.t-foundations{background:#fbf3dd;color:#92731a}
-.t-diagnostic{background:#f0ecf8;color:#5b3fa0}.t-review{background:#e9f6f6;color:#1d6f70}
-.links{display:flex;flex-direction:column;gap:8px}
-.btn{display:block;text-align:center;text-decoration:none;font-weight:600;font-size:14px;padding:11px 14px;border-radius:10px;transition:.15s}
-.btn.primary{background:var(--navy);color:#fff}
-.btn.primary:hover{background:#13294b}
-.btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
-.btn.ghost:hover{border-color:var(--gold);color:#1a3252}
-.note{max-width:1080px;margin:8px auto 0;padding:0 24px;color:#7a8794}
-footer{margin-top:34px;border-top:1px solid var(--line);padding:22px 24px;color:#7d8794;font-size:13px}
-footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-footer b{color:var(--navy)}
+.teacher{max-width:1128px;margin:16px auto 0;padding:0 24px;font-size:14px;color:var(--muted)}
+.teacher input{width:84px;padding:6px 8px;border:2px solid var(--line);border-radius:8px;font-size:15px;text-align:center;margin:0 6px}
+.teacher button{background:none;border:none;color:var(--blue);text-decoration:underline;cursor:pointer;font:inherit;padding:0}
+.sg-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+main.wrap{max-width:1128px;padding:10px 24px 10px}
+.block{margin:34px 0 16px}
 .fl{height:3px;width:60px;background:var(--gold);border-radius:2px;margin-bottom:12px}
-@media(max-width:560px){.mast h1{font-size:27px}.brand{font-size:25px}}
+.block h2{color:var(--navy);font-size:26px;margin:0 0 4px}
+.block p{margin:0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.card{position:relative;border:1px solid var(--line);border-radius:14px;padding:20px 20px 18px;background:#fff;transition:.15s;display:flex;flex-direction:column}
+.card:hover{border-color:var(--gold);box-shadow:0 6px 22px rgba(10,31,61,.08)}
+.card.milestone{background:var(--navy);border-color:var(--navy)}
+.card.milestone h3{color:#fff}.card.milestone .sub{color:#c7d2e0}.card.milestone .meta{color:#e8d9ab}
+.card.milestone .wk{color:var(--gold)}
+.card.milestone .btn.primary{background:var(--gold);color:var(--navy)}
+.wk{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8a6d16}
+.card h3{font-weight:700;font-size:21px;color:var(--navy);margin:5px 0 8px;line-height:1.25}
+.sub{font-size:14px;color:#4a5666;margin:0 0 8px}
+.meta{font-size:13px;color:#7a6418;font-weight:700;margin-bottom:12px}
+.tags{margin-bottom:14px}
+.tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:999px}
+.t-diag{background:#f0ecf8;color:#5b3fa0}.t-lesson{background:#eef3fe;color:#0047BA}.t-tool{background:#e9f6f6;color:#1d6f70}
+.t-mid{background:#fbf3dd;color:#7a6418}.t-exam{background:var(--gold);color:var(--navy)}
+.links{margin-top:auto}
+.btn{display:block;text-align:center;text-decoration:none;font-weight:700;font-size:15px;padding:12px 14px;border-radius:10px}
+.btn.primary{background:var(--navy);color:#fff}.btn.primary:hover{background:#13294b}
+.card.milestone .btn.primary:hover{background:#dcbf6c}
+.sg-lockbtn{background:#e6e3da!important;color:#3f4857!important;cursor:not-allowed;font-weight:700}
+.card.sg-locked{background:#f7f6f2}.card.sg-locked h3,.card.sg-locked .sub,.card.sg-locked .meta{opacity:.75}.card.sg-locked:hover{box-shadow:none;border-color:var(--line)}
+.card.milestone.sg-locked{background:#33445e;border-color:#33445e}.card.milestone.sg-locked:hover{border-color:#33445e}
+.sg-done{display:inline-block;align-self:flex-start;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:999px;background:#e6f4ea;color:#1e7a3c;margin:0 0 10px}
+.btn.sg-again{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+.card.milestone .btn.sg-again{background:transparent;color:var(--gold);border-color:var(--gold)}
+.card.sg-next{border:2px solid var(--gold);box-shadow:0 6px 22px rgba(201,168,76,.25)}
+.sg-up{position:absolute;top:-11px;right:16px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:999px}
+.sg-msg{color:var(--red)}
+footer{margin-top:40px;background:var(--navy);color:#fff;text-align:center;padding:20px 24px;font-size:13px;line-height:1.7}
+footer .nm{font-family:Georgia,serif;color:var(--gold);font-size:17px}
+footer .g{color:var(--gold)}
+@media (max-width:640px){.mast{padding:30px 16px 26px}.mast h1{font-size:27px}main,.intro,.teacher{padding-left:16px;padding-right:16px}.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header class="mast"><div class="wrap">
   <div class="brand">KingCretot Experience</div>
-  <div class="tag"><span class="e1">EDUCATE.</span>&nbsp;&nbsp;<span class="e2">EMPOWER.</span>&nbsp;&nbsp;<span class="e3">EXCEL.</span></div>
+  <div class="tagline"><span class="e1">EDUCATE</span><span class="e2"> · EMPOWER · </span><span class="e3">EXCEL</span></div>
   <hr class="rule">
   <h1>SAT Prep — 10-Week Program</h1>
-  <p>Interactive live lessons and mid-week practice, front-loaded with all four math domains, then reading, writing, a full practice test, and test-day prep.</p>
+  <p>Everything for the course on one page. Start with the Baseline, then work through each week in order: the live lesson, the mid-week practice, and a full-length practice exam every two weeks. Each module opens once you finish the one before it.</p>
 </div></header>
-
+<div class="band"><i style="background:#0047BA"></i><i style="background:#C9A84C"></i><i style="background:#DB2F30"></i></div>
 <div class="intro"><div class="wrap">
-  <div><b>10 live lessons</b> · run on screen during each lesson</div>
-  <div><b>10 mid-week mini-lessons</b> · auto-email results to the instructor</div>
-  <div><b>Workbooks, teacher guides &amp; quizzes</b> · delivered through Google Classroom</div>
+  <div><b>27 modules</b> · <span id="sg-progress">0 finished</span></div>
+  <div><b>10 live lessons</b> · with your instructor</div>
+  <div><b>5 full-length exams</b> · 98 questions each</div>
+  <div><b>Desmos built in</b> · the same calculator as test day</div>
 </div></div>
-
+<div class="teacher" id="sg-teacher"></div>
 <main class="wrap">
-  <div class="grid">
-      <article class="card milestone">
-        <div class="wk">Before Week 01</div>
-        <h3>SAT Baseline Assessment</h3>
-        <p class="sub">49 questions &middot; Reading &amp; Writing 32 min + Math 35 min &middot; ~70 min in one sitting</p>
-        <div class="tags"><span class="tag t-exam">Baseline</span></div>
-        <div class="links">
-          <a class="btn primary" href="baseline.html">Start the Baseline</a>
-        </div>
-      </article>
-      <article class="card">
-        <div class="wk">Week 01</div>
-        <h3>Orientation, Diagnostic &amp; Core Method</h3>
-        <div class="tags"><span class="tag t-foundations">Foundations</span></div>
-        <div class="links">
-          <a class="btn primary" href="week-01-lesson.html">Live lesson</a>
-          <a class="btn ghost" href="week-01-midweek.html">Mid-week &middot; Math</a>
-        </div>
-      </article>
-      <article class="card">
-        <div class="wk">Week 02</div>
-        <h3>Heart of Algebra</h3>
-        <div class="tags"><span class="tag t-math">Math</span></div>
-        <div class="links">
-          <a class="btn primary" href="week-02-lesson.html">Live lesson</a>
-          <a class="btn ghost" href="week-02-midweek.html">Mid-week &middot; Reading &amp; Writing</a>
-        </div>
-      </article>
-      <article class="card milestone">
-        <div class="wk">After Week 02</div>
-        <h3>Full-Length Practice Exam 1</h3>
-        <p class="sub">98 questions &middot; adaptive Module 2 &middot; ~2h 15m in one sitting</p>
-        <div class="tags"><span class="tag t-exam">Full-Length Exam</span></div>
-        <div class="links">
-          <a class="btn primary" href="SAT%20Practice%20Exam%201%20(KCE).html">Start Practice Exam 1</a>
-        </div>
-      </article>
-      <article class="card">
-        <div class="wk">Week 03</div>
-        <h3>Advanced Math</h3>
-        <div class="tags"><span class="tag t-math">Math</span></div>
-        <div class="links">
-          <a class="btn primary" href="week-03-lesson.html">Live lesson</a>
-          <a class="btn ghost" href="week-03-midweek.html">Mid-week &middot; Math</a>
-        </div>
-      </article>
-      <article class="card">
-        <div class="wk">Week 04</div>
-        <h3>Geometry &amp; Trigonometry</h3>
-        <div class="tags"><span class="tag t-math">Math</span></div>
-        <div class="links">
-          <a class="btn primary" href="week-04-lesson.html">Live lesson</a>
-          <a class="btn ghost" href="week-04-midweek.html">Mid-week &middot; Reading &amp; Writing</a>
-        </div>
-      </article>
-      <article class="card milestone">
-        <div class="wk">After Week 04</div>
-        <h3>Full-Length Practice Exam 2</h3>
-        <p class="sub">98 questions &middot; adaptive Module 2 &middot; ~2h 15m in one sitting</p>
-        <div class="tags"><span class="tag t-exam">Full-Length Exam</span></div>
-        <div class="links">
-          <a class="btn primary" href="SAT%20Practice%20Exam%202%20(KCE).html">Start Practice Exam 2</a>
-        </div>
-      </article>
-      <article class="card">
-        <div class="wk">Week 05</div>
-        <h3>Problem-Solving &amp; Data Analysis</h3>
-        <div class="tags"><span class="tag t-math">Math</span></div>
-        <div class="links">
-          <a class="btn primary" href="week-05-lesson.html">Live lesson</a>
-          <a class="btn ghost" href="week-05-midweek.html">Mid-week &middot; Math</a>
-        </div>
-      </article>
-      <article class="card">
-        <div class="wk">Week 06</div>
-        <h3>Reading — Craft, Structure &amp; Ideas</h3>
-        <div class="tags"><span class="tag t-reading">Reading</span></div>
-        <div class="links">
-          <a class="btn primary" href="week-06-lesson.html">Live lesson</a>
-          <a class="btn ghost" href="week-06-midweek.html">Mid-week &middot; Reading &amp; Writing</a>
-        </div>
-      </article>
-      <article class="card milestone">
-        <div class="wk">After Week 06</div>
-        <h3>Full-Length Practice Exam 3</h3>
-        <p class="sub">98 questions &middot; adaptive Module 2 &middot; ~2h 15m in one sitting</p>
-        <div class="tags"><span class="tag t-exam">Full-Length Exam</span></div>
-        <div class="links">
-          <a class="btn primary" href="SAT%20Practice%20Exam%203%20(KCE).html">Start Practice Exam 3</a>
-        </div>
-      </article>
-      <article class="card">
-        <div class="wk">Week 07</div>
-        <h3>Writing — Expression of Ideas</h3>
-        <div class="tags"><span class="tag t-writing">Writing</span></div>
-        <div class="links">
-          <a class="btn primary" href="week-07-lesson.html">Live lesson</a>
-          <a class="btn ghost" href="week-07-midweek.html">Mid-week &middot; Math</a>
-        </div>
-      </article>
-      <article class="card">
-        <div class="wk">Week 08</div>
-        <h3>Writing — Standard English Conventions</h3>
-        <div class="tags"><span class="tag t-writing">Writing</span></div>
-        <div class="links">
-          <a class="btn primary" href="week-08-lesson.html">Live lesson</a>
-          <a class="btn ghost" href="week-08-midweek.html">Mid-week &middot; Reading &amp; Writing</a>
-        </div>
-      </article>
-      <article class="card milestone">
-        <div class="wk">After Week 08</div>
-        <h3>Full-Length Practice Exam 4</h3>
-        <p class="sub">98 questions &middot; adaptive Module 2 &middot; ~2h 15m in one sitting</p>
-        <div class="tags"><span class="tag t-exam">Full-Length Exam</span></div>
-        <div class="links">
-          <a class="btn primary" href="SAT%20Practice%20Exam%204%20(KCE).html">Start Practice Exam 4</a>
-        </div>
-      </article>
-      <article class="card">
-        <div class="wk">Week 09</div>
-        <h3>Practice Test &amp; Error Analysis</h3>
-        <div class="tags"><span class="tag t-diagnostic">Diagnostic</span></div>
-        <div class="links">
-          <a class="btn primary" href="week-09-lesson.html">Live lesson</a>
-          <a class="btn ghost" href="week-09-midweek.html">Mid-week &middot; Math</a>
-        </div>
-      </article>
-      <article class="card">
-        <div class="wk">Week 10</div>
-        <h3>Final Review, Pacing &amp; Test Day</h3>
-        <div class="tags"><span class="tag t-review">Review</span></div>
-        <div class="links">
-          <a class="btn primary" href="week-10-lesson.html">Live lesson</a>
-          <a class="btn ghost" href="week-10-midweek.html">Mid-week &middot; Final timed</a>
-        </div>
-      </article>
-      <article class="card milestone">
-        <div class="wk">After Week 10</div>
-        <h3>Full-Length Practice Exam 5</h3>
-        <p class="sub">98 questions &middot; adaptive Module 2 &middot; ~2h 15m in one sitting</p>
-        <div class="tags"><span class="tag t-exam">Full-Length Exam</span></div>
-        <div class="links">
-          <a class="btn primary" href="SAT%20Practice%20Exam%205%20(KCE).html">Start Practice Exam 5</a>
-        </div>
-      </article>
-  </div>
+<section class="block"><div class="fl"></div><h2>Start here</h2><p>Take the Baseline before Week 1. It opens your first lesson.</p></section><div class="grid"><article class="card milestone" data-id="baseline"><div class="wk">SAT Baseline Assessment</div><h3>SAT Baseline Assessment</h3><p class="sub">Your starting point. Reading &amp; Writing first, then Math, in one sitting. Your results go to your instructor.</p><div class="meta">49 questions · 32 + 35 minutes · about 70 minutes</div><div class="tags"><span class="tag t-diag">Baseline</span></div><div class="links"><a class="btn primary" href="baseline.html">Start the Baseline</a></div></article></div>
+<section class="block"><div class="fl"></div><h2>Week 1 · Orientation</h2><p>The map of the test, your core method, and the Desmos calculator.</p></section><div class="grid"><article class="card" data-id="w01-lesson"><div class="wk">Week 1 Lesson</div><h3>Orientation &amp; Core Method</h3><p class="sub">The full map of the SAT, the core toolkit for Reading &amp; Writing and Math, and the Vocabulary Lab.</p><div class="meta">Live lesson · 60 minutes</div><div class="tags"><span class="tag t-lesson">Live lesson</span></div><div class="links"><a class="btn primary" href="week-01-lesson.html">Open lesson</a></div></article><article class="card" data-id="desmos"><div class="wk">Desmos Tutorial</div><h3>How to Use Desmos on the SAT</h3><p class="sub">Learn the built-in graphing calculator you get on test day: graph, find intersections, roots and vertices, use tables, sliders and regression, and know when to skip it.</p><div class="meta">Interactive tutorial · about 30 minutes</div><div class="tags"><span class="tag t-tool">Tutorial</span></div><div class="links"><a class="btn primary" href="desmos-tutorial.html">Open the tutorial</a></div></article><article class="card" data-id="w01-mid"><div class="wk">Week 1 Mid-Week</div><h3>Math — Keeping Algebra Warm</h3><p class="sub">Five quick questions between lessons. Your results are emailed to your instructor.</p><div class="meta">Mid-week · about 15 minutes</div><div class="tags"><span class="tag t-mid">Mid-week</span></div><div class="links"><a class="btn primary" href="week-01-midweek.html">Open mid-week</a></div></article></div>
+<section class="block"><div class="fl"></div><h2>Week 2 · Heart of Algebra</h2><p>Linear equations and systems, then your first full practice exam.</p></section><div class="grid"><article class="card" data-id="w02-lesson"><div class="wk">Week 2 Lesson</div><h3>Heart of Algebra</h3><p class="sub">Linear equations, inequalities and systems: isolate, then check.</p><div class="meta">Live lesson · 60 minutes</div><div class="tags"><span class="tag t-lesson">Live lesson</span></div><div class="links"><a class="btn primary" href="week-02-lesson.html">Open lesson</a></div></article><article class="card" data-id="w02-mid"><div class="wk">Week 2 Mid-Week</div><h3>Reading &amp; Writing — Words in Context</h3><p class="sub">Five quick questions between lessons. Your results are emailed to your instructor.</p><div class="meta">Mid-week · about 15 minutes</div><div class="tags"><span class="tag t-mid">Mid-week</span></div><div class="links"><a class="btn primary" href="week-02-midweek.html">Open mid-week</a></div></article><article class="card milestone" data-id="exam1"><div class="wk">Practice Exam 1</div><h3>Full-Length Practice Exam 1</h3><p class="sub">The whole test in one sitting: two Reading &amp; Writing modules, a 10-minute break, then two Math modules with the built-in Desmos calculator.</p><div class="meta">98 questions · about 2 hours 25 minutes with the break</div><div class="tags"><span class="tag t-exam">Full-length exam</span></div><div class="links"><a class="btn primary" href="SAT%20Practice%20Exam%201%20(KCE).html">Start the exam</a></div></article></div>
+<section class="block"><div class="fl"></div><h2>Week 3 · Advanced Math</h2><p>Quadratics, functions and exponents.</p></section><div class="grid"><article class="card" data-id="w03-lesson"><div class="wk">Week 3 Lesson</div><h3>Advanced Math</h3><p class="sub">Quadratics, functions and exponents: factor, then solve.</p><div class="meta">Live lesson · 60 minutes</div><div class="tags"><span class="tag t-lesson">Live lesson</span></div><div class="links"><a class="btn primary" href="week-03-lesson.html">Open lesson</a></div></article><article class="card" data-id="w03-mid"><div class="wk">Week 3 Mid-Week</div><h3>Math — Quadratics in Focus</h3><p class="sub">Five quick questions between lessons. Your results are emailed to your instructor.</p><div class="meta">Mid-week · about 15 minutes</div><div class="tags"><span class="tag t-mid">Mid-week</span></div><div class="links"><a class="btn primary" href="week-03-midweek.html">Open mid-week</a></div></article></div>
+<section class="block"><div class="fl"></div><h2>Week 4 · Geometry &amp; Trigonometry</h2><p>Angles, triangles and circles, then Practice Exam 2.</p></section><div class="grid"><article class="card" data-id="w04-lesson"><div class="wk">Week 4 Lesson</div><h3>Geometry &amp; Trigonometry</h3><p class="sub">The angle rules that repeat and three triangle tools.</p><div class="meta">Live lesson · 60 minutes</div><div class="tags"><span class="tag t-lesson">Live lesson</span></div><div class="links"><a class="btn primary" href="week-04-lesson.html">Open lesson</a></div></article><article class="card" data-id="w04-mid"><div class="wk">Week 4 Mid-Week</div><h3>Reading &amp; Writing — Words &amp; Evidence</h3><p class="sub">Five quick questions between lessons. Your results are emailed to your instructor.</p><div class="meta">Mid-week · about 15 minutes</div><div class="tags"><span class="tag t-mid">Mid-week</span></div><div class="links"><a class="btn primary" href="week-04-midweek.html">Open mid-week</a></div></article><article class="card milestone" data-id="exam2"><div class="wk">Practice Exam 2</div><h3>Full-Length Practice Exam 2</h3><p class="sub">The whole test in one sitting: two Reading &amp; Writing modules, a 10-minute break, then two Math modules with the built-in Desmos calculator.</p><div class="meta">98 questions · about 2 hours 25 minutes with the break</div><div class="tags"><span class="tag t-exam">Full-length exam</span></div><div class="links"><a class="btn primary" href="SAT%20Practice%20Exam%202%20(KCE).html">Start the exam</a></div></article></div>
+<section class="block"><div class="fl"></div><h2>Week 5 · Problem-Solving &amp; Data Analysis</h2><p>Ratios, percents, units and data.</p></section><div class="grid"><article class="card" data-id="w05-lesson"><div class="wk">Week 5 Lesson</div><h3>Problem-Solving &amp; Data Analysis</h3><p class="sub">Ratios, percents, units and data: find the unit, then scale.</p><div class="meta">Live lesson · 60 minutes</div><div class="tags"><span class="tag t-lesson">Live lesson</span></div><div class="links"><a class="btn primary" href="week-05-lesson.html">Open lesson</a></div></article><article class="card" data-id="w05-mid"><div class="wk">Week 5 Mid-Week</div><h3>Math — Data &amp; Word Problems</h3><p class="sub">Five quick questions between lessons. Your results are emailed to your instructor.</p><div class="meta">Mid-week · about 15 minutes</div><div class="tags"><span class="tag t-mid">Mid-week</span></div><div class="links"><a class="btn primary" href="week-05-midweek.html">Open mid-week</a></div></article></div>
+<section class="block"><div class="fl"></div><h2>Week 6 · Reading — Craft, Structure &amp; Ideas</h2><p>Reading for the point, then Practice Exam 3.</p></section><div class="grid"><article class="card" data-id="w06-lesson"><div class="wk">Week 6 Lesson</div><h3>Reading — Craft, Structure &amp; Ideas</h3><p class="sub">Read for the point and let the sentence define the word.</p><div class="meta">Live lesson · 60 minutes</div><div class="tags"><span class="tag t-lesson">Live lesson</span></div><div class="links"><a class="btn primary" href="week-06-lesson.html">Open lesson</a></div></article><article class="card" data-id="w06-mid"><div class="wk">Week 6 Mid-Week</div><h3>Reading &amp; Writing — Cross-Text</h3><p class="sub">Five quick questions between lessons. Your results are emailed to your instructor.</p><div class="meta">Mid-week · about 15 minutes</div><div class="tags"><span class="tag t-mid">Mid-week</span></div><div class="links"><a class="btn primary" href="week-06-midweek.html">Open mid-week</a></div></article><article class="card milestone" data-id="exam3"><div class="wk">Practice Exam 3</div><h3>Full-Length Practice Exam 3</h3><p class="sub">The whole test in one sitting: two Reading &amp; Writing modules, a 10-minute break, then two Math modules with the built-in Desmos calculator.</p><div class="meta">98 questions · about 2 hours 25 minutes with the break</div><div class="tags"><span class="tag t-exam">Full-length exam</span></div><div class="links"><a class="btn primary" href="SAT%20Practice%20Exam%203%20(KCE).html">Start the exam</a></div></article></div>
+<section class="block"><div class="fl"></div><h2>Week 7 · Writing — Expression of Ideas</h2><p>Transitions and rhetorical synthesis.</p></section><div class="grid"><article class="card" data-id="w07-lesson"><div class="wk">Week 7 Lesson</div><h3>Writing — Expression of Ideas</h3><p class="sub">Transitions and synthesis: name the logic, pick the word.</p><div class="meta">Live lesson · 60 minutes</div><div class="tags"><span class="tag t-lesson">Live lesson</span></div><div class="links"><a class="btn primary" href="week-07-lesson.html">Open lesson</a></div></article><article class="card" data-id="w07-mid"><div class="wk">Week 7 Mid-Week</div><h3>Math — Mixed Review</h3><p class="sub">Five quick questions between lessons. Your results are emailed to your instructor.</p><div class="meta">Mid-week · about 15 minutes</div><div class="tags"><span class="tag t-mid">Mid-week</span></div><div class="links"><a class="btn primary" href="week-07-midweek.html">Open mid-week</a></div></article></div>
+<section class="block"><div class="fl"></div><h2>Week 8 · Writing — Standard English Conventions</h2><p>Boundaries and agreement, then Practice Exam 4.</p></section><div class="grid"><article class="card" data-id="w08-lesson"><div class="wk">Week 8 Lesson</div><h3>Writing — Standard English Conventions</h3><p class="sub">Where a sentence ends and matching the verb to the real subject.</p><div class="meta">Live lesson · 60 minutes</div><div class="tags"><span class="tag t-lesson">Live lesson</span></div><div class="links"><a class="btn primary" href="week-08-lesson.html">Open lesson</a></div></article><article class="card" data-id="w08-mid"><div class="wk">Week 8 Mid-Week</div><h3>Reading &amp; Writing — Grammar</h3><p class="sub">Five quick questions between lessons. Your results are emailed to your instructor.</p><div class="meta">Mid-week · about 15 minutes</div><div class="tags"><span class="tag t-mid">Mid-week</span></div><div class="links"><a class="btn primary" href="week-08-midweek.html">Open mid-week</a></div></article><article class="card milestone" data-id="exam4"><div class="wk">Practice Exam 4</div><h3>Full-Length Practice Exam 4</h3><p class="sub">The whole test in one sitting: two Reading &amp; Writing modules, a 10-minute break, then two Math modules with the built-in Desmos calculator.</p><div class="meta">98 questions · about 2 hours 25 minutes with the break</div><div class="tags"><span class="tag t-exam">Full-length exam</span></div><div class="links"><a class="btn primary" href="SAT%20Practice%20Exam%204%20(KCE).html">Start the exam</a></div></article></div>
+<section class="block"><div class="fl"></div><h2>Week 9 · Full Practice Test &amp; Error Analysis</h2><p>Test conditions and sorting every miss.</p></section><div class="grid"><article class="card" data-id="w09-lesson"><div class="wk">Week 9 Lesson</div><h3>Full Practice Test &amp; Error Analysis</h3><p class="sub">Why test conditions matter, and how to sort every miss so it doesn't happen again.</p><div class="meta">Live lesson · 60 minutes</div><div class="tags"><span class="tag t-lesson">Live lesson</span></div><div class="links"><a class="btn primary" href="week-09-lesson.html">Open lesson</a></div></article><article class="card" data-id="w09-mid"><div class="wk">Week 9 Mid-Week</div><h3>Math — Targeted Gaps</h3><p class="sub">Five quick questions between lessons. Your results are emailed to your instructor.</p><div class="meta">Mid-week · about 15 minutes</div><div class="tags"><span class="tag t-mid">Mid-week</span></div><div class="links"><a class="btn primary" href="week-09-midweek.html">Open mid-week</a></div></article></div>
+<section class="block"><div class="fl"></div><h2>Week 10 · Final Review, Pacing &amp; Test Day</h2><p>Pacing, test-day plan, then Practice Exam 5.</p></section><div class="grid"><article class="card" data-id="w10-lesson"><div class="wk">Week 10 Lesson</div><h3>Final Review, Pacing &amp; Test Day</h3><p class="sub">Run the clock, don't let it run you, and never leave a blank.</p><div class="meta">Live lesson · 60 minutes</div><div class="tags"><span class="tag t-lesson">Live lesson</span></div><div class="links"><a class="btn primary" href="week-10-lesson.html">Open lesson</a></div></article><article class="card" data-id="w10-mid"><div class="wk">Week 10 Mid-Week</div><h3>Final Timed Mini — All Domains</h3><p class="sub">A final five across every domain, lightly timed. Your results are emailed to your instructor.</p><div class="meta">Mid-week · about 15 minutes</div><div class="tags"><span class="tag t-mid">Mid-week</span></div><div class="links"><a class="btn primary" href="week-10-midweek.html">Open mid-week</a></div></article><article class="card milestone" data-id="exam5"><div class="wk">Practice Exam 5</div><h3>Full-Length Practice Exam 5</h3><p class="sub">The whole test in one sitting: two Reading &amp; Writing modules, a 10-minute break, then two Math modules with the built-in Desmos calculator.</p><div class="meta">98 questions · about 2 hours 25 minutes with the break</div><div class="tags"><span class="tag t-exam">Full-length exam</span></div><div class="links"><a class="btn primary" href="SAT%20Practice%20Exam%205%20(KCE).html">Start the exam</a></div></article></div>
 </main>
-
-<footer><div class="wrap">
-  <div><div class="fl"></div><b>KingCretot Experience</b> &middot; SAT Prep Program</div>
-  <div>kce@kingcretot.com &nbsp;·&nbsp; 914-809-0112 &nbsp;·&nbsp; PO Box 2322, Arcadia, FL 34265</div>
-</div></footer>
+<footer>
+  <div class="nm">KingCretot Experience</div>
+  Approved Provider: <span class="g">Step Up For Students</span> · <span class="g">Arizona ESA</span> · <span class="g">West Virginia Hope Scholarship</span><br>
+  kingcretot.com · kce@kingcretot.com · 914.809.0112 · <span style="white-space:nowrap">PO Box 2322, Arcadia, FL 34265</span><br>
+  Progress is saved on this device and browser.
+</footer>
+<script src="sat-gate.js"></script>
 </body>
 </html>
